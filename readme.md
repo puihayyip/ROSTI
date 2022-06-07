@@ -1,3 +1,3 @@
-## Project 3
+# Project 3
 
-# Minimum Viable Product
+## Minimum Viable Product
