@@ -1,11 +1,8 @@
-import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useState } from "react";
 
@@ -45,11 +42,11 @@ export default function Head() {
               sx={{ flexGrow: 1, textAlign: "left" }}
               color="white"
             >
-              {user}
+              {user === null ? "" : user}
             </Typography>
             <Button color="inherit" onClick={handleLogin}>
               <Typography component="div" sx={{ flexGrow: 1 }} color="white">
-                {log ? "Logout" : "Login"}
+                {user ? (log ? "Logout" : "Login") : ""}
               </Typography>
             </Button>
           </Toolbar>
