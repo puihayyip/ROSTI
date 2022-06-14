@@ -1,3 +1,5 @@
+import Head from "./Head";
+
 import React, { useState } from "react";
 import $ from "jquery";
 import { useNavigate, Outlet } from "react-router-dom";
@@ -30,6 +32,7 @@ function UserSelection({ user, setUser }) {
 
   return (
     <>
+      <Head />
       <H1>Welcome to the Admin Login Page</H1>
       <H1>Which access do you need?</H1>
       <Div>

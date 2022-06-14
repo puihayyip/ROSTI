@@ -4,6 +4,9 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+
 import { useState } from "react";
 
 const theme = createTheme({
@@ -15,18 +18,18 @@ const theme = createTheme({
 });
 
 export default function Head() {
-  const [log, setLog] = useState(false); //To be fetched using JWT or sessions
-  const user = "Table 34"; //To be fetched
+  const user = 34; //To be fetched
+  const [value, setValue] = useState(0);
 
-  const handleLogin = () => {
-    console.log("Logging in ~");
-    setLog(!log);
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+    console.log(value);
   };
 
   return (
     <Box sx={{ flexGrow: 1 }}>
       <ThemeProvider theme={theme}>
-        <AppBar position="static" color="neutral" sx={{ height: 100 }}>
+        <AppBar position="static" color="neutral" sx={{ height: 150 }}>
           <Toolbar sx={{ marginTop: "auto", marginBottom: "auto" }}>
             <Typography
               variant="h3"
@@ -34,22 +37,36 @@ export default function Head() {
               sx={{ flexGrow: 1, textAlign: "left", fontWeight: "bold" }}
               color="white"
             >
-              ROSTI
+              MENU
             </Typography>
             <Typography
               variant="h5"
               component="div"
-              sx={{ flexGrow: 1, textAlign: "left" }}
+              sx={{ flexGrow: 1, textAlign: "right", fontWeight: "bold" }}
               color="white"
             >
-              {user === null ? "" : user}
+              Order Tab
             </Typography>
-            <Button color="inherit" onClick={handleLogin}>
-              <Typography component="div" sx={{ flexGrow: 1 }} color="white">
-                {user ? (log ? "Logout" : "Login") : ""}
-              </Typography>
-            </Button>
+            <Typography
+              variant="h5"
+              component="div"
+              sx={{ flexGrow: 1, textAlign: "right" }}
+              color="white"
+            >
+              Table Number: {user}
+            </Typography>
           </Toolbar>
+          <Tabs
+            value={value}
+            onChange={handleChange}
+            aria-label="basic tabs example"
+            textColor="secondary"
+            indicatorColor="secondary"
+          >
+            <Tab label="Food" />
+            <Tab label="Drinks" />
+            <Tab label="promo" />
+          </Tabs>
         </AppBar>
       </ThemeProvider>
     </Box>

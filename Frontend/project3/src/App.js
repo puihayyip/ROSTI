@@ -2,9 +2,9 @@ import "./App.css";
 import { Route, Routes, BrowserRouter } from "react-router-dom";
 import { useState, createContext } from "react";
 
-import Head from "./pages/Head";
 import UserSelection from "./pages/UserSelection";
 import Login from "./pages/Login";
+import Order from "./pages/OrderTabComponents/Order";
 
 export const stateContext = createContext();
 
@@ -16,7 +16,7 @@ function App() {
     <div className="App">
       <stateContext.Provider value={[state, setState]}>
         <BrowserRouter>
-          <Head />
+          {/* <Head /> */}
           <Routes>
             <Route
               path="/"
@@ -24,6 +24,8 @@ function App() {
             >
               <Route path="/login" element={<Login user={user} />} />
             </Route>
+
+            <Route path="/superSecurePath" element={<Order />} />
           </Routes>
         </BrowserRouter>
       </stateContext.Provider>
