@@ -1,5 +1,6 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import $ from "jquery";
+import { useNavigate, Outlet } from "react-router-dom";
 import styled from "styled-components";
 
 const H1 = styled.h1`
@@ -18,10 +19,13 @@ const Card = styled.div`
   padding: 0 50px 0 50px;
 `;
 
-function UserSelection() {
+function UserSelection({ user, setUser }) {
   const navigate = useNavigate();
   const handleClick = (e) => {
-    navigate(`${e.target.id}-login`); //going to individual login page
+    setUser(e.target.id);
+    $(`.card`).css("backgroundColor", "white");
+    $(`div#${e.target.id}`).css("backgroundColor", "lightGray");
+    navigate(`login`);
   };
 
   return (
@@ -29,19 +33,20 @@ function UserSelection() {
       <H1>Welcome to the Admin Login Page</H1>
       <H1>Which access do you need?</H1>
       <Div>
-        <Card onClick={handleClick} id="table">
-          <h1 id="table">Table</h1>
-          <p id="table">View</p>
+        <Card onClick={handleClick} id="Table" className="card">
+          <h1 id="Table">Table</h1>
+          <p id="Table">View</p>
         </Card>
-        <Card onClick={handleClick} id="kitchen">
-          <h1 id="kitchen">Kitchen</h1>
-          <p id="kitchen">View</p>
+        <Card onClick={handleClick} id="Kitchen" className="card">
+          <h1 id="Kitchen">Kitchen</h1>
+          <p id="Kitchen">View</p>
         </Card>
-        <Card onClick={handleClick} id="cashier">
-          <h1 id="cashier">Cashier</h1>
-          <p id="cashier">View</p>
+        <Card onClick={handleClick} id="Cashier" className="card">
+          <h1 id="Cashier">Cashier</h1>
+          <p id="Cashier">View</p>
         </Card>
       </Div>
+      <Outlet />
     </>
   );
 }

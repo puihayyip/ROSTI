@@ -4,12 +4,13 @@ import { useState, createContext } from "react";
 
 import Head from "./pages/Head";
 import UserSelection from "./pages/UserSelection";
-import Login from './pages/Login'
+import Login from "./pages/Login";
 
 export const stateContext = createContext();
 
 function App() {
   const [state, setState] = useState({});
+  const [user, setUser] = useState(null);
 
   return (
     <div className="App">
@@ -17,8 +18,12 @@ function App() {
         <BrowserRouter>
           <Head />
           <Routes>
-            <Route path="/" element={<UserSelection />}></Route>
-            <Route path="/login" element={<Login />}></Route>
+            <Route
+              path="/"
+              element={<UserSelection setUser={setUser} user={user} />}
+            >
+              <Route path="/login" element={<Login user={user} />} />
+            </Route>
           </Routes>
         </BrowserRouter>
       </stateContext.Provider>
