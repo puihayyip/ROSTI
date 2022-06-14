@@ -1,7 +1,7 @@
-import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
+import { TextField, InputAdornment, IconButton } from "@mui/material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 import Button from "@mui/material/Button";
-import React from "react";
+import { useState } from "react";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -16,6 +16,10 @@ const FlexInput = styled.div`
 `;
 
 function Login({ user }) {
+  const [showPassword, setShowPassword] = useState(false);
+  const handleClickShowPassword = () => setShowPassword(!showPassword);
+  const handleMouseDownPassword = () => setShowPassword(!showPassword);
+
   const handleLogin = (e) => {
     e.preventDefault();
     console.log("Loggin");
@@ -37,9 +41,22 @@ function Login({ user }) {
             id="outlined-password-input"
             label="Password"
             variant="outlined"
-            type="password"
+            type={showPassword ? "text" : "password"}
             margin="dense"
             sx={{ width: "300px" }}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                  >
+                    {showPassword ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
           />
         </FlexInput>
         <Button variant="contained" type="submit" sx={{ margin: "20px" }}>
