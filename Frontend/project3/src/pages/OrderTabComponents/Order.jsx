@@ -11,17 +11,29 @@ const Div = styled.div`
 `;
 
 function Order() {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
+  const [selection, setSelection] = useState(0);
+
   return (
     <div>
-      <Head />
+      <Head selection={selection} setSelection={setSelection} />
       {open ? (
         <Div>
-          <Main className="main" open={open} setOpen={setOpen} />
+          <Main
+            className="main"
+            open={open}
+            setOpen={setOpen}
+            selection={selection}
+          />
           <SideTab className="side" />
         </Div>
       ) : (
-        <Main className="main" open={open} setOpen={setOpen} />
+        <Main
+          className="main"
+          open={open}
+          setOpen={setOpen}
+          selection={selection}
+        />
       )}
     </div>
   );

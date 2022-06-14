@@ -17,13 +17,11 @@ const theme = createTheme({
   },
 });
 
-export default function Head() {
+export default function Head({selection, setSelection}) {
   const user = 34; //To be fetched
-  const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {
-    setValue(newValue);
-    console.log(value);
+    setSelection(newValue);
   };
 
   return (
@@ -57,7 +55,7 @@ export default function Head() {
             </Typography>
           </Toolbar>
           <Tabs
-            value={value}
+            value={selection}
             onChange={handleChange}
             aria-label="basic tabs example"
             textColor="secondary"
