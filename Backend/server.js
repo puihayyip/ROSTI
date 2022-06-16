@@ -1,6 +1,7 @@
 const { urlencoded } = require("express");
 const express = require("express");
 const morgan = require("morgan");
+const mongoose = require("mongoose");
 const app = express();
 require("dotenv").config();
 const PORT = process.env.PORT || 4000;
