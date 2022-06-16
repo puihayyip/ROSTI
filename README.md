@@ -1,3 +1,3 @@
-# Project 3
+# Rosti
 
-## Minimum Viable Product
+## MVP (Minimal Viable Product)
