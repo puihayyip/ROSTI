@@ -17,7 +17,7 @@ const theme = createTheme({
   },
 });
 
-export default function Head({selection, setSelection}) {
+export default function Head({ selection, setSelection }) {
   const user = 34; //To be fetched
 
   const handleChange = (event, newValue) => {
@@ -61,6 +61,7 @@ export default function Head({selection, setSelection}) {
             textColor="secondary"
             indicatorColor="secondary"
           >
+            <Tab label="All" />
             <Tab label="Food" />
             <Tab label="Drinks" />
             <Tab label="promo" />

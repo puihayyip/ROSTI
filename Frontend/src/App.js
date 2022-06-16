@@ -25,7 +25,7 @@ function App() {
               <Route path="/login" element={<Login user={user} />} />
             </Route>
 
-            <Route path="/superSecurePath" element={<Order />} />
+            <Route path="/menu" element={<Order />} />
           </Routes>
         </BrowserRouter>
       </stateContext.Provider>

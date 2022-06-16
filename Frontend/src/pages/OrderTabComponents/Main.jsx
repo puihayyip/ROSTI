@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import rawData from "../../data/food";
 import FastfoodIcon from "@mui/icons-material/Fastfood";
@@ -12,11 +13,12 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 
 function FoodCards({ food }) {
+  const navigate = useNavigate();
   const handleAdd = () => {
-    console.log("clicked");
+    console.log(`hello`);
   };
   const handleSeeMore = () => {
-    console.log("clicked");
+    navigate(`food/${food.itemName}`);
   };
 
   return (
@@ -29,9 +31,12 @@ function FoodCards({ food }) {
           alt={food.itemName}
         />
         <br />
-        <Typography variant="h5">
-          {food.itemName} &nbsp;&nbsp;&nbsp;&nbsp;${food.price}
-        </Typography>
+        <div style={{ display: "grid", gridTemplateColumns: "4fr 1fr" }}>
+          <Typography variant="h5" align="left">
+            {food.itemName}
+          </Typography>
+          <Typography variant="h5">${food.price}</Typography>
+        </div>
         <br />
         <Typography variant="body2" align="left">
           {food.description}
@@ -64,15 +69,22 @@ function Main({ open, setOpen, selection }) {
   };
 
   let item;
+  let category;
   switch (selection) {
     case 0:
-      item = "Food";
+      item = "All";
       break;
     case 1:
-      item = "Drink";
+      item = "Food";
+      category = "food";
       break;
     case 2:
+      item = "Drink";
+      category = "drinks";
+      break;
+    case 3:
       item = "Promo";
+      category = "promo";
       break;
     default:
       break;
@@ -102,12 +114,21 @@ function Main({ open, setOpen, selection }) {
           }}
         />
       </div>
-      <div style={{ display: "flex", gap: "20px", flexWrap: "wrap" }}>
-        {rawData.map((food, index) => (
-          <FoodCards food={food} key={index} />
-        ))}
-        {/* <FoodCards food={rawData[0]} /> */}
-      </div>
+      {selection === 0 ? (
+        <div style={{ display: "flex", gap: "20px", flexWrap: "wrap" }}>
+          {rawData.map((food, index) => (
+            <FoodCards food={food} key={index} />
+          ))}
+        </div>
+      ) : (
+        <div style={{ display: "flex", gap: "20px", flexWrap: "wrap" }}>
+          {rawData
+            .filter((food) => food.mainSect === category)
+            .map((food, index) => (
+              <FoodCards food={food} key={index} />
+            ))}
+        </div>
+      )}
     </div>
   );
 }

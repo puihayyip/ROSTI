@@ -42,7 +42,7 @@ function Login({ user }) {
       setError(false);
     }
     if (value.userName === "simon" && value.password === "123") {
-      navigate("/superSecurePath");
+      navigate("/menu");
     } else {
       setAuthentication(false);
     }
