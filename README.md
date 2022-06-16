@@ -1,4 +1,3 @@
-This is the right one
+# Rosti
 
-
-Testing a difference
+## MVP (Minimal Viable Product)
