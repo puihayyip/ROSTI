@@ -16,7 +16,7 @@ const theme = createTheme({
 
 export default function Head() {
   const [log, setLog] = useState(false); //To be fetched using JWT or sessions
-  const user = "Table 34"; //To be fetched
+  const user = "Table 100"; //To be fetched
 
   const handleLogin = () => {
     console.log("Logging in ~");
