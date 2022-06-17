@@ -17,25 +17,25 @@ const PORT = process.env.PORT || 4000;
 const MONGO_URI = process.env.MONGO_URI || "mongodb://localhost:27017/project3";
 const db = mongoose.connection;
 mongoose.connect(MONGO_URI);
-db.on("error", (err) => console.log(err.message + " is mongod not running?"));
+db.on("error", (err) => console.log(err.message + " is mongodb not running?"));
 db.on("connected", () => console.log("mongo connected: ", MONGO_URI));
 db.on("disconnected", () => console.log("mongo disconnected"));
 
 //! MIDDLEWARE
 app.use(morgan("dev"));
 app.use(express.json());
-app.use(express.static("../Frontend/build"));
+app.use(express.static("../Frontend/build/"));
 app.use("/api/allfood", allfoodController);
 app.use("/api/users", usersController);
 
 app.get("/api/", (req, res) => {
-	res.send("Hello restaurant owners");
+  res.send("Hello restaurant owners");
 });
 
 app.get("/*", (req, res) => {
-	res.sendFile(path.join(__dirname, "../Frontend/build/index.html"));
+  res.sendFile(path.join(__dirname, "../Frontend/build/index.html"));
 });
 
 app.listen(PORT, (req, res) => {
-	console.log(`Listening to port ${PORT}`);
+  console.log(`Listening to port ${PORT}`);
 });
