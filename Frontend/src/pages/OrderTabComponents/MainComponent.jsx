@@ -1,6 +1,5 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import rawData from "../../data/food";
 import FastfoodIcon from "@mui/icons-material/Fastfood";
 
 import Card from "@mui/material/Card";
@@ -129,9 +128,13 @@ function Main({ open, setOpen, selection }) {
       </div>
       {selection === 0 ? (
         <div style={{ display: "flex", gap: "20px", flexWrap: "wrap" }}>
-          {allFood.map((food, index) => (
-            <FoodCards food={food} key={index} />
-          ))}
+          {allFood
+            .filter(
+              (food) => food.mainSect === "food" || food.mainSect === "drinks"
+            )
+            .map((food, index) => (
+              <FoodCards food={food} key={index} />
+            ))}
         </div>
       ) : (
         <div style={{ display: "flex", gap: "20px", flexWrap: "wrap" }}>

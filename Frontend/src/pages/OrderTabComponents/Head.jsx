@@ -7,7 +7,6 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 
-
 const theme = createTheme({
   palette: {
     neutral: {
@@ -64,7 +63,6 @@ export default function Head({ selection, setSelection }) {
               <Tab label="All" sx={{ fontWeight: "bold", color: "white" }} />
               <Tab label="Food" sx={{ fontWeight: "bold", color: "white" }} />
               <Tab label="Drinks" sx={{ fontWeight: "bold", color: "white" }} />
-              <Tab label="promo" sx={{ fontWeight: "bold", color: "white" }} />
             </Tabs>
             <Button
               sx={{

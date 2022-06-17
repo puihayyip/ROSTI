@@ -20,6 +20,36 @@ const users = [
     usercategory: "Table",
   },
   {
+    username: "5",
+    password: "123",
+    usercategory: "Table",
+  },
+  {
+    username: "6",
+    password: "123",
+    usercategory: "Table",
+  },
+  {
+    username: "7",
+    password: "123",
+    usercategory: "Table",
+  },
+  {
+    username: "8",
+    password: "123",
+    usercategory: "Table",
+  },
+  {
+    username: "9",
+    password: "123",
+    usercategory: "Table",
+  },
+  {
+    username: "10",
+    password: "123",
+    usercategory: "Table",
+  },
+  {
     username: "kitchen",
     password: "123",
     usercategory: "Kitchen",
