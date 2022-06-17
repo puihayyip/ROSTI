@@ -8,18 +8,17 @@ import CompFinalOrderList from "./CompFinalOrderList";
 import CompEditOrderList from "./CompEditOrderList";
 import { useNavigate } from "react-router-dom";
 
-
 const handleEdit = () => {
-  console.log ("Time to Edit EVERYTHING!!!")
-}
+  console.log("Time to Edit EVERYTHING!!!");
+};
 
 export default function TablePreviewBill() {
-  const nav = useNavigate()
+  const nav = useNavigate();
   const handlePayment = () => {
     // console.log ("MAKE A LOT OF MONEY!!!")
-    nav('/receipt')
-  }
-    return (
+    nav("/receipt");
+  };
+  return (
     <>
       <Head />
       {/* <CompFinalOrderList/> */}
@@ -29,7 +28,12 @@ export default function TablePreviewBill() {
           {/* <Button variant="outlined" color="error" onClick= {handleEdit}>
             Edit Bill
           </Button> */}
-          <Button variant="contained" color="success" endIcon={<SendIcon />} onClick={handlePayment}>
+          <Button
+            variant="contained"
+            color="success"
+            endIcon={<SendIcon />}
+            onClick={handlePayment}
+          >
             Proceed to Payment
           </Button>
         </Stack>
