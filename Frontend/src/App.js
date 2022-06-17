@@ -4,37 +4,34 @@ import { useState, createContext } from "react";
 
 import UserSelection from "./pages/UserSelection";
 import Login from "./pages/Login";
-import AddUsers from './pages/AddUsers'
+import AddUsers from "./pages/AddUsers";
 import Order from "./pages/OrderTabComponents/Order";
+import ScrollToTopBtn from "./pages/GeneralComponents/ScrollToTopBtn";
 
-import CashierMainView from "./pages/CashierComponents/CashierMainView"
+import CashierMainView from "./pages/CashierComponents/CashierMainView";
 
 export const stateContext = createContext();
 
 function App() {
-  const [state, setState] = useState({});
   const [user, setUser] = useState(null);
 
   return (
     <div className="App">
-      <stateContext.Provider value={[state, setState]}>
-        <BrowserRouter>
-          {/* <Head /> */}
-          <Routes>
-            <Route
-              path="/"
-              element={<UserSelection setUser={setUser} user={user} />}
-            >
-              <Route path="/login" element={<Login user={user} />} />
-            </Route>
+      <BrowserRouter>
+        <Routes>
+          <Route
+            path="/"
+            element={<UserSelection setUser={setUser} user={user} />}
+          >
+            <Route path="/login" element={<Login user={user} />} />
+          </Route>
 
-
-            <Route path="/superSecurePath" element={<Order />} />
-            <Route path="/cashier" element={<CashierMainView />} />
-
-          </Routes>
-        </BrowserRouter>
-      </stateContext.Provider>
+          <Route path="/users/new" element={<AddUsers />} />
+          <Route path="/menu" element={<Order />} />
+          <Route path="/cashier" element={<CashierMainView />} />
+        </Routes>
+        <ScrollToTopBtn />
+      </BrowserRouter>
     </div>
   );
 }
