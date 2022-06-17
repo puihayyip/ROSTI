@@ -1,4 +1,4 @@
-// /api/order
+// /api/orders
 
 const express = require("express");
 const ordersSchema = require("../models/ordersSeed.schema");
