@@ -19,7 +19,8 @@ router.get("/seed", async (req, res) => {
 });
 
 router.get("/", async (req, res) => {
-  res.send("At All Orders Controller");
+  const allOrders = await ordersSchema.find({});
+  res.send(allOrders);
 });
 
 module.exports = router;

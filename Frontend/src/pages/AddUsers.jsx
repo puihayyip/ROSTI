@@ -21,6 +21,19 @@ const FlexInput = styled.div`
   align-items: center;
 `;
 
+const updateDB = (value) => {
+  fetch("/api/users/new", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+    body: JSON.stringify(value),
+  })
+    .then((response) => response.json())
+    .then((data) => console.log(data));
+};
+
 function AddUsers({ user }) {
   const [error, setError] = useState(false);
   const [authentication, setAuthentication] = useState(null);
@@ -30,12 +43,11 @@ function AddUsers({ user }) {
     e.preventDefault();
     const data = new FormData(e.target);
     const value = {
-      userName: data.get("UserName"),
+      username: data.get("UserName"),
       password: data.get("password"),
       confirmPassword: data.get("confirmPassword"),
-      user: data.get("radio-buttons-group"),
+      usercategory: data.get("radio-buttons-group"),
     };
-    console.log(value);
     e.target.reset();
 
     if (value.userName === "" || value.password === "") {
@@ -43,7 +55,8 @@ function AddUsers({ user }) {
     } else {
       setError(false);
       if (value.password === value.confirmPassword) {
-        navigate("/menu"); //To be redirected to correct page
+        delete value.confirmPassword;
+        updateDB(value);
       } else {
         setAuthentication(false);
       }
@@ -52,7 +65,18 @@ function AddUsers({ user }) {
 
   return (
     <Container>
-      <h1>{user} Login</h1>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 5fr 1fr" }}>
+        <div>
+          <Button
+            onClick={() => {
+              navigate("/");
+            }}
+          >
+            &#x3c;Go back
+          </Button>
+        </div>
+        <h1>Create new user</h1>
+      </div>
       <form onSubmit={handleLogin}>
         <FormControl>
           <FormLabel id="radio-buttons-group-label">User Category</FormLabel>
@@ -77,7 +101,6 @@ function AddUsers({ user }) {
         </FormControl>
         <FlexInput>
           <TextField
-            id="outlined-required"
             label="User Name"
             name="UserName"
             variant="outlined"
@@ -86,7 +109,6 @@ function AddUsers({ user }) {
             sx={{ width: "300px" }}
           />
           <TextField
-            id="outlined-required"
             label="Password"
             name="password"
             variant="outlined"
@@ -95,7 +117,6 @@ function AddUsers({ user }) {
             sx={{ width: "300px" }}
           />
           <TextField
-            id="outlined-required"
             label="Confirm password"
             name="confirmPassword"
             variant="outlined"
@@ -117,7 +138,7 @@ function AddUsers({ user }) {
           *Please key in same password
         </p>
       ) : (
-        <></>
+        <p style={{ color: "green", marginTop: 0 }}>User added!</p>
       )}
     </Container>
   );

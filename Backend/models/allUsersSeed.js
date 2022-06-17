@@ -1,18 +1,33 @@
 const users = [
   {
-    username: "table",
+    username: "1",
     password: "123",
-    usercategory: "table",
+    usercategory: "Table",
+  },
+  {
+    username: "2",
+    password: "123",
+    usercategory: "Table",
+  },
+  {
+    username: "3",
+    password: "123",
+    usercategory: "Table",
+  },
+  {
+    username: "4",
+    password: "123",
+    usercategory: "Table",
   },
   {
     username: "kitchen",
     password: "123",
-    usercategory: "kitchen",
+    usercategory: "Kitchen",
   },
   {
     username: "cashier",
     password: "123",
-    usercategory: "cashier",
+    usercategory: "Cashier",
   },
 ];
 

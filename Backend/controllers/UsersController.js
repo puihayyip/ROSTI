@@ -18,7 +18,17 @@ router.get("/seed", async (req, res) => {
 });
 
 router.get("/", async (req, res) => {
-  res.send("At UsersController");
+  const allUsers = await Users.find({});
+  res.send(allUsers);
+});
+
+router.post("/new", async (req, res) => {
+  try {
+    const user = await Users.create(req.body);
+    res.status(StatusCodes.CREATED).send({ status: "success", data: user });
+  } catch (error) {
+    res.send(error);
+  }
 });
 
 module.exports = router;

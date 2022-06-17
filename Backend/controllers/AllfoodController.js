@@ -19,7 +19,8 @@ router.get("/seed", async (req, res) => {
 });
 
 router.get("/", async (req, res) => {
-  res.send("At AllfoodController");
+  const allFood = await Allfood.find({});
+  res.send(allFood);
 });
 
 module.exports = router;
