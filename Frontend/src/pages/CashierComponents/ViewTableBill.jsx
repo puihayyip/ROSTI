@@ -1,4 +1,4 @@
-import Head from "../Head";
+import Head from "../GeneralComponents/MainHeader";
 import * as React from "react";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
@@ -23,7 +23,7 @@ export default function TablePreviewBill() {
     <>
       <Head />
       {/* <CompFinalOrderList/> */}
-      <CompEditOrderList handleEdit={handleEdit}/>
+      <CompEditOrderList handleEdit={handleEdit} />
       <Box m={1} display="flex" justifyContent="center" alignItems="center">
         <Stack direction="row" spacing={2}>
           {/* <Button variant="outlined" color="error" onClick= {handleEdit}>

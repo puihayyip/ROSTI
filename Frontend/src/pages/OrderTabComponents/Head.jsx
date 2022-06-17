@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -6,8 +8,7 @@ import Button from "@mui/material/Button";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-
-import { useState } from "react";
+import FormDialog from "../GeneralComponents/LogoutDialog";
 
 const theme = createTheme({
   palette: {
@@ -19,6 +20,8 @@ const theme = createTheme({
 
 export default function Head({ selection, setSelection }) {
   const user = 34; //To be fetched
+  const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
 
   const handleChange = (event, newValue) => {
     setSelection(newValue);
@@ -65,7 +68,6 @@ export default function Head({ selection, setSelection }) {
               <Tab label="All" sx={{ fontWeight: "bold", color: "white" }} />
               <Tab label="Food" sx={{ fontWeight: "bold", color: "white" }} />
               <Tab label="Drinks" sx={{ fontWeight: "bold", color: "white" }} />
-              <Tab label="promo" sx={{ fontWeight: "bold", color: "white" }} />
             </Tabs>
             <Button
               sx={{
@@ -75,9 +77,11 @@ export default function Head({ selection, setSelection }) {
                 color: "white",
                 border: "1px white solid",
               }}
+              onClick={() => setOpen(true)}
             >
               Logout
             </Button>
+            {open ? <FormDialog open={open} setOpen={setOpen} navigate={navigate}/> : ""}
           </div>
         </AppBar>
       </ThemeProvider>

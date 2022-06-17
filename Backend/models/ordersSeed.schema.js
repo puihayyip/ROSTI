@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 
 var subSchema = new mongoose.Schema(
   {
-    // your subschema content
     orderNum: { type: Number },
     items: [
       {

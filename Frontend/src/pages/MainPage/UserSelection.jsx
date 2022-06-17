@@ -1,6 +1,5 @@
-import Head from "./Head";
+import Head from "../GeneralComponents/MainHeader";
 
-import React, { useState } from "react";
 import $ from "jquery";
 import { useNavigate, Outlet } from "react-router-dom";
 import styled from "styled-components";
