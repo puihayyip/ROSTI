@@ -25,12 +25,32 @@ function Login({ user }) {
   const [authentication, setAuthentication] = useState(null);
   const navigate = useNavigate();
 
+  const fetchUser = (value) => {
+    fetch("/api/users/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify(value),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        navigate("/menu");
+      })
+      .catch((err) => {
+        console.log("Login failed");
+        setAuthentication(false);
+      });
+  };
+
   const handleLogin = (e) => {
     e.preventDefault();
     const data = new FormData(e.target);
     const value = {
       userName: data.get("UserName"),
       password: data.get("Password"),
+      usercategory: user,
     };
     e.target.reset();
 
@@ -38,11 +58,7 @@ function Login({ user }) {
       setError(true);
     } else {
       setError(false);
-    }
-    if (value.userName === "simon" && value.password === "123") {
-      navigate("/menu");
-    } else {
-      setAuthentication(false);
+      fetchUser(value);
     }
   };
 
