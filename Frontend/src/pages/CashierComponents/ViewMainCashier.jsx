@@ -5,7 +5,17 @@ function ViewMainCashier() {
         <>
         <Head/>
         <h1>Which Table Bill do you want to see?</h1>
-        <Link to="/tablebill">Table 34</Link>
+        <ul>
+
+        <li>
+            <Link to="/tablebill">Table 34</Link>
+            </li>
+        <li>
+            <Link to="/tablebill">Table 44</Link>
+            </li>
+
+        </ul>
+
        
         </>
     )

@@ -23,6 +23,8 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 function CompFinalOrderList() {
     return(
     <>
+              <h1> Please Confirm Bill </h1>
+
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 700, maxWidth: 900 }} align="center" aria-label="spanning table">
         <TableHead>
