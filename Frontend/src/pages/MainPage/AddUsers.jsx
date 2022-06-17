@@ -20,7 +20,7 @@ const FlexInput = styled.div`
   align-items: center;
 `;
 
-const updateDB = (value) => {
+const updateDB = (value, setSameUser) => {
   fetch("/api/users/new", {
     method: "POST",
     headers: {
@@ -30,18 +30,26 @@ const updateDB = (value) => {
     body: JSON.stringify(value),
   })
     .then((response) => response.json())
-    .then((data) => console.log(data));
+    .then((data) => {
+      console.log(data);
+      if (data.data === "Replicated username") {
+        setSameUser(true);
+      } else {
+        setSameUser(false);
+      }
+    });
 };
 
 function AddUsers({ user }) {
   const [error, setError] = useState(false);
   const [authentication, setAuthentication] = useState(null);
+  const [sameUser, setSameUser] = useState(false);
 
   const handleLogin = (e) => {
     e.preventDefault();
     const data = new FormData(e.target);
     const value = {
-      username: data.get("UserName"),
+      userName: data.get("UserName"),
       password: data.get("password"),
       confirmPassword: data.get("confirmPassword"),
       usercategory: data.get("radio-buttons-group"),
@@ -54,7 +62,7 @@ function AddUsers({ user }) {
       setError(false);
       if (value.password === value.confirmPassword) {
         delete value.confirmPassword;
-        updateDB(value);
+        updateDB(value, setSameUser);
         setAuthentication(true);
       } else {
         setAuthentication(false);
@@ -125,6 +133,8 @@ function AddUsers({ user }) {
         <p style={{ color: "red", marginTop: 0 }}>
           *Please key in correct details
         </p>
+      ) : sameUser === true ? (
+        <p style={{ color: "red", marginTop: 0 }}>*Username has been used</p>
       ) : authentication === true ? (
         <p style={{ color: "green", marginTop: 0 }}>User created!</p>
       ) : (

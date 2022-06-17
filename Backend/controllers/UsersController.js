@@ -30,10 +30,18 @@ router.get("/seed", async (req, res) => {
 router.get("/", async (req, res) => {
   const allUsers = await Users.find({});
   res.send(allUsers);
+  res.send({ status: "success", data: allUsers });
 });
 
 router.post("/new", async (req, res) => {
   try {
+    const foundUser = await Users.findOne({
+      userName: req.body.userName,
+      usercategory: req.body.usercategory,
+    });
+    if (foundUser) {
+      res.send({ status: "failed", data: "Replicated username" });
+    }
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
     const user = req.body;
     user.password = hashedPassword;
@@ -53,12 +61,12 @@ router.post("/login", async (req, res) => {
       usercategory: req.body.usercategory,
     });
     if (!foundUser) {
-      res.send("No user found");
+      res.send({ status: "failed", data: "No user found" });
     } else {
       if (await bcrypt.compare(req.body.password, foundUser.password)) {
-        res.send(foundUser);
+        res.send({ status: "success", data: foundUser });
       } else {
-        res.send("Wrong password");
+        res.send({ status: "failed", data: "Wrong password" });
       }
     }
   } catch (error) {

@@ -36,7 +36,19 @@ function Login({ user }) {
     })
       .then((res) => res.json())
       .then((data) => {
-        navigate("/menu");
+        switch (data.data.usercategory) {
+          case "Table":
+            navigate("/menu");
+            break;
+          case "Kitchen":
+            navigate("/kitchen");
+            break;
+          case "Cashier":
+            navigate("/cashier");
+            break;
+          default:
+            return;
+        }
       })
       .catch((err) => {
         console.log("Login failed");

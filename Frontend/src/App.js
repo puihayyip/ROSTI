@@ -8,6 +8,7 @@ import AddUsers from "./pages/MainPage/AddUsers";
 import Order from "./pages/OrderTabComponents/Order";
 import ScrollToTopBtn from "./pages/GeneralComponents/ScrollToTopBtn";
 import CashierMainView from "./pages/CashierComponents/CashierMainView";
+import KitchenMainPage from "./pages/KitchenComponents/KitchenMainPage";
 
 // export const stateContext = createContext();
 
@@ -28,6 +29,7 @@ function App() {
 
           <Route path="/menu" element={<Order />} />
           <Route path="/cashier" element={<CashierMainView />} />
+          <Route path="/kitchen" element={<KitchenMainPage />} />
         </Routes>
         <ScrollToTopBtn />
       </BrowserRouter>
