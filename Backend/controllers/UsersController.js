@@ -19,7 +19,7 @@ router.get("/seed", async (req, res) => {
     await Promise.all(protectedUsersSeed)
       .then((data) => {
         Users.create(data);
-        res.send(data);
+        res.send({ status: "success", data: data });
       })
       .catch((err) => res.send(err));
   } catch (error) {
@@ -29,7 +29,6 @@ router.get("/seed", async (req, res) => {
 
 router.get("/", async (req, res) => {
   const allUsers = await Users.find({});
-  res.send(allUsers);
   res.send({ status: "success", data: allUsers });
 });
 
@@ -41,6 +40,7 @@ router.post("/new", async (req, res) => {
     });
     if (foundUser) {
       res.send({ status: "failed", data: "Replicated username" });
+      return;
     }
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
     const user = req.body;
@@ -48,7 +48,7 @@ router.post("/new", async (req, res) => {
     const protectedUser = await Users.create(user);
     res
       .status(StatusCodes.CREATED)
-      .send({ status: "success", data: protectedUser });
+      .send({ status: "success", data: "New user created" });
   } catch (error) {
     res.send(error);
   }
