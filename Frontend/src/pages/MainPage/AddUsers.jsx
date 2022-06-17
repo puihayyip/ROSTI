@@ -6,9 +6,8 @@ import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 import Button from "@mui/material/Button";
 
-import { useContext, useEffect, useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
   margin: 100px auto 0 auto;
@@ -37,7 +36,6 @@ const updateDB = (value) => {
 function AddUsers({ user }) {
   const [error, setError] = useState(false);
   const [authentication, setAuthentication] = useState(null);
-  const navigate = useNavigate();
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -57,6 +55,7 @@ function AddUsers({ user }) {
       if (value.password === value.confirmPassword) {
         delete value.confirmPassword;
         updateDB(value);
+        setAuthentication(true);
       } else {
         setAuthentication(false);
       }
@@ -65,28 +64,16 @@ function AddUsers({ user }) {
 
   return (
     <Container>
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 5fr 1fr" }}>
-        <div>
-          <Button
-            onClick={() => {
-              navigate("/");
-            }}
-          >
-            &#x3c;Go back
-          </Button>
-        </div>
-        <h1>Create new user</h1>
-      </div>
+      <h1>Create new user</h1>
       <form onSubmit={handleLogin}>
         <FormControl>
           <FormLabel id="radio-buttons-group-label">User Category</FormLabel>
           <RadioGroup
             row
             aria-labelledby="radio-buttons-group-label"
-            defaultValue="Table"
+            defaultValue="Kitchen"
             name="radio-buttons-group"
           >
-            <FormControlLabel value="Table" control={<Radio />} label="Table" />
             <FormControlLabel
               value="Kitchen"
               control={<Radio />}
@@ -97,6 +84,7 @@ function AddUsers({ user }) {
               control={<Radio />}
               label="Cashier"
             />
+            <FormControlLabel value="Table" control={<Radio />} label="Table" />
           </RadioGroup>
         </FormControl>
         <FlexInput>
@@ -135,10 +123,12 @@ function AddUsers({ user }) {
         </p>
       ) : authentication === false ? (
         <p style={{ color: "red", marginTop: 0 }}>
-          *Please key in same password
+          *Please key in correct details
         </p>
+      ) : authentication === true ? (
+        <p style={{ color: "green", marginTop: 0 }}>User created!</p>
       ) : (
-        <p style={{ color: "green", marginTop: 0 }}>User added!</p>
+        ""
       )}
     </Container>
   );

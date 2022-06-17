@@ -2,7 +2,7 @@ import { TextField, InputAdornment, IconButton } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 import Button from "@mui/material/Button";
-import { useContext, useEffect, useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
@@ -96,7 +96,7 @@ function Login({ user }) {
           *Please key in correct details
         </p>
       ) : (
-        <></>
+        ""
       )}
     </Container>
   );

@@ -1,4 +1,4 @@
-import Head from "../Head";
+import Head from "../GeneralComponents/MainHeader";
 import * as React from "react";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
@@ -8,25 +8,30 @@ import CompFinalOrderList from "./CompFinalOrderList";
 import CompEditOrderList from "./CompEditOrderList";
 
 const handleEdit = () => {
-    console.log ("Time to Edit EVERYTHING!!!")
-}
+  console.log("Time to Edit EVERYTHING!!!");
+};
 
 const handlePayment = () => {
-    console.log ("MAKE A LOT OF MONEY!!!")
-}
+  console.log("MAKE A LOT OF MONEY!!!");
+};
 
 export default function TablePreviewBill() {
   return (
     <>
       <Head />
       {/* <CompFinalOrderList/> */}
-      <CompEditOrderList handleEdit={handleEdit}/>
+      <CompEditOrderList handleEdit={handleEdit} />
       <Box m={1} display="flex" justifyContent="center" alignItems="center">
         <Stack direction="row" spacing={2}>
-          <Button variant="outlined" color="error" onClick= {handleEdit}>
+          <Button variant="outlined" color="error" onClick={handleEdit}>
             Edit Bill
           </Button>
-          <Button variant="contained" color="success" endIcon={<SendIcon />} onClick={handlePayment}>
+          <Button
+            variant="contained"
+            color="success"
+            endIcon={<SendIcon />}
+            onClick={handlePayment}
+          >
             Proceed to Payment
           </Button>
         </Stack>
