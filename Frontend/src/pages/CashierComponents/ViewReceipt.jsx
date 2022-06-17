@@ -1,13 +1,14 @@
-import Head from "../GeneralComponents/MainHeader";
-import { styled } from "@mui/material/styles";
-import * as React from "react";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell, { tableCellClasses } from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
+import Head from "../Head"
+import { styled } from '@mui/material/styles';
+import * as React from 'react';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell, { tableCellClasses } from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import { useNavigate } from "react-router-dom";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -21,6 +22,11 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   },
 }));
 export default function TableFinalBill() {
+
+  //ok maybe this should sit in the header
+  // const nav =useNavigate()
+  // nav('/cashier')
+// also need to refresh {Table} to clear orders.
   return (
     <>
       <Head />
