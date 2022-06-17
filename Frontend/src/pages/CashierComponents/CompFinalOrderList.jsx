@@ -1,4 +1,3 @@
-import Head from "../Head"
 import { styled } from '@mui/material/styles';
 import * as React from 'react';
 import Table from '@mui/material/Table';
@@ -20,11 +19,10 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
       fontWeight: 'bold' 
     },
   }));
-export default function TableFinalBill() {
-  return (
+
+function CompFinalOrderList() {
+    return(
     <>
-    <Head/>
-    <h1> Receipt </h1>
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 700, maxWidth: 900 }} align="center" aria-label="spanning table">
         <TableHead>
@@ -58,8 +56,8 @@ export default function TableFinalBill() {
 
           <TableRow>
             <StyledTableCell>Discounts</StyledTableCell>
-            <TableCell align="right">OCBC 20% off</TableCell>
-            <TableCell align="right">$20</TableCell>
+            <TableCell align="right"></TableCell>
+            <TableCell align="right"></TableCell>
           </TableRow>
 
           <TableRow>
@@ -76,8 +74,8 @@ export default function TableFinalBill() {
         </TableBody>
       </Table>
     </TableContainer>
-    <h2> Thank you for visiting our restaurant.</h2>
-    <h3> See you again soon.</h3>
     </>
   );
 }
+
+export default CompFinalOrderList

@@ -1,4 +1,3 @@
-import Head from "../Head"
 import { styled } from '@mui/material/styles';
 import * as React from 'react';
 import Table from '@mui/material/Table';
@@ -8,6 +7,12 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+
+const handleDelete =() => {
+    console.log("delete it NOWWWW")
+}
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -20,11 +25,12 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
       fontWeight: 'bold' 
     },
   }));
-export default function TableFinalBill() {
-  return (
+
+function CompEditOrderList({handleEdit}) {
+    return(
     <>
-    <Head/>
-    <h1> Receipt </h1>
+          <h1> Please Confirm Bill </h1>
+
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 700, maxWidth: 900 }} align="center" aria-label="spanning table">
         <TableHead>
@@ -39,6 +45,9 @@ export default function TableFinalBill() {
             <StyledTableCell align="right">Item Price</StyledTableCell>
             <StyledTableCell align="right">Quantity</StyledTableCell>
             <StyledTableCell align="right">Sub-total</StyledTableCell>
+            <StyledTableCell align="right"></StyledTableCell>
+            <StyledTableCell align="right"></StyledTableCell>
+
           </TableRow>
         </TableHead>
         <TableBody>
@@ -48,6 +57,9 @@ export default function TableFinalBill() {
               <TableCell align="right">$18</TableCell>
               <TableCell align="right">2</TableCell>
               <TableCell align="right">$36</TableCell>
+              <TableCell align="right" onClick={handleEdit}>{<EditIcon />}</TableCell>
+              <TableCell align="right" onClick={handleDelete}>{<DeleteIcon />}</TableCell>
+
             </TableRow>
 
           <TableRow>
@@ -58,8 +70,8 @@ export default function TableFinalBill() {
 
           <TableRow>
             <StyledTableCell>Discounts</StyledTableCell>
-            <TableCell align="right">OCBC 20% off</TableCell>
-            <TableCell align="right">$20</TableCell>
+            <TableCell align="right"></TableCell>
+            <TableCell align="right"></TableCell>
           </TableRow>
 
           <TableRow>
@@ -76,8 +88,8 @@ export default function TableFinalBill() {
         </TableBody>
       </Table>
     </TableContainer>
-    <h2> Thank you for visiting our restaurant.</h2>
-    <h3> See you again soon.</h3>
     </>
   );
 }
+
+export default CompEditOrderList
