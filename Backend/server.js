@@ -6,8 +6,9 @@ const morgan = require("morgan");
 const path = require("path");
 
 //! CONTROLLERS
-const allfoodController = require("./controllers/AllfoodController");
-const usersController = require("./controllers/UsersController");
+const allfoodController = require("./controllers/allFoodController");
+const usersController = require("./controllers/usersController");
+const orderController = require("./controllers/orderController");
 
 //! CONFIG
 const app = express();
@@ -27,6 +28,7 @@ app.use(express.json());
 app.use(express.static("../Frontend/build/"));
 app.use("/api/allfood", allfoodController);
 app.use("/api/users", usersController);
+app.use("/api/orders", orderController);
 
 app.get("/api/", (req, res) => {
   res.send("Hello restaurant owners");
