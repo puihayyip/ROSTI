@@ -8,8 +8,8 @@ var subSchema = new mongoose.Schema(
       {
         foodID: { type: Number },
         quantity: { type: Number },
-        foodPrepared: { type: Boolean, default: false },
-        foodSent: { type: Boolean, default: false },
+        foodPrepared: { type: String, default: 'off' },
+        foodSent: { type: String, default: 'off' },
       },
     ],
   },

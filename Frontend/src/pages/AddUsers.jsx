@@ -1,7 +1,11 @@
-import { TextField, InputAdornment, IconButton } from "@mui/material";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
-
+import { TextField } from "@mui/material";
+import Radio from "@mui/material/Radio";
+import RadioGroup from "@mui/material/RadioGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormControl from "@mui/material/FormControl";
+import FormLabel from "@mui/material/FormLabel";
 import Button from "@mui/material/Button";
+
 import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
@@ -17,10 +21,7 @@ const FlexInput = styled.div`
   align-items: center;
 `;
 
-function Login({ user }) {
-  const [showPassword, setShowPassword] = useState(false);
-  const handleClickShowPassword = () => setShowPassword(!showPassword);
-  const handleMouseDownPassword = () => setShowPassword(!showPassword);
+function AddUsers({ user }) {
   const [error, setError] = useState(false);
   const [authentication, setAuthentication] = useState(null);
   const navigate = useNavigate();
@@ -30,19 +31,22 @@ function Login({ user }) {
     const data = new FormData(e.target);
     const value = {
       userName: data.get("UserName"),
-      password: data.get("Password"),
+      password: data.get("password"),
+      confirmPassword: data.get("confirmPassword"),
+      user: data.get("radio-buttons-group"),
     };
+    console.log(value);
     e.target.reset();
 
     if (value.userName === "" || value.password === "") {
       setError(true);
     } else {
       setError(false);
-    }
-    if (value.userName === "simon" && value.password === "123") {
-      navigate("/menu");
-    } else {
-      setAuthentication(false);
+      if (value.password === value.confirmPassword) {
+        navigate("/menu"); //To be redirected to correct page
+      } else {
+        setAuthentication(false);
+      }
     }
   };
 
@@ -50,6 +54,27 @@ function Login({ user }) {
     <Container>
       <h1>{user} Login</h1>
       <form onSubmit={handleLogin}>
+        <FormControl>
+          <FormLabel id="radio-buttons-group-label">User Category</FormLabel>
+          <RadioGroup
+            row
+            aria-labelledby="radio-buttons-group-label"
+            defaultValue="Table"
+            name="radio-buttons-group"
+          >
+            <FormControlLabel value="Table" control={<Radio />} label="Table" />
+            <FormControlLabel
+              value="Kitchen"
+              control={<Radio />}
+              label="Kitchen"
+            />
+            <FormControlLabel
+              value="Cashier"
+              control={<Radio />}
+              label="Cashier"
+            />
+          </RadioGroup>
+        </FormControl>
         <FlexInput>
           <TextField
             id="outlined-required"
@@ -61,26 +86,22 @@ function Login({ user }) {
             sx={{ width: "300px" }}
           />
           <TextField
-            id="outlined-password-input"
+            id="outlined-required"
             label="Password"
-            name="Password"
+            name="password"
             variant="outlined"
-            type={showPassword ? "text" : "password"}
             margin="dense"
+            type="password"
             sx={{ width: "300px" }}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
-                  >
-                    {showPassword ? <Visibility /> : <VisibilityOff />}
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
+          />
+          <TextField
+            id="outlined-required"
+            label="Confirm password"
+            name="confirmPassword"
+            variant="outlined"
+            margin="dense"
+            type="password"
+            sx={{ width: "300px" }}
           />
         </FlexInput>
         <Button variant="contained" type="submit" sx={{ margin: "20px" }}>
@@ -93,7 +114,7 @@ function Login({ user }) {
         </p>
       ) : authentication === false ? (
         <p style={{ color: "red", marginTop: 0 }}>
-          *Please key in correct details
+          *Please key in same password
         </p>
       ) : (
         <></>
@@ -102,8 +123,4 @@ function Login({ user }) {
   );
 }
 
-export default Login;
-
-/** * visibility code answer from
-https://stackoverflow.com/questions/60391113/how-to-view-password-from-material-ui-textfield
-*/
+export default AddUsers;

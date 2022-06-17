@@ -54,18 +54,31 @@ export default function Head({ selection, setSelection }) {
               Table Number: {user}
             </Typography>
           </Toolbar>
-          <Tabs
-            value={selection}
-            onChange={handleChange}
-            aria-label="basic tabs example"
-            textColor="secondary"
-            indicatorColor="secondary"
-          >
-            <Tab label="All" />
-            <Tab label="Food" />
-            <Tab label="Drinks" />
-            <Tab label="promo" />
-          </Tabs>
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <Tabs
+              value={selection}
+              onChange={handleChange}
+              aria-label="basic tabs example"
+              textColor="secondary"
+              indicatorColor="secondary"
+            >
+              <Tab label="All" sx={{ fontWeight: "bold", color: "white" }} />
+              <Tab label="Food" sx={{ fontWeight: "bold", color: "white" }} />
+              <Tab label="Drinks" sx={{ fontWeight: "bold", color: "white" }} />
+              <Tab label="promo" sx={{ fontWeight: "bold", color: "white" }} />
+            </Tabs>
+            <Button
+              sx={{
+                marginRight: "20px",
+                marginBottom: "10px",
+                fontWeight: "bold",
+                color: "white",
+                border: "1px white solid",
+              }}
+            >
+              Logout
+            </Button>
+          </div>
         </AppBar>
       </ThemeProvider>
     </Box>

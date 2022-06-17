@@ -16,13 +16,13 @@ const orders = [
           {
             foodID: 17,
             quantity: 2,
-            foodPrepared: true,
+            foodPrepared: "on",
           },
           {
             foodID: 4,
             quantity: 2,
-            foodPrepared: true,
-            foodSent: true,
+            foodPrepared: "on",
+            foodSent: "on",
           },
         ],
       },
@@ -55,6 +55,22 @@ const orders = [
           {
             foodID: 4,
             quantity: 1,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    tblNum: 12,
+    orders: [
+      {
+        orderNum: 1,
+        items: [
+          {
+            foodID: 6,
+            quantity: 1,
+            foodPrepared: true,
+            foodSent: true,
           },
         ],
       },
