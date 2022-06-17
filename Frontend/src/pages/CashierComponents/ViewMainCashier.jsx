@@ -2,8 +2,8 @@ import Head from "../Head"
 import {Link} from 'react-router-dom'
 
 
-// const handleClick = () => {
-//     // console.log("say heyyyyy")
+const handleClick = () => {
+    console.log("say heyyyyy")
 //     fetch(`http://localhost:7000/api/orders/`, {
 //       method: "POST",
 //       headers: {
@@ -16,7 +16,7 @@ import {Link} from 'react-router-dom'
 //         console.log(data);
 //         // replaceHoliday(data.data);
 //       });
-//   };
+  };
 //   const item = data ?? {} ;
 
 function ViewMainCashier() {

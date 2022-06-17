@@ -9,6 +9,8 @@ import Order from "./pages/OrderTabComponents/Order"
 import ViewMainCashier from "./pages/CashierComponents/ViewMainCashier"
 import ViewReceipt from "./pages/CashierComponents/ViewReceipt"
 import ViewTableBill from "./pages/CashierComponents/ViewTableBill"
+import ViewMainKitchen from "./pages/KitchenComponents/ViewMainKitchen";
+
 
 export const stateContext = createContext();
 
@@ -34,6 +36,7 @@ function App() {
             <Route path="/cashier" element={<ViewMainCashier />} />
             <Route path="/tablebill" element={<ViewTableBill />} />
             <Route path="/receipt" element={<ViewReceipt />} />
+            <Route path="/kitchen" element={<ViewMainKitchen />} />
 
 
           </Routes>

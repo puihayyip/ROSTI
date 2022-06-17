@@ -2,7 +2,6 @@ import Head from "../Head";
 import * as React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-// import ViewTableBillComponent from "./ViewTableBillComponent";
 import CompFinalOrderList from "./CompFinalOrderList";
 import CompEditOrderList from "./CompEditOrderList";
 import CompFinalOrderButtons from "./CompFinalOrderButtons";
@@ -25,8 +24,6 @@ const handleEdit = () => {
   return (
     <>
       <Head />
-
-      {/* <ViewTableBillComponent edit={edit}/> */}
       {edit=== true? <CompEditOrderList/> : <CompFinalOrderList />}
       {edit=== true? <CompEditOrderButtons handleConfirm={handleConfirm}/> : <CompFinalOrderButtons handlePayment={handlePayment} handleEdit={handleEdit}/>}
 
