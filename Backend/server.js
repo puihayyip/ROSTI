@@ -12,7 +12,7 @@ const orderController = require("./controllers/orderController");
 
 //! CONFIG
 const app = express();
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 7000;
 
 //! MONGO CONNECTION
 const MONGO_URI = process.env.MONGO_URI || "mongodb://localhost:27017/project3";
