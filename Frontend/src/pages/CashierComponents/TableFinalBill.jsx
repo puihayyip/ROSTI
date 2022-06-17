@@ -13,13 +13,14 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
       backgroundColor: theme.palette.common.black,
       color: theme.palette.common.white,
+      fontWeight: 'bold' 
     },
     [`&.${tableCellClasses.body}`]: {
-      fontSize: 14,
-      fontWeight: 'bold' // i don't think this works. zzz.
+      fontSize: 16,
+      fontWeight: 'bold' 
     },
   }));
-export default function SpanningTable() {
+export default function TableFinalBill() {
   return (
     <>
     <Head/>
@@ -50,24 +51,28 @@ export default function SpanningTable() {
             </TableRow>
 
           <TableRow>
-            <TableCell rowSpan={3} />
+            <TableCell rowSpan={4} />
             <StyledTableCell colSpan={2}>Subtotal</StyledTableCell>
             <TableCell align="right">$100</TableCell>
           </TableRow>
+
           <TableRow>
             <StyledTableCell>Discounts</StyledTableCell>
             <TableCell align="right">OCBC 20% off</TableCell>
             <TableCell align="right">$20</TableCell>
           </TableRow>
+
           <TableRow>
             <StyledTableCell>Tax</StyledTableCell>
             <TableCell align="right">7%</TableCell>
             <TableCell align="right">$7</TableCell>
           </TableRow>
+
           <TableRow>
-            <StyledTableCell colSpan={2}>Total</StyledTableCell>
+            <StyledTableCell colSpan={2}>TOTAL</StyledTableCell>
             <TableCell align="right">$107</TableCell>
           </TableRow>
+
         </TableBody>
       </Table>
     </TableContainer>
@@ -77,52 +82,3 @@ export default function SpanningTable() {
     </>
   );
 }
-
-//? Essentially what we need without MUI
-// import Head from "../Head"
-// function TableFinalBill() {
-//   return (
-//     <>
-//     <Head/>
-//       <h1> Final Bill </h1>
-//       <table>
-//         <tr>
-//           <th>Item Name</th>
-//           <th>Quantity</th>
-//           <th>Sub-total</th>
-//         </tr>
-//         <tr>
-//           <td>Yummy Pizza</td>
-//           <td>3</td>
-//           <td>$54</td>
-//         </tr>
-//         <tr>
-//           <td>Bitter Coffee</td>
-//           <td>3</td>
-//           <td>$24</td>
-//         </tr>
-//       </table>
-
-//       <table>
-//         <tr>
-//           <th scope="row">Sub-Total</th>
-//           <td>$Subtotal</td>
-//         </tr>
-
-//         <tr>
-//           <th scope="row">Discounts</th>
-//           <td>$Discounts</td>
-//         </tr>
-
-//         <tr>
-//           <th scope="row">Total</th>
-//           <td>$Total</td>
-//         </tr>
-//       </table>
-
-//       <p> Thank you for visiting our restaurant. See you again soon!</p>
-//     </>
-//   );
-// }
-
-// export default TableFinalBill;
