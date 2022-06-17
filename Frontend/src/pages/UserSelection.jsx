@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import $ from "jquery";
 import { useNavigate, Outlet } from "react-router-dom";
 import styled from "styled-components";
+import Button from "@mui/material/Button";
 
 const H1 = styled.h1`
   color: orange;
@@ -50,6 +51,13 @@ function UserSelection({ user, setUser }) {
         </Card>
       </Div>
       <Outlet />
+      <Button
+        variant="outlined"
+        sx={{ marginTop: "25vh", marginLeft: "85vw" }}
+        onClick={() => navigate("/users/new")}
+      >
+        Add new users
+      </Button>
     </>
   );
 }

@@ -1,25 +1,26 @@
 // /api/allfood
 
 const express = require("express");
-const Allfood = require("../models/Allfood");
+const Allfood = require("../models/foodSeed.schema");
 const { StatusCodes } = require("http-status-codes");
-const allfoodseed = require("../models/allfoodseed")
+const allfoodseed = require("../models/allFoodSeed");
 
 const router = express.Router();
 
 //! Seed Route (reset database)
 router.get("/seed", async (req, res) => {
-	try {
-		await Allfood.deleteMany({});
-		const newAllfood = await Allfood.create(allfoodseed);
-		console.log(newAllfood);
-	} catch (error) {
-		res.send(error);
-	}
+  try {
+    await Allfood.deleteMany({});
+    const newAllfood = await Allfood.create(allfoodseed);
+    res.send(newAllfood);
+  } catch (error) {
+    res.send(error);
+  }
 });
 
 router.get("/", async (req, res) => {
-	res.send("At AllfoodController");
+  const allFood = await Allfood.find({});
+  res.send(allFood);
 });
 
 module.exports = router;

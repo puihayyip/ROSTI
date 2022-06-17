@@ -1,7 +1,5 @@
 import { TextField, InputAdornment, IconButton } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import Alert from "@mui/material/Alert";
-import Stack from "@mui/material/Stack";
 
 import Button from "@mui/material/Button";
 import { useContext, useEffect, useState } from "react";
@@ -42,7 +40,7 @@ function Login({ user }) {
       setError(false);
     }
     if (value.userName === "simon" && value.password === "123") {
-      navigate("/superSecurePath");
+      navigate("/menu");
     } else {
       setAuthentication(false);
     }
