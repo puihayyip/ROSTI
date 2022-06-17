@@ -24,6 +24,7 @@ function Login({ user }) {
   const [error, setError] = useState(false);
   const [authentication, setAuthentication] = useState(null);
   const navigate = useNavigate();
+  const [errText, setErrText] = useState("");
 
   const fetchUser = (value) => {
     fetch("/api/users/login", {
@@ -36,23 +37,24 @@ function Login({ user }) {
     })
       .then((res) => res.json())
       .then((data) => {
-        switch (data.data.usercategory) {
-          case "Table":
-            navigate("/menu");
-            break;
-          case "Kitchen":
-            navigate("/kitchen");
-            break;
-          case "Cashier":
-            navigate("/cashier");
-            break;
-          default:
-            return;
+        if (data.status === "success") {
+          switch (data.data.usercategory) {
+            case "Table":
+              navigate("/menu");
+              break;
+            case "Kitchen":
+              navigate("/kitchen");
+              break;
+            case "Cashier":
+              navigate("/cashier");
+              break;
+            default:
+              return;
+          }
+        } else {
+          setErrText("*" + data.data);
+          setAuthentication(false);
         }
-      })
-      .catch((err) => {
-        console.log("Login failed");
-        setAuthentication(false);
       });
   };
 
@@ -120,9 +122,7 @@ function Login({ user }) {
           *Please fill in all the fields
         </p>
       ) : authentication === false ? (
-        <p style={{ color: "red", marginTop: 0 }}>
-          *Please key in correct details
-        </p>
+        <p style={{ color: "red", marginTop: 0 }}>{errText}</p>
       ) : (
         ""
       )}
