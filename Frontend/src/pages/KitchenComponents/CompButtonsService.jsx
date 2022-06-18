@@ -1,17 +1,17 @@
-// import Stack from "@mui/material/Stack";
-// import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import SendIcon from "@mui/icons-material/Send";
+import ButtontrueServed from "./ButtontrueServed"
+import ButtonfalseServed from "./ButtonfalseServed"
+export default function CompButtonsService({handleService, served, cooked}){
+  
+  // if (cooked===true) {
 
-export default function CompButtonsService({handleService, served}){
-    return(<>
-     <Button
-            variant="contained"
-            color="error"
-            endIcon={<SendIcon />}
-            onClick={handleService}
-          >
-            Received?
-          </Button>
-    </>)
+    return(
+      <>
+    {served===true?  <ButtontrueServed handleService={handleService}/> : <ButtonfalseServed handleService={handleService} />}
+</>) 
+// }
+
+// else { 
+  
+//   alert("Food not ready, nothing to serve")
+// }
 }

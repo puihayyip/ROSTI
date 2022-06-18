@@ -9,9 +9,8 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 // import CompButtonsKitchen from './CompButtonsKitchen';
 import CompButtonsService from './CompButtonsService';
+import CompButtonsKitchen from './CompButtonsKitchen';
 import { useState } from 'react';
-import trueCooked from './trueCooked';
-import falseCooked from './falseCooked';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -42,7 +41,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     }
     return(
         <>
-<h1> Receipt </h1>
+<h1> Kitchen View: Next Items </h1>
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 700, maxWidth: 900 }} align="center" aria-label="spanning table">
         <TableHead>
@@ -53,6 +52,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
             <StyledTableCell>Item Name</StyledTableCell>
             <StyledTableCell align="right">Quantity</StyledTableCell>
             <StyledTableCell align="right">Table No.</StyledTableCell>
+            <StyledTableCell align="right">Remarks</StyledTableCell>
             <StyledTableCell align="right">Kitchen Send</StyledTableCell>
             <StyledTableCell align="right">Table Receive</StyledTableCell>
           </TableRow>
@@ -63,8 +63,10 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
               <TableCell>Yummy Pizza</TableCell>
               <TableCell align="right">2</TableCell>
               <TableCell align="right">Table 34 </TableCell>
-              <TableCell align="right" handleKitchen={handleKitchen} cooked={cooked}>{cooked=== true? <trueCooked/> : <falseCooked />}</TableCell>
-              <TableCell align="right" handleService={handleService} served={served}> <CompButtonsService/> </TableCell>
+              <TableCell align="right">Hide ring </TableCell>
+              <TableCell align="right"> <CompButtonsKitchen handleKitchen={handleKitchen} cooked={cooked}/></TableCell>
+              <TableCell align="right" > <CompButtonsService handleService={handleService} cooked={cooked} served={served}/> </TableCell>
+
 
             </TableRow>
 </TableBody>
