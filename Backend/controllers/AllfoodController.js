@@ -3,7 +3,7 @@
 const express = require("express");
 const Allfood = require("../models/foodSeed.schema");
 const { StatusCodes } = require("http-status-codes");
-const allfoodseed = require("../models/allFoodSeed");
+const allFoodSeed = require("../models/allFoodSeed");
 
 const router = express.Router();
 
@@ -11,7 +11,7 @@ const router = express.Router();
 router.get("/seed", async (req, res) => {
   try {
     await Allfood.deleteMany({});
-    const newAllfood = await Allfood.create(allfoodseed);
+    const newAllfood = await Allfood.create(allFoodSeed);
     res.send(newAllfood);
   } catch (error) {
     res.send(error);

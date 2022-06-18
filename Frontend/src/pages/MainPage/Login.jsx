@@ -2,7 +2,7 @@ import { TextField, InputAdornment, IconButton } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 import Button from "@mui/material/Button";
-import { useContext, useEffect, useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
@@ -24,6 +24,39 @@ function Login({ user }) {
   const [error, setError] = useState(false);
   const [authentication, setAuthentication] = useState(null);
   const navigate = useNavigate();
+  const [errText, setErrText] = useState("");
+
+  const fetchUser = (value) => {
+    fetch("/api/users/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify(value),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.status === "success") {
+          switch (data.data.usercategory) {
+            case "Table":
+              navigate("/menu");
+              break;
+            case "Kitchen":
+              navigate("/kitchen");
+              break;
+            case "Cashier":
+              navigate("/cashier");
+              break;
+            default:
+              return;
+          }
+        } else {
+          setErrText("*" + data.data);
+          setAuthentication(false);
+        }
+      });
+  };
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -31,6 +64,7 @@ function Login({ user }) {
     const value = {
       userName: data.get("UserName"),
       password: data.get("Password"),
+      usercategory: user,
     };
     e.target.reset();
 
@@ -38,11 +72,7 @@ function Login({ user }) {
       setError(true);
     } else {
       setError(false);
-    }
-    if (value.userName === "simon" && value.password === "123") {
-      navigate("/menu");
-    } else {
-      setAuthentication(false);
+      fetchUser(value);
     }
   };
 
@@ -92,11 +122,9 @@ function Login({ user }) {
           *Please fill in all the fields
         </p>
       ) : authentication === false ? (
-        <p style={{ color: "red", marginTop: 0 }}>
-          *Please key in correct details
-        </p>
+        <p style={{ color: "red", marginTop: 0 }}>{errText}</p>
       ) : (
-        <></>
+        ""
       )}
     </Container>
   );

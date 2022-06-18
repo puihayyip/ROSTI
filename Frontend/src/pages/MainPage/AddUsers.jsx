@@ -6,9 +6,8 @@ import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 import Button from "@mui/material/Button";
 
-import { useContext, useEffect, useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
   margin: 100px auto 0 auto;
@@ -21,7 +20,7 @@ const FlexInput = styled.div`
   align-items: center;
 `;
 
-const updateDB = (value) => {
+const updateDB = (value, setSameUser) => {
   fetch("/api/users/new", {
     method: "POST",
     headers: {
@@ -31,19 +30,26 @@ const updateDB = (value) => {
     body: JSON.stringify(value),
   })
     .then((response) => response.json())
-    .then((data) => console.log(data));
+    .then((data) => {
+      console.log(data);
+      if (data.data === "Replicated username") {
+        setSameUser(true);
+      } else {
+        setSameUser(false);
+      }
+    });
 };
 
 function AddUsers({ user }) {
   const [error, setError] = useState(false);
   const [authentication, setAuthentication] = useState(null);
-  const navigate = useNavigate();
+  const [sameUser, setSameUser] = useState(false);
 
   const handleLogin = (e) => {
     e.preventDefault();
     const data = new FormData(e.target);
     const value = {
-      username: data.get("UserName"),
+      userName: data.get("UserName"),
       password: data.get("password"),
       confirmPassword: data.get("confirmPassword"),
       usercategory: data.get("radio-buttons-group"),
@@ -56,7 +62,8 @@ function AddUsers({ user }) {
       setError(false);
       if (value.password === value.confirmPassword) {
         delete value.confirmPassword;
-        updateDB(value);
+        updateDB(value, setSameUser);
+        setAuthentication(true);
       } else {
         setAuthentication(false);
       }
@@ -65,28 +72,16 @@ function AddUsers({ user }) {
 
   return (
     <Container>
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 5fr 1fr" }}>
-        <div>
-          <Button
-            onClick={() => {
-              navigate("/");
-            }}
-          >
-            &#x3c;Go back
-          </Button>
-        </div>
-        <h1>Create new user</h1>
-      </div>
+      <h1>Create new user</h1>
       <form onSubmit={handleLogin}>
         <FormControl>
           <FormLabel id="radio-buttons-group-label">User Category</FormLabel>
           <RadioGroup
             row
             aria-labelledby="radio-buttons-group-label"
-            defaultValue="Table"
+            defaultValue="Kitchen"
             name="radio-buttons-group"
           >
-            <FormControlLabel value="Table" control={<Radio />} label="Table" />
             <FormControlLabel
               value="Kitchen"
               control={<Radio />}
@@ -97,6 +92,7 @@ function AddUsers({ user }) {
               control={<Radio />}
               label="Cashier"
             />
+            <FormControlLabel value="Table" control={<Radio />} label="Table" />
           </RadioGroup>
         </FormControl>
         <FlexInput>
@@ -135,10 +131,14 @@ function AddUsers({ user }) {
         </p>
       ) : authentication === false ? (
         <p style={{ color: "red", marginTop: 0 }}>
-          *Please key in same password
+          *Please key in correct details
         </p>
+      ) : sameUser === true ? (
+        <p style={{ color: "red", marginTop: 0 }}>*Username has been used</p>
+      ) : authentication === true ? (
+        <p style={{ color: "green", marginTop: 0 }}>User created!</p>
       ) : (
-        <p style={{ color: "green", marginTop: 0 }}>User added!</p>
+        ""
       )}
     </Container>
   );

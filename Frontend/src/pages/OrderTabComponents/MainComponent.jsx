@@ -1,6 +1,5 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import rawData from "../../data/food";
 import FastfoodIcon from "@mui/icons-material/Fastfood";
 
 import Card from "@mui/material/Card";
@@ -9,14 +8,17 @@ import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
+import { useEffect } from "react";
+import { useState } from "react";
 
 function FoodCards({ food }) {
   const navigate = useNavigate();
+
   const handleAdd = () => {
     console.log(`hello`);
   };
   const handleSeeMore = () => {
-    navigate(`food/${food.itemName}`);
+    navigate(`food/${food._id}`);
   };
 
   return (
@@ -25,19 +27,19 @@ function FoodCards({ food }) {
         <CardMedia
           component="img"
           height="300"
-          image={food.imgURL}
-          alt={food.itemName}
+          image={food.img}
+          alt={food.name}
         />
         <br />
         <div style={{ display: "grid", gridTemplateColumns: "4fr 1fr" }}>
           <Typography variant="h5" align="left">
-            {food.itemName}
+            {food.name}
           </Typography>
           <Typography variant="h5">${food.price}</Typography>
         </div>
         <br />
         <Typography variant="body2" align="left">
-          {food.description}
+          {food.des}
         </Typography>
       </CardContent>
       <CardActions
@@ -51,7 +53,7 @@ function FoodCards({ food }) {
         </Button>
         <Button
           variant="outlined"
-          sx={{ padding: "5px 26px", marginLeft: "0px" }}
+          sx={{ padding: "5px 26px", marginRight: "8px" }}
           onClick={handleSeeMore}
         >
           See more
@@ -62,9 +64,21 @@ function FoodCards({ food }) {
 }
 
 function Main({ open, setOpen, selection }) {
+  const [allFood, setAllFood] = useState([]);
   const handleClick = () => {
     setOpen(!open);
   };
+
+  const fetchData = async () => {
+    fetch("/api/allfood")
+      .then((res) => res.json())
+      .then((data) => setAllFood(data));
+    console.log("fetching");
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   let item;
   let category;
@@ -114,13 +128,17 @@ function Main({ open, setOpen, selection }) {
       </div>
       {selection === 0 ? (
         <div style={{ display: "flex", gap: "20px", flexWrap: "wrap" }}>
-          {rawData.map((food, index) => (
-            <FoodCards food={food} key={index} />
-          ))}
+          {allFood
+            .filter(
+              (food) => food.mainSect === "food" || food.mainSect === "drinks"
+            )
+            .map((food, index) => (
+              <FoodCards food={food} key={index} />
+            ))}
         </div>
       ) : (
         <div style={{ display: "flex", gap: "20px", flexWrap: "wrap" }}>
-          {rawData
+          {allFood
             .filter((food) => food.mainSect === category)
             .map((food, index) => (
               <FoodCards food={food} key={index} />

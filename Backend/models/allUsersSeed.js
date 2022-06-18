@@ -1,31 +1,61 @@
 const users = [
   {
-    username: "1",
+    userName: "1",
     password: "123",
     usercategory: "Table",
   },
   {
-    username: "2",
+    userName: "2",
     password: "123",
     usercategory: "Table",
   },
   {
-    username: "3",
+    userName: "3",
     password: "123",
     usercategory: "Table",
   },
   {
-    username: "4",
+    userName: "4",
     password: "123",
     usercategory: "Table",
   },
   {
-    username: "kitchen",
+    userName: "5",
+    password: "123",
+    usercategory: "Table",
+  },
+  {
+    userName: "6",
+    password: "123",
+    usercategory: "Table",
+  },
+  {
+    userName: "7",
+    password: "123",
+    usercategory: "Table",
+  },
+  {
+    userName: "8",
+    password: "123",
+    usercategory: "Table",
+  },
+  {
+    userName: "9",
+    password: "123",
+    usercategory: "Table",
+  },
+  {
+    userName: "10",
+    password: "123",
+    usercategory: "Table",
+  },
+  {
+    userName: "kitchen",
     password: "123",
     usercategory: "Kitchen",
   },
   {
-    username: "cashier",
+    userName: "cashier",
     password: "123",
     usercategory: "Cashier",
   },

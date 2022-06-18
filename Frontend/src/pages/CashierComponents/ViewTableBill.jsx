@@ -1,4 +1,4 @@
-import Head from "../Head";
+import Head from "../GeneralComponents/MainHeader";
 import * as React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";

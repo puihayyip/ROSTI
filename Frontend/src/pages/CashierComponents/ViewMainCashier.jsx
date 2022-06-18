@@ -1,4 +1,4 @@
-import Head from "../Head"
+import Head from "../GeneralComponents/MainHeader";
 import {Link} from 'react-router-dom'
 
 
