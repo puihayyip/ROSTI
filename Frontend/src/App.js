@@ -8,7 +8,7 @@ import AddUsers from "./pages/MainPage/AddUsers";
 import Order from "./pages/OrderTabComponents/Order";
 import ScrollToTopBtn from "./pages/GeneralComponents/ScrollToTopBtn";
 // import CashierMainView from "./pages/CashierComponents/CashierMainView";
-import KitchenMainPage from "./pages/KitchenComponents/KitchenMainPage";
+import KitchenMainPage from "./pages/KitchenComponents/ViewMainKitchen";
 
 // export const stateContext = createContext();
 
