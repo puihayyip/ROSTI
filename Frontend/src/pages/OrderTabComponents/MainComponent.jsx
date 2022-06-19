@@ -11,12 +11,13 @@ import Typography from "@mui/material/Typography";
 import { useEffect } from "react";
 import { useState } from "react";
 
-function FoodCards({ food }) {
+function FoodCards({ food, cart, setCart }) {
   const navigate = useNavigate();
 
   const handleAdd = () => {
-    console.log(`hello`);
+    setCart([...cart, food]);
   };
+
   const handleSeeMore = () => {
     navigate(`food/${food._id}`);
   };
@@ -63,7 +64,7 @@ function FoodCards({ food }) {
   );
 }
 
-function Main({ open, setOpen, selection }) {
+function Main({ open, setOpen, selection, cart, setCart }) {
   const [allFood, setAllFood] = useState([]);
   const handleClick = () => {
     setOpen(!open);
@@ -133,7 +134,12 @@ function Main({ open, setOpen, selection }) {
               (food) => food.mainSect === "food" || food.mainSect === "drinks"
             )
             .map((food, index) => (
-              <FoodCards food={food} key={index} />
+              <FoodCards
+                food={food}
+                key={index}
+                cart={cart}
+                setCart={setCart}
+              />
             ))}
         </div>
       ) : (
@@ -141,7 +147,12 @@ function Main({ open, setOpen, selection }) {
           {allFood
             .filter((food) => food.mainSect === category)
             .map((food, index) => (
-              <FoodCards food={food} key={index} />
+              <FoodCards
+                food={food}
+                key={index}
+                cart={cart}
+                setCart={setCart}
+              />
             ))}
         </div>
       )}

@@ -12,15 +12,19 @@ router.get("/seed", async (req, res) => {
   try {
     await ordersSchema.deleteMany({});
     const newOrders = await ordersSchema.create(allOrdersSeed);
-    res.send(newOrders);
+    res.send({ status: "success", data: newOrders });
   } catch (error) {
     res.send(error);
   }
 });
 
 router.get("/", async (req, res) => {
-  const allOrders = await ordersSchema.find({});
-  res.send(allOrders);
+  try {
+    const allOrders = await ordersSchema.find({});
+    res.send({ status: "success", data: allOrders });
+  } catch (error) {
+    res.send(error);
+  }
 });
 
 module.exports = router;
