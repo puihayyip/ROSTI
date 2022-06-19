@@ -4,7 +4,7 @@ import Main from "./MainComponent";
 
 import SideTab from "./SideTab";
 
-function Order() {
+function Order({user}) {
   const [open, setOpen] = useState(false);
   const [selection, setSelection] = useState(0);
 
@@ -14,7 +14,7 @@ function Order() {
 
   return (
     <div>
-      <Head selection={selection} setSelection={setSelection} />
+      <Head selection={selection} setSelection={setSelection} user={user}/>
       <div style={myStyle}>
         <Main
           className="main"

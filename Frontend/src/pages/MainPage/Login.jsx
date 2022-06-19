@@ -17,7 +17,7 @@ const FlexInput = styled.div`
   align-items: center;
 `;
 
-function Login({ user }) {
+function Login({ user, setUser }) {
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword(!showPassword);
   const handleMouseDownPassword = () => setShowPassword(!showPassword);
@@ -37,6 +37,7 @@ function Login({ user }) {
     })
       .then((res) => res.json())
       .then((data) => {
+        setUser({ ...user, username: data.data.userName });
         if (data.status === "success") {
           switch (data.data.usercategory) {
             case "Table":
@@ -64,7 +65,7 @@ function Login({ user }) {
     const value = {
       userName: data.get("UserName"),
       password: data.get("Password"),
-      usercategory: user,
+      usercategory: user.category,
     };
     e.target.reset();
 
@@ -78,7 +79,7 @@ function Login({ user }) {
 
   return (
     <Container>
-      <h1>{user} Login</h1>
+      <h1>{user.category} Login</h1>
       <form onSubmit={handleLogin}>
         <FlexInput>
           <TextField
