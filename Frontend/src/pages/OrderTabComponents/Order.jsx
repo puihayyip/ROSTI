@@ -28,7 +28,11 @@ function Order({ user }) {
           cart={cart}
           setCart={setCart}
         />
-        {open ? <SideTab className="side" cart={cart} /> : ""}
+        {open ? (
+          <SideTab className="side" cart={cart} setCart={setCart} user={user} />
+        ) : (
+          ""
+        )}
       </div>
     </div>
   );

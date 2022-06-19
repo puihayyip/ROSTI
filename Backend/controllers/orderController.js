@@ -27,4 +27,26 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.post("/new/", async (req, res) => {
+  const prevOrder = await ordersSchema.findOne({ tblNum: req.body.tblNum });
+  try {
+    if (prevOrder) {
+      const newArr = req.body.orders[0].items;
+      const orderCount = prevOrder.orders.length;
+      const newOrders = await ordersSchema.updateOne(
+        {
+          tblNum: req.body.tblNum,
+        },
+        { $push: { orders: { orderNum: orderCount + 1, items: newArr } } }
+      );
+      res.send({ status: "success", data: newOrders });
+    } else {
+      const newOrders = await ordersSchema.create(req.body);
+      res.send({ status: "success", data: newOrders });
+    }
+  } catch (err) {
+    res.send(err);
+  }
+});
+
 module.exports = router;

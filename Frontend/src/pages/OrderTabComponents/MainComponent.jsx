@@ -1,9 +1,8 @@
-import React from "react";
+import React, { component } from "react";
 import { useNavigate } from "react-router-dom";
-import $ from 'jquery'
+import $ from "jquery";
 
 import FastfoodIcon from "@mui/icons-material/Fastfood";
-
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -15,6 +14,51 @@ import { useState } from "react";
 
 function FoodCards({ food, cart, setCart }) {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    $(`#${food.foodID}`).on("click", function () {
+      let imgtodrag = $(`#${food.foodID}cardImg`);
+
+      const imgclone = imgtodrag
+        .clone()
+        .offset({
+          top: imgtodrag.offset().top,
+          left: imgtodrag.offset().left,
+        })
+        .css({
+          opacity: "0.8",
+          position: "absolute",
+          height: "150px",
+          width: "150px",
+          "z-index": "100",
+        })
+        .appendTo($("body"))
+        .animate(
+          {
+            top: $(".shoppingCart").offset().top + 20,
+            left: $(".shoppingCart").offset().left + 30,
+            width: 75,
+            height: 75,
+          },
+          1000
+        );
+
+      // setTimeout(function () {
+      // count++;
+      // $(".cart-nav .item-count").text(count);
+      // }, 1500);
+
+      imgclone.animate(
+        {
+          width: 0,
+          height: 0,
+        },
+        function () {
+          $(this).detach();
+        }
+      );
+    });
+  }, []);
 
   const handleAdd = () => {
     setCart([...cart, food]);
@@ -32,6 +76,7 @@ function FoodCards({ food, cart, setCart }) {
           height="300"
           image={food.img}
           alt={food.name}
+          id={food.foodID + "cardImg"}
         />
         <br />
         <div style={{ display: "grid", gridTemplateColumns: "4fr 1fr" }}>
@@ -51,7 +96,11 @@ function FoodCards({ food, cart, setCart }) {
           gap: "0.6rem",
         }}
       >
-        <Button variant="outlined" onClick={handleAdd}>
+        <Button
+          variant="outlined"
+          onClick={(e) => handleAdd(e)}
+          id={food.foodID}
+        >
           Add to cart
         </Button>
         <Button
@@ -127,6 +176,7 @@ function Main({ open, setOpen, selection, cart, setCart }) {
             border: open ? "2px black solid" : "2px steelblue solid",
             borderRadius: "50%",
           }}
+          className="shoppingCart"
         />
       </div>
       {selection === 0 ? (
