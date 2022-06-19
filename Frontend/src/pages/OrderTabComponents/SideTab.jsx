@@ -2,7 +2,7 @@ import React from "react";
 
 const manipulateCart = (cart) => {
   const uniqueItem = new Set(cart);
-  const cartObj = [];
+  const cartArr = [];
   for (let item of uniqueItem) {
     let count = 0;
     for (let food of cart) {
@@ -10,9 +10,9 @@ const manipulateCart = (cart) => {
         count++;
       }
     }
-    cartObj.push({ name: item.name, qty: count });
+    cartArr.push({ name: item.name, qty: count });
   }
-  return cartObj;
+  return cartArr;
 };
 
 function SideTab({ cart }) {
