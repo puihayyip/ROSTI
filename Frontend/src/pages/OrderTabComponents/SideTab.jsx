@@ -27,13 +27,17 @@ function SideTab({ cart }) {
     >
       <h1 style={{ color: "orange", fontWeight: "bold" }}>Add to Order Tab</h1>
       <div>
-        <ul>
-          {newCart.map((item, index) => (
-            <li key={index}>
-              {item.name}: {item.qty}
-            </li>
-          ))}
-        </ul>
+        {cart.length > 0 ? (
+          <ul>
+            {newCart.map((item, index) => (
+              <li key={index}>
+                {item.name}: {item.qty}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <h3>Your cart is empty</h3>
+        )}
       </div>
     </div>
   );
