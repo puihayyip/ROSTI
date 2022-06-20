@@ -46,9 +46,7 @@ router.post("/new", async (req, res) => {
     const user = req.body;
     user.password = hashedPassword;
     const protectedUser = await Users.create(user);
-    res
-      .status(StatusCodes.CREATED)
-      .send({ status: "success", data: "New user created" });
+    res.send({ status: "success", data: "New user created" });
   } catch (error) {
     res.send(error);
   }

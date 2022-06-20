@@ -17,11 +17,11 @@ const manipulateCart = (cart) => {
 };
 
 function SideTab({ cart, user, setCart }) {
+  console.log("cart", cart);
   const [newCart, setNewCart] = useState(manipulateCart(cart));
 
   useEffect(() => {
     setNewCart(manipulateCart(cart));
-    console.log("useeffect");
   }, [cart]);
 
   const handleAddToOrder = () => {
@@ -82,13 +82,20 @@ function SideTab({ cart, user, setCart }) {
                     size="2"
                     value={item.qty}
                     onChange={(e) => {
-                      for (let i in newCart) {
-                        if (newCart[i].name === item.name) {
-                          newCart[i].qty = e.target.value;
-                          setNewCart([...newCart]);
-                          break;
-                        }
-                      }
+                      const index = newCart.findIndex(
+                        (food) => food.foodID === item.foodID
+                      );
+                      newCart[index].qty = parseInt(e.target.value);
+                      setNewCart([...newCart]);
+
+                      // for (let i in cart){
+                      //   if(cart[i].name===item.name){
+                      //     cart.splice(i,1)
+                      //   }
+                      // }
+                      cart.filter((food) => {
+                        return food.foodID !== item.foodID;
+                      });
                     }}
                   />
                 </li>

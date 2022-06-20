@@ -1,4 +1,4 @@
-import React, { component } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import $ from "jquery";
 
@@ -22,7 +22,7 @@ function FoodCards({ food, cart, setCart }) {
       const imgclone = imgtodrag
         .clone()
         .offset({
-          top: imgtodrag.offset().top,
+          top: imgtodrag.offset().top + 150,
           left: imgtodrag.offset().left,
         })
         .css({
@@ -42,11 +42,6 @@ function FoodCards({ food, cart, setCart }) {
           },
           1000
         );
-
-      // setTimeout(function () {
-      // count++;
-      // $(".cart-nav .item-count").text(count);
-      // }, 1500);
 
       imgclone.animate(
         {
