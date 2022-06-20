@@ -35,13 +35,10 @@ function CompFinalOrderList({ order }) {
     obj.items.map((item) => arrayItemSubTotal.push(item.quantity * x))
   );
 
-  console.log("arraySub", arrayItemSubTotal);
-
   let SubTotal=0
   for (let i=0; i<arrayItemSubTotal.length; i++) {
      SubTotal = SubTotal + arrayItemSubTotal[i] 
   }
-  console.log('SubTotal', SubTotal)
 
   //? DISCOUNT
   let DiscountRate = 0.1
@@ -83,9 +80,9 @@ function CompFinalOrderList({ order }) {
                 // console.log(item)
                 <TableRow key={index}>
                   <TableCell>{item.foodID}</TableCell>
-                  <TableCell align="right">{x}</TableCell>
+                  <TableCell align="right">${x}</TableCell>
                   <TableCell align="right">{item.quantity}</TableCell>
-                  <TableCell align="right">{x * item.quantity}</TableCell>
+                  <TableCell align="right">${ccyFormat(x * item.quantity)}</TableCell>
                 </TableRow>
               ))
             )}
@@ -93,24 +90,24 @@ function CompFinalOrderList({ order }) {
             <TableRow>
               <TableCell rowSpan={4} />
               <StyledTableCell colSpan={2}>Subtotal</StyledTableCell>
-              <TableCell align="right">{ccyFormat(SubTotal)}</TableCell>
+              <TableCell align="right">${ccyFormat(SubTotal)}</TableCell>
             </TableRow>
 
             <TableRow>
               <StyledTableCell>Discounts</StyledTableCell>
               <TableCell align="right">{`${(DiscountRate*100).toFixed(0)}%`}</TableCell>
-              <TableCell align="right">{ccyFormat(DiscountAmt)}</TableCell>
+              <TableCell align="right">${ccyFormat(DiscountAmt)}</TableCell>
             </TableRow>
 
             <TableRow>
               <StyledTableCell>Tax</StyledTableCell>
               <TableCell align="right">{`${(TaxRate * 100).toFixed(0)}%`}</TableCell>
-              <TableCell align="right">{ccyFormat(TaxAmt)}</TableCell>
+              <TableCell align="right">${ccyFormat(TaxAmt)}</TableCell>
             </TableRow>
 
             <TableRow>
               <StyledTableCell colSpan={2}>TOTAL</StyledTableCell>
-              <TableCell align="right">{ccyFormat(TotalAmt)}</TableCell>
+              <TableCell align="right">${ccyFormat(TotalAmt)}</TableCell>
             </TableRow>
           </TableBody>
         </Table>
