@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 
 const manipulateCart = (cart) => {
@@ -17,7 +17,12 @@ const manipulateCart = (cart) => {
 };
 
 function SideTab({ cart, user, setCart }) {
-  const newCart = manipulateCart(cart);
+  const [newCart, setNewCart] = useState(manipulateCart(cart));
+
+  useEffect(() => {
+    setNewCart(manipulateCart(cart));
+    console.log("useeffect");
+  }, [cart]);
 
   const handleAddToOrder = () => {
     const orderObj = {
@@ -61,8 +66,31 @@ function SideTab({ cart, user, setCart }) {
           <>
             <ul>
               {newCart.map((item, index) => (
-                <li key={index}>
-                  {item.name}: {item.qty}
+                <li
+                  key={index}
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    marginBottom: "1rem",
+                  }}
+                >
+                  <div>{item.name}: </div>
+                  <input
+                    style={{ marginRight: "2rem", textAlign: "center" }}
+                    type="text"
+                    maxlength="2"
+                    size="2"
+                    value={item.qty}
+                    onChange={(e) => {
+                      for (let i in newCart) {
+                        if (newCart[i].name === item.name) {
+                          newCart[i].qty = e.target.value;
+                          setNewCart([...newCart]);
+                          break;
+                        }
+                      }
+                    }}
+                  />
                 </li>
               ))}
             </ul>
