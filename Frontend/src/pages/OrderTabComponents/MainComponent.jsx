@@ -56,7 +56,15 @@ function FoodCards({ food, cart, setCart }) {
   }, []);
 
   const handleAdd = () => {
-    setCart([...cart, food]);
+    const index = cart.findIndex((item) => item.food.name === food.name);
+    console.log(index);
+    if (index >= 0) {
+      const newCart = [...cart];
+      newCart[index].qty = cart[index].qty + 1;
+      setCart(newCart);
+    } else {
+      setCart([...cart, { food: food, qty: 1 }]);
+    }
   };
 
   const handleSeeMore = () => {
