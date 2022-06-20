@@ -40,9 +40,9 @@ export default function Head({ selection, setSelection, user }) {
               MENU
             </Typography>
             <Typography
-              variant="h5"
+              variant="h4"
               component="div"
-              sx={{ flexGrow: 1, textAlign: "right", fontWeight: "bold" }}
+              sx={{ flexGrow: 1, textAlign: "center", fontWeight: "bold" }}
               color="white"
             >
               Order Tab
