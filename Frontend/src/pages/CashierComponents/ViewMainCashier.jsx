@@ -1,43 +1,36 @@
 import Head from "../GeneralComponents/MainHeader";
-import {Link} from 'react-router-dom'
+import { useEffect, useState } from "react";
+import CompTableListing from "./CompTableListing";
 
-
-const handleClick = () => {
-    console.log("say heyyyyy")
-//     fetch(`http://localhost:7000/api/orders/`, {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify({ ...item }),
-//     })
-//       .then((response) => response.json())
-//       .then((data) => {
-//         console.log(data);
-//         // replaceHoliday(data.data);
-//       });
-  };
 //   const item = data ?? {} ;
 
+const handleClick = () => {
+   console.log('moving to next page')
+}
+
 function ViewMainCashier() {
+    const [data, setData]= useState(0)
+    
+    useEffect (() => {
+        fetch(`/api/orders/`)
+          .then((response) => response.json())
+          .then((data) => {
+            setData(data)
+          });
+      },[]);
+    //   console.log(data?.[0]?.tblNum)
     return(
         <>
         <Head/>
         <h1>Which Table Bill do you want to see?</h1>
         <ul>
-
-        <li>
-            <Link to="/tablebill" onClick={handleClick}>Table 34</Link>
-            </li>
-        <li>
-            <Link to="/tablebill">Table 44</Link>
-            </li>
-
+            {data && data?.map((order, index) => <CompTableListing key={index} order ={order} handleClick={handleClick} data={data}/>)}
         </ul>
 
-       
+
         </>
     )
 }
+    
 
 export default ViewMainCashier;
