@@ -22,14 +22,14 @@ function FoodCards({ food, cart, setCart }) {
       const imgclone = imgtodrag
         .clone()
         .offset({
-          top: imgtodrag.offset().top + 150,
+          top: imgtodrag.offset().top + 100,
           left: imgtodrag.offset().left,
         })
         .css({
           opacity: "0.8",
           position: "absolute",
-          height: "150px",
-          width: "150px",
+          height: "120px",
+          width: "120px",
           "z-index": "100",
         })
         .appendTo($("body"))
@@ -37,8 +37,8 @@ function FoodCards({ food, cart, setCart }) {
           {
             top: $(".shoppingCart").offset().top + 20,
             left: $(".shoppingCart").offset().left + 30,
-            width: 75,
-            height: 75,
+            width: 50,
+            height: 50,
           },
           1000
         );
@@ -57,7 +57,6 @@ function FoodCards({ food, cart, setCart }) {
 
   const handleAdd = () => {
     const index = cart.findIndex((item) => item.food.name === food.name);
-    console.log(index);
     if (index >= 0) {
       const newCart = [...cart];
       newCart[index].qty = cart[index].qty + 1;
@@ -72,48 +71,66 @@ function FoodCards({ food, cart, setCart }) {
   };
 
   return (
-    <Card sx={{ width: 375, height: 600 }}>
+    <Card
+      sx={{
+        width: 360,
+        height: 480,
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
+      }}
+    >
       <CardContent>
         <CardMedia
           component="img"
-          height="300"
+          height="240"
           image={food.img}
           alt={food.name}
           id={food.foodID + "cardImg"}
         />
-        <br />
         <div style={{ display: "grid", gridTemplateColumns: "4fr 1fr" }}>
-          <Typography variant="h5" align="left">
-            {food.name}
+          <Typography variant="h6" align="left">
+            <b>{food.name}</b>
           </Typography>
-          <Typography variant="h5">${food.price}</Typography>
+          <Typography variant="h6">${food.price}</Typography>
         </div>
         <br />
         <Typography variant="body2" align="left">
-          {food.des}
+          <i>{food.des}</i>
         </Typography>
       </CardContent>
-      <CardActions
-        sx={{
+      <div
+        style={{
+          display: "flex",
           flexDirection: "column",
-          gap: "0.6rem",
+          gap: "0.3rem",
+          marginBottom: "1rem",
+          alignItems: "center",
         }}
       >
         <Button
           variant="outlined"
           onClick={(e) => handleAdd(e)}
           id={food.foodID}
+          style={{
+            maxWidth: "140px",
+            minWidth: "140px",
+          }}
         >
           Add to cart
         </Button>
         <Button
           variant="outlined"
-          sx={{ padding: "5px 26px", marginRight: "8px" }}
+          sx={{ padding: "5px 26px" }}
           onClick={handleSeeMore}
+          style={{
+            maxWidth: "140px",
+            minWidth: "140px",
+          }}
         >
           See more
         </Button>
-      </CardActions>
+      </div>
     </Card>
   );
 }

@@ -1,29 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 
-const manipulateCart = (cart) => {
-  const uniqueItem = new Set(cart);
-  const cartArr = [];
-  for (let item of uniqueItem) {
-    let count = 0;
-    for (let food of cart) {
-      if (food._id === item._id) {
-        count++;
-      }
-    }
-    cartArr.push({ name: item.name, qty: count, foodID: item.foodID });
-  }
-  return cartArr;
-};
-
 function SideTab({ cart, user, setCart }) {
-  // const [newCart, setNewCart] = useState(manipulateCart(cart));
-
-  // useEffect(() => {
-  //   // setNewCart(manipulateCart(cart));
-  //   console.log(cart);
-  // }, [cart]);
-
   const handleAddToOrder = () => {
     const orderObj = {
       tblNum: user.username,
@@ -33,6 +11,8 @@ function SideTab({ cart, user, setCart }) {
     for (let food of cart) {
       orderObj.orders[0].items.push({
         foodID: food.food.foodID,
+        name: food.food.name,
+        price: food.food.price,
         quantity: food.qty,
         foodPrepared: "off",
         foodSent: "off",
@@ -46,9 +26,9 @@ function SideTab({ cart, user, setCart }) {
         Accept: "application/json",
       },
       body: JSON.stringify(orderObj),
-    })
-      .then((response) => response.json())
-      .then((data) => console.log(data));
+    });
+    // .then((response) => response.json())
+    // .then((data) => console.log(data));
     setCart([]);
   };
 
