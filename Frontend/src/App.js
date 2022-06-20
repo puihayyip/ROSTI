@@ -45,7 +45,7 @@ function App() {
           <Route path="/kitchen" element={<KitchenMainPage />} />
           <Route path="/cashier" element={<ViewMainCashier />} />
           <Route path="/tablebill/:tblNum" element={<ViewTableBill />} />
-          <Route path="/receipt" element={<ViewReceipt />} />
+          <Route path="/receipt/:_id" element={<ViewReceipt />} />
         </Routes>
         <ScrollToTopBtn />
       </BrowserRouter>

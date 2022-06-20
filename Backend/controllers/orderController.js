@@ -21,6 +21,17 @@ router.get("/seed", async (req, res) => {
 router.get("/", async (req, res) => {
   try {
     const allOrders = await ordersSchema.find({});
+    console.log(req.params.id)
+    res.send({ status: "success", data: allOrders });
+  } catch (error) {
+    res.send(error);
+  }
+});
+
+router.get("/:id", async (req, res) => {
+  try {
+    const allOrders = await ordersSchema.findOne({tblNum: parseInt(req.params.id)});
+    console.log(req.params.id)
     res.send({ status: "success", data: allOrders });
   } catch (error) {
     res.send(error);

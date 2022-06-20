@@ -24,7 +24,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     },
   }));
 
-  export default function CompOrderList() {
+  export default function CompOrderList({order}) {
 
     const [cooked,SetCooked]=useState(false)
     const [served,SetServed]=useState(false)

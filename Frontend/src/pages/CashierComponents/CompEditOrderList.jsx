@@ -26,7 +26,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     },
   }));
 
-function CompEditOrderList({handleEdit}) {
+function CompEditOrderList({handleEdit, order}) {
     return(
     <>
           <h1> Please Confirm Bill </h1>

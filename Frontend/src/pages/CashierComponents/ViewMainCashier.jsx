@@ -1,31 +1,27 @@
 import Head from "../GeneralComponents/MainHeader";
 import { useEffect, useState } from "react";
 import CompTableListing from "./CompTableListing";
+import Box from '@mui/material/Box';
 
-//   const item = data ?? {} ;
-
-const handleClick = () => {
-   console.log('moving to next page')
-}
 
 function ViewMainCashier() {
-    const [data, setData]= useState(0)
+    const [data, setData]= useState([])
     
     useEffect (() => {
         fetch(`/api/orders/`)
           .then((response) => response.json())
           .then((data) => {
-            setData(data)
+            setData(data.data)
           });
       },[]);
-    //   console.log(data?.[0]?.tblNum)
+      console.log(data)
     return(
         <>
         <Head/>
         <h1>Which Table Bill do you want to see?</h1>
-        <ul>
-            {data && data?.map((order, index) => <CompTableListing key={index} order ={order} handleClick={handleClick} data={data}/>)}
-        </ul>
+        <Box align="center">
+            {data && data?.map((order, index) => <CompTableListing key={index} order ={order} data={data}/>)}
+        </Box>
 
 
         </>
