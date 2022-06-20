@@ -17,12 +17,12 @@ const manipulateCart = (cart) => {
 };
 
 function SideTab({ cart, user, setCart }) {
-  console.log("cart", cart);
-  const [newCart, setNewCart] = useState(manipulateCart(cart));
+  // const [newCart, setNewCart] = useState(manipulateCart(cart));
 
-  useEffect(() => {
-    setNewCart(manipulateCart(cart));
-  }, [cart]);
+  // useEffect(() => {
+  //   // setNewCart(manipulateCart(cart));
+  //   console.log(cart);
+  // }, [cart]);
 
   const handleAddToOrder = () => {
     const orderObj = {
@@ -30,9 +30,9 @@ function SideTab({ cart, user, setCart }) {
       orders: [{ orderNum: 1, items: [] }],
     };
 
-    for (let food of newCart) {
+    for (let food of cart) {
       orderObj.orders[0].items.push({
-        foodID: food.foodID,
+        foodID: food.food.foodID,
         quantity: food.qty,
         foodPrepared: "off",
         foodSent: "off",
@@ -65,7 +65,7 @@ function SideTab({ cart, user, setCart }) {
         {cart.length > 0 ? (
           <>
             <ul>
-              {newCart.map((item, index) => (
+              {cart.map((item, index) => (
                 <li
                   key={index}
                   style={{
@@ -74,28 +74,21 @@ function SideTab({ cart, user, setCart }) {
                     marginBottom: "1rem",
                   }}
                 >
-                  <div>{item.name}: </div>
+                  <div>{item.food.name}: </div>
                   <input
                     style={{ marginRight: "2rem", textAlign: "center" }}
                     type="text"
                     maxlength="2"
                     size="2"
                     value={item.qty}
+                    id={item.food.name}
                     onChange={(e) => {
-                      const index = newCart.findIndex(
-                        (food) => food.foodID === item.foodID
+                      const index = cart.findIndex(
+                        (food) => food.food.name === e.target.id
                       );
-                      newCart[index].qty = parseInt(e.target.value);
-                      setNewCart([...newCart]);
-
-                      // for (let i in cart){
-                      //   if(cart[i].name===item.name){
-                      //     cart.splice(i,1)
-                      //   }
-                      // }
-                      cart.filter((food) => {
-                        return food.foodID !== item.foodID;
-                      });
+                      const newArr = [...cart];
+                      newArr[index].qty = parseInt(e.target.value);
+                      setCart(newArr);
                     }}
                   />
                 </li>
