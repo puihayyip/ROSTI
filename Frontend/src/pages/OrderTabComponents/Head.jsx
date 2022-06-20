@@ -8,7 +8,7 @@ import Button from "@mui/material/Button";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import FormDialog from "../GeneralComponents/LogoutDialog";
+import LogoutDialog from "../GeneralComponents/LogoutDialog";
 
 const theme = createTheme({
   palette: {
@@ -81,7 +81,12 @@ export default function Head({ selection, setSelection, user }) {
               Logout
             </Button>
             {open ? (
-              <FormDialog open={open} setOpen={setOpen} navigate={navigate} />
+              <LogoutDialog
+                open={open}
+                setOpen={setOpen}
+                navigate={navigate}
+                user={user}
+              />
             ) : (
               ""
             )}
