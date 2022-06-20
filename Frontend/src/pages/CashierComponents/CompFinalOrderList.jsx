@@ -53,7 +53,7 @@ function CompFinalOrderList({ order }) {
 
   return (
     <>
-    <h1> Please check your bill </h1>
+    <h1> Please Confirm Bill </h1>
       <TableContainer component={Paper}>
         <Table
           sx={{ minWidth: 700, maxWidth: 900 }}
