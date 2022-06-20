@@ -4,6 +4,7 @@ import Button from "@mui/material/Button";
 import SendIcon from "@mui/icons-material/Send";
 
 function CompFinalOrderButtons({handleEdit, handlePayment}){
+
     return(
 <Box m={1} display="flex" justifyContent="center" alignItems="center">
         <Stack direction="row" spacing={2}>

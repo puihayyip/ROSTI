@@ -53,6 +53,7 @@ function CompFinalOrderList({ order }) {
 
   return (
     <>
+    <h1> Please check your bill </h1>
       <TableContainer component={Paper}>
         <Table
           sx={{ minWidth: 700, maxWidth: 900 }}
@@ -80,7 +81,7 @@ function CompFinalOrderList({ order }) {
                 // console.log(item)
                 <TableRow key={index}>
                   <TableCell>{item.foodID}</TableCell>
-                  <TableCell align="right">${x}</TableCell>
+                  <TableCell align="right">${ccyFormat(x)}</TableCell>
                   <TableCell align="right">{item.quantity}</TableCell>
                   <TableCell align="right">${ccyFormat(x * item.quantity)}</TableCell>
                 </TableRow>

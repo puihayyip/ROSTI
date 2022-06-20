@@ -11,11 +11,10 @@ export default function TablePreviewBill() {
   const [edit, setEdit]= useState(false)
   const [order, setOrder]=useState(0)
   let {tblNum} = useParams();
-  console.log(tblNum)
 
   const nav = useNavigate();
   const handlePayment = () => {
-    nav("/receipt");
+    nav(`/receipt/${tblNum}`);
   }
   const handleConfirm = () => {
     setEdit(!edit)
@@ -35,8 +34,8 @@ useEffect (() => {
   return (
     <>
       <Head />
-      {edit=== true? <CompEditOrderList order ={order}/> : <CompFinalOrderList order={order} />}
-      {edit=== true? <CompEditOrderButtons handleConfirm={handleConfirm}/> : <CompFinalOrderButtons handlePayment={handlePayment} handleEdit={handleEdit}/>}
+      {edit=== true? <CompEditOrderList order={order}/> : <CompFinalOrderList order={order} />}
+      {edit=== true? <CompEditOrderButtons handleConfirm={handleConfirm}/> : <CompFinalOrderButtons handleEdit={handleEdit} handlePayment={handlePayment}/>}
 
     </>
   );

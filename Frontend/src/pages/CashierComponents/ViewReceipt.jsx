@@ -1,4 +1,3 @@
-import Head from "../GeneralComponents/MainHeader";
 import { styled } from "@mui/material/styles";
 import * as React from "react";
 import Table from "@mui/material/Table";
@@ -8,7 +7,10 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { useNavigate } from "react-router-dom";
+import {useEffect, useState} from 'react'
+import { useParams } from "react-router-dom";
+import CompFinalOrderList from "./CompFinalOrderList";
+import Head from "../GeneralComponents/MainHeader";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -21,15 +23,54 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     fontWeight: "bold",
   },
 }));
-export default function TableFinalBill() {
-  //ok maybe this should sit in the header
-  // const nav =useNavigate()
-  // nav('/cashier')
-  // also need to refresh {Table} to clear orders.
+
+export default function ViewReceipt() {
+  const [order, setOrder]=useState(0)
+  let {tblNum} = useParams();
+
+  useEffect (() => {
+    fetch(`/api/orders/${tblNum}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setOrder(data.data)
+      });
+  },[tblNum]);
+
+  // console.log(order)
+
+  function ccyFormat(num) {
+    return `${num.toFixed(2)}`;
+  }
+  const x = 5.5; //{item.price}
+
+  //? SUBTOTAL
+  const arrayItemSubTotal = [];
+
+  order?.orders?.map((obj, index) =>
+    obj.items.map((item) => arrayItemSubTotal.push(item.quantity * x))
+  );
+
+  let SubTotal=0
+  for (let i=0; i<arrayItemSubTotal.length; i++) {
+     SubTotal = SubTotal + arrayItemSubTotal[i] 
+  }
+
+  //? DISCOUNT
+  let DiscountRate = 0.1
+  let DiscountAmt = DiscountRate * SubTotal
+
+  //? TAX
+  let TaxRate = 0.07;
+  let TaxAmt= (SubTotal - DiscountAmt)*TaxRate
+
+  //? TOTAL
+  let TotalAmt = SubTotal - DiscountAmt + TaxAmt
+
   return (
     <>
-      <Head />
-      <h1> Receipt </h1>
+  <Head/>
+  <h1>Receipt</h1>
+
       <TableContainer component={Paper}>
         <Table
           sx={{ minWidth: 700, maxWidth: 900 }}
@@ -51,35 +92,40 @@ export default function TableFinalBill() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {/* {rows.map((row) => ( */}
-            <TableRow>
-              <TableCell>Yummy Pizza</TableCell>
-              <TableCell align="right">$18</TableCell>
-              <TableCell align="right">2</TableCell>
-              <TableCell align="right">$36</TableCell>
-            </TableRow>
+            {order?.orders?.map((obj, index) =>
+              // console.log(obj)
+              obj.items.map((item) => (
+                // console.log(item)
+                <TableRow key={index}>
+                  <TableCell>{item.foodID}</TableCell>
+                  <TableCell align="right">${ccyFormat(x)}</TableCell>
+                  <TableCell align="right">{item.quantity}</TableCell>
+                  <TableCell align="right">${ccyFormat(x * item.quantity)}</TableCell>
+                </TableRow>
+              ))
+            )}
 
             <TableRow>
               <TableCell rowSpan={4} />
               <StyledTableCell colSpan={2}>Subtotal</StyledTableCell>
-              <TableCell align="right">$100</TableCell>
+              <TableCell align="right">${ccyFormat(SubTotal)}</TableCell>
             </TableRow>
 
             <TableRow>
               <StyledTableCell>Discounts</StyledTableCell>
-              <TableCell align="right">OCBC 20% off</TableCell>
-              <TableCell align="right">$20</TableCell>
+              <TableCell align="right">{`${(DiscountRate*100).toFixed(0)}%`}</TableCell>
+              <TableCell align="right">${ccyFormat(DiscountAmt)}</TableCell>
             </TableRow>
 
             <TableRow>
               <StyledTableCell>Tax</StyledTableCell>
-              <TableCell align="right">7%</TableCell>
-              <TableCell align="right">$7</TableCell>
+              <TableCell align="right">{`${(TaxRate * 100).toFixed(0)}%`}</TableCell>
+              <TableCell align="right">${ccyFormat(TaxAmt)}</TableCell>
             </TableRow>
 
             <TableRow>
               <StyledTableCell colSpan={2}>TOTAL</StyledTableCell>
-              <TableCell align="right">$107</TableCell>
+              <TableCell align="right">${ccyFormat(TotalAmt)}</TableCell>
             </TableRow>
           </TableBody>
         </Table>
@@ -87,5 +133,4 @@ export default function TableFinalBill() {
       <h2> Thank you for visiting our restaurant.</h2>
       <h3> See you again soon.</h3>
     </>
-  );
-}
+  )}
