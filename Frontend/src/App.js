@@ -23,7 +23,7 @@ import ViewTableBill from "./pages/CashierComponents/ViewTableBill";
 export const stateContext = createContext();
 
 function App() {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState({ category: null, username: "" });
 
   return (
     <div className="App">
@@ -33,11 +33,14 @@ function App() {
             path="/"
             element={<UserSelection setUser={setUser} user={user} />}
           >
-            <Route path="/login" element={<Login user={user} />} />
+            <Route
+              path="/login"
+              element={<Login user={user} setUser={setUser} />}
+            />
             <Route path="/users/new" element={<AddUsers />} />
           </Route>
 
-          <Route path="/menu" element={<Order />} />
+          <Route path="/menu" element={<Order user={user} />} />
           {/* <Route path="/cashier" element={<CashierMainView />} /> */}
           <Route path="/kitchen" element={<KitchenMainPage />} />
           <Route path="/cashier" element={<ViewMainCashier />} />

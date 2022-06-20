@@ -1,7 +1,8 @@
-import React from "react";
+import React, { component } from "react";
 import { useNavigate } from "react-router-dom";
-import FastfoodIcon from "@mui/icons-material/Fastfood";
+import $ from "jquery";
 
+import FastfoodIcon from "@mui/icons-material/Fastfood";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -11,12 +12,58 @@ import Typography from "@mui/material/Typography";
 import { useEffect } from "react";
 import { useState } from "react";
 
-function FoodCards({ food }) {
+function FoodCards({ food, cart, setCart }) {
   const navigate = useNavigate();
 
+  useEffect(() => {
+    $(`#${food.foodID}`).on("click", function () {
+      let imgtodrag = $(`#${food.foodID}cardImg`);
+
+      const imgclone = imgtodrag
+        .clone()
+        .offset({
+          top: imgtodrag.offset().top,
+          left: imgtodrag.offset().left,
+        })
+        .css({
+          opacity: "0.8",
+          position: "absolute",
+          height: "150px",
+          width: "150px",
+          "z-index": "100",
+        })
+        .appendTo($("body"))
+        .animate(
+          {
+            top: $(".shoppingCart").offset().top + 20,
+            left: $(".shoppingCart").offset().left + 30,
+            width: 75,
+            height: 75,
+          },
+          1000
+        );
+
+      // setTimeout(function () {
+      // count++;
+      // $(".cart-nav .item-count").text(count);
+      // }, 1500);
+
+      imgclone.animate(
+        {
+          width: 0,
+          height: 0,
+        },
+        function () {
+          $(this).detach();
+        }
+      );
+    });
+  }, []);
+
   const handleAdd = () => {
-    console.log(`hello`);
+    setCart([...cart, food]);
   };
+
   const handleSeeMore = () => {
     navigate(`food/${food._id}`);
   };
@@ -29,6 +76,7 @@ function FoodCards({ food }) {
           height="300"
           image={food.img}
           alt={food.name}
+          id={food.foodID + "cardImg"}
         />
         <br />
         <div style={{ display: "grid", gridTemplateColumns: "4fr 1fr" }}>
@@ -48,7 +96,11 @@ function FoodCards({ food }) {
           gap: "0.6rem",
         }}
       >
-        <Button variant="outlined" onClick={handleAdd}>
+        <Button
+          variant="outlined"
+          onClick={(e) => handleAdd(e)}
+          id={food.foodID}
+        >
           Add to cart
         </Button>
         <Button
@@ -63,7 +115,7 @@ function FoodCards({ food }) {
   );
 }
 
-function Main({ open, setOpen, selection }) {
+function Main({ open, setOpen, selection, cart, setCart }) {
   const [allFood, setAllFood] = useState([]);
   const handleClick = () => {
     setOpen(!open);
@@ -124,6 +176,7 @@ function Main({ open, setOpen, selection }) {
             border: open ? "2px black solid" : "2px steelblue solid",
             borderRadius: "50%",
           }}
+          className="shoppingCart"
         />
       </div>
       {selection === 0 ? (
@@ -133,7 +186,12 @@ function Main({ open, setOpen, selection }) {
               (food) => food.mainSect === "food" || food.mainSect === "drinks"
             )
             .map((food, index) => (
-              <FoodCards food={food} key={index} />
+              <FoodCards
+                food={food}
+                key={index}
+                cart={cart}
+                setCart={setCart}
+              />
             ))}
         </div>
       ) : (
@@ -141,7 +199,12 @@ function Main({ open, setOpen, selection }) {
           {allFood
             .filter((food) => food.mainSect === category)
             .map((food, index) => (
-              <FoodCards food={food} key={index} />
+              <FoodCards
+                food={food}
+                key={index}
+                cart={cart}
+                setCart={setCart}
+              />
             ))}
         </div>
       )}

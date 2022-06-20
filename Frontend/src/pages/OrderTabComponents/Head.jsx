@@ -18,8 +18,7 @@ const theme = createTheme({
   },
 });
 
-export default function Head({ selection, setSelection }) {
-  const user = 34; //To be fetched
+export default function Head({ selection, setSelection, user }) {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
 
@@ -54,7 +53,7 @@ export default function Head({ selection, setSelection }) {
               sx={{ flexGrow: 1, textAlign: "right" }}
               color="white"
             >
-              Table Number: {user}
+              Table Number: {user.username}
             </Typography>
           </Toolbar>
           <div style={{ display: "flex", justifyContent: "space-between" }}>
@@ -81,7 +80,11 @@ export default function Head({ selection, setSelection }) {
             >
               Logout
             </Button>
-            {open ? <FormDialog open={open} setOpen={setOpen} navigate={navigate}/> : ""}
+            {open ? (
+              <FormDialog open={open} setOpen={setOpen} navigate={navigate} />
+            ) : (
+              ""
+            )}
           </div>
         </AppBar>
       </ThemeProvider>
