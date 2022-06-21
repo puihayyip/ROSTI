@@ -24,54 +24,43 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   },
 }));
 
-export default function CompOrderList({ order }) {
-  const [cooked, SetCooked] = useState(false);
-  const [served, SetServed] = useState(false);
+export default function CompOrderList() {
   const [orders, setOrders] = useState({});
-
-  const handleKitchen = () => {
-    console.log("Kitchen completed this dish");
-    SetCooked(!cooked);
-  };
-
-  const handleService = () => {
-    console.log("Dish has been served to table");
-    SetServed(!served);
-  };
+  const [toggle, setToggle] = useState([]);
 
   const fetchOrders = () => {
     fetch("api/orders/")
       .then((res) => res.json())
       .then((data) => {
         const newObj = {};
+        let count = 1;
         for (let eachTable of data.data) {
           const tblNum = eachTable.tblNum;
           newObj[tblNum] = [];
           for (let eachOrder of eachTable.orders) {
             for (let item of eachOrder.items) {
+              setToggle((toggle) => [...toggle, false]);
+
               newObj[tblNum].push(
                 <TableRow>
+                  <TableCell>{count}</TableCell>
                   <TableCell>{item.name}</TableCell>
                   <TableCell align="right">{item.quantity}</TableCell>
                   <TableCell align="right">{tblNum}</TableCell>
-                  <TableCell align="right">Hide ring </TableCell>
+                  <TableCell align="right">hello</TableCell>
                   <TableCell align="right">
-                    {" "}
                     <CompButtonsKitchen
-                      handleKitchen={handleKitchen}
-                      cooked={cooked}
+                      count={count}
+                      setToggle={setToggle}
+                      toggle={toggle}
                     />
                   </TableCell>
                   <TableCell align="right">
-                    {" "}
-                    <CompButtonsService
-                      handleService={handleService}
-                      cooked={cooked}
-                      served={served}
-                    />{" "}
+                    <CompButtonsService count={count} toggle={toggle} />
                   </TableCell>
                 </TableRow>
               );
+              count++;
             }
           }
         }
@@ -81,7 +70,11 @@ export default function CompOrderList({ order }) {
 
   useEffect(() => {
     fetchOrders();
-  }, [cooked, served]);
+  }, []);
+
+  useEffect(() => {
+    console.log(toggle);
+  }, [toggle]);
 
   return (
     <>
@@ -95,6 +88,7 @@ export default function CompOrderList({ order }) {
           <TableHead>
             <TableRow></TableRow>
             <TableRow>
+              <StyledTableCell>Order no</StyledTableCell>
               <StyledTableCell>Item Name</StyledTableCell>
               <StyledTableCell align="right">Quantity</StyledTableCell>
               <StyledTableCell align="right">Table No.</StyledTableCell>
