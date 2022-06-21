@@ -27,22 +27,21 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 
 export default function CompEditOrderList({ order }) {
   let { tblNum } = useParams();
-  const [update, setUpdate] = useState();
-  // const [qty, setQty] = useState(0);
+  // const [update, setUpdate] = useState();
 
-  useEffect(() => {
-    fetch(`/api/orders/${tblNum}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ ...order, order }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setUpdate(data); // (data.data);
-      });
-  }, []);
+  // useEffect(() => {
+  //   fetch(`/api/orders/${tblNum}`, {
+  //     method: "PUT",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({ ...order, order }),
+  //   })
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       setUpdate(data); // (data.data);
+  //     });
+  // }, []);
 
   //////////////////
   function ccyFormat(num) {
@@ -72,6 +71,16 @@ export default function CompEditOrderList({ order }) {
   //? TOTAL
   let TotalAmt = SubTotal - DiscountAmt + TaxAmt;
 
+  // order?.orders?.map((obj, index) =>
+  //   obj.items.map((item) => <CompMapEdit item={item} />)
+  // )
+  const ComMapEditArr = [];
+  for (let obj of order.orders) {
+    for (let item of obj.items) {
+      ComMapEditArr.push(<CompMapEdit item={item} objID={obj._id} />);
+    }
+  }
+
   ///////////////////
 
   return (
@@ -94,10 +103,10 @@ export default function CompEditOrderList({ order }) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {order?.orders?.map((obj, index) =>
+            {/* {order?.orders?.map((obj, index) =>
               obj.items.map((item) => <CompMapEdit item={item} />)
-            )}
-
+            )} */}
+            {ComMapEditArr}
             <TableRow>
               <TableCell rowSpan={4} />
               <StyledTableCell colSpan={2}>Subtotal</StyledTableCell>

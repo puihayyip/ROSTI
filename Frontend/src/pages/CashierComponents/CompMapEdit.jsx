@@ -12,7 +12,7 @@ for (let i = 0; i <= 10; i++) {
   quantities.push({ value: i, label: i });
 }
 
-export default function CompMapTableRow({ item }) {
+export default function CompMapTableRow({ item, objID }) {
   const [edit, setEdit] = useState(false);
   const [qty, setQty] = useState(item.quantity);
 

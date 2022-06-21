@@ -75,17 +75,31 @@ router.post("/new/", async (req, res) => {
 });
 //! UPDATE
 
-router.put("/:id", async (req, res) => {
+router.put("/edit/:id", async (req, res) => {
   // console.log (req.params.id)
   try {
     const updatedOrder = await ordersSchema.findOneAndUpdate(
       { tblNum: req.params.id },
-      req.body,
-      { new: true }
+      {
+        $set: {
+          "orders.$[Orders].items.$[Items].quantity": req.body.qty,
+        },
+      },
+      {
+        arrayFilters: [
+          {
+            "Orders.orderNum": req.body.orderID,
+          },
+          {
+            "Items.name": req.body.itemID,
+          },
+        ],
+      }
     );
-    res.send(updatedOrder);
+    res.send({ status: "success", data: updatedOrder });
   } catch (error) {
-    res.send(error);
+    res.send({ status: "error", data: error });
   }
 });
+
 module.exports = router;

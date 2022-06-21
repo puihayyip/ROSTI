@@ -31,24 +31,26 @@ export default function TablePreviewBill({ user }) {
       .then((response) => response.json())
       .then((data) => {
         setOrder(data.data);
+        console.log("fetching");
       });
-  }, [tblNum]);
+  }, [edit]);
 
   return (
     <>
       <Head user={user} />
       {edit === true ? (
-        <CompEditOrderList order={order} />
+        <>
+          <CompEditOrderList order={order} />
+          <CompEditOrderButtons handleConfirm={handleConfirm} />
+        </>
       ) : (
-        <CompFinalOrderList order={order} />
-      )}
-      {edit === true ? (
-        <CompEditOrderButtons handleConfirm={handleConfirm} />
-      ) : (
-        <CompFinalOrderButtons
-          handleEdit={handleEdit}
-          handlePayment={handlePayment}
-        />
+        <>
+          <CompFinalOrderList order={order} />
+          <CompFinalOrderButtons
+            handleEdit={handleEdit}
+            handlePayment={handlePayment}
+          />
+        </>
       )}
     </>
   );
