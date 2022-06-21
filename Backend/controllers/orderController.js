@@ -39,6 +39,7 @@ router.get("/:id", async (req, res) => {
     res.send(error);
   }
 });
+
 router.get("/each/:id", async (req, res) => {
   try {
     const allOrders = await ordersSchema.findOne({
