@@ -12,18 +12,18 @@ for (let i = 0; i <= 10; i++) {
   quantities.push({ value: i, label: i });
 }
 
-export default function CompMapTableRow({ item, handleUpdate }) {
+export default function CompMapTableRow({ item }) {
   const [edit, setEdit] = useState(false);
-  const [qty, setQty] = useState(item.quantities);
+  const [qty, setQty] = useState(item.quantity);
 
   const handleChange = (event) => {
     setQty(event.target.value);
+    console.log(item);
   };
 
-  // const handleChangeReq = (event) => {
-  //   setQty(event.target.value);
-  //   setEdit(!edit);
-  // };
+  const handleUpdate = () => {
+    setEdit(!edit);
+  };
 
   function ccyFormat(num) {
     return `${num.toFixed(2)}`;
@@ -35,35 +35,26 @@ export default function CompMapTableRow({ item, handleUpdate }) {
       <TableCell align="right">${ccyFormat(item.price)}</TableCell>
 
       <TableCell align="right">
-        {/* <TextField
-          hiddenLabel
-          id="filled-hidden-label-normal"
-          defaultValue={item.quantities}
-          variant="filled"
-          // sx={{ maxHeight: "2px" }}
-          // onChange={(event) => setQty(event.target.value) setEdit(!edit)} value={qty}/>
-          onChange={handleChangeReq}
-          value={qty}
-        /> */}
-        <TextField
-          id="outlined-select-currency"
-          select
-          label="Select"
-          value={qty}
-          onChange={handleChange}
-          helperText="Please select your quantities"
-        >
-          {quantities.map((option) => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </TextField>
+        {edit ? (
+          <TextField
+            id="outlined-select-currency"
+            select
+            value={qty}
+            onChange={handleChange}
+            sx={{ maxWidth: "60px", minWidth: "60px" }}
+          >
+            {quantities.map((option) => (
+              <MenuItem key={option.value} value={option.value}>
+                {option.label}
+              </MenuItem>
+            ))}
+          </TextField>
+        ) : (
+          <TableCell align="right">{qty} </TableCell>
+        )}
       </TableCell>
 
-      <TableCell align="right">
-        ${ccyFormat(item.price * parseInt(item.quantity))}
-      </TableCell>
+      <TableCell align="right">${ccyFormat(item.price * qty)}</TableCell>
       <TableCell align="right">
         {<EditIcon sx={{ cursor: "pointer" }} onClick={handleUpdate} />}
       </TableCell>

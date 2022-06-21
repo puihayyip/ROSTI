@@ -28,7 +28,6 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 export default function CompEditOrderList({ order }) {
   let { tblNum } = useParams();
   const [update, setUpdate] = useState();
-  const [edit, setEdit] = useState(false);
   // const [qty, setQty] = useState(0);
 
   useEffect(() => {
@@ -44,11 +43,6 @@ export default function CompEditOrderList({ order }) {
         setUpdate(data); // (data.data);
       });
   }, []);
-
-  const handleUpdate = (event) => {
-    console.log("e", event);
-    setEdit(!edit);
-  };
 
   //////////////////
   function ccyFormat(num) {
@@ -101,28 +95,7 @@ export default function CompEditOrderList({ order }) {
           </TableHead>
           <TableBody>
             {order?.orders?.map((obj, index) =>
-              // console.log(obj)
-              obj.items.map(
-                (item) => (
-                  // console.log(item)
-                  <CompMapEdit handleUpdate={handleUpdate} item={item} />
-                )
-                // edit === true ? (
-                //   <CompMapEdit handleUpdate={handleUpdate} item={item} />
-                // ) : (
-                //   <CompMapTableRow handleUpdate={handleUpdate} item={item} />
-                // )
-
-                // <TableRow>
-                // <TableCell>{item.name}</TableCell>
-                // <TableCell align="right">${ccyFormat(item.price)}</TableCell>
-                // <TableCell align="right">{item.quantity} </TableCell>
-                // <TableCell align="right">
-                //   ${ccyFormat(item.price * item.quantity)}
-                // </TableCell>
-                // <TableCell align="right" onClick={handleChangeReq}>{<EditIcon />}</TableCell>
-                // </TableRow>
-              )
+              obj.items.map((item) => <CompMapEdit item={item} />)
             )}
 
             <TableRow>
