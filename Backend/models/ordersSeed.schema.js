@@ -6,6 +6,8 @@ var subSchema = new mongoose.Schema(
     items: [
       {
         foodID: { type: Number },
+        name: { type: String },
+        price: { type: Number },
         quantity: { type: Number },
         foodPrepared: { type: String, default: "off" },
         foodSent: { type: String, default: "off" },

@@ -7,7 +7,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import TextField from '@mui/material/TextField';
+import TextField from "@mui/material/TextField";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
@@ -23,27 +23,25 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   },
 }));
 
-function CompEditOrderList({order}) {
-
-  let {tblNum} = useParams();
+function CompEditOrderList({ order }) {
+  let { tblNum } = useParams();
 
   const [update, setUpdate] = useState(0);
 
   const handleUpdate = (event) => {
- setUpdate(event.target.value)
+    setUpdate(event.target.value);
 
-fetch(`/api/orders/${tblNum}`, {
-  method: "PUT",
-  headers: {
-    "Content-Type": "application/json",
-  },
-  body: JSON.stringify({ ...order, order }),
-})
-  .then((response) => response.json())
-  .then((data) => {
-setUpdate(data)    // replaceHoliday(data.data);
-  });
-
+    fetch(`/api/orders/${tblNum}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ ...order, order }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setUpdate(data); // replaceHoliday(data.data);
+      });
   };
 
   function ccyFormat(num) {
@@ -111,7 +109,7 @@ setUpdate(data)    // replaceHoliday(data.data);
                     id="filled-hidden-label-normal"
                     defaultValue={item.quantity}
                     variant="filled"
-                    onChange ={handleUpdate}
+                    onChange={handleUpdate}
                   />{" "}
                   <TableCell align="right">
                     ${ccyFormat(x * item.quantity)}
