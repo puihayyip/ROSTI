@@ -7,12 +7,9 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-<<<<<<< HEAD
 import TextField from "@mui/material/TextField";
 import { useState, useEffect } from "react";
-=======
 import { useState } from "react";
->>>>>>> 6071a2be4d801d6c833d71095f722e93d0730c9a
 import { useParams } from "react-router-dom";
 import CompMapTableRow from './CompMapTableRow'
 import CompMapEdit from './CompMapEdit'

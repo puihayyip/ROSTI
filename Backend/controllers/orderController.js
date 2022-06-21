@@ -61,41 +61,13 @@ router.post("/new/", async (req, res) => {
     res.send(err);
   }
 });
-<<<<<<< HEAD
-// //! UPDATE
-
-// router.get('/:id'), async (req, res) => {
-//   const foundOrder = await ordersSchema.findOne(req.params.id)
-//   console.log (foundOrder)
-// router.put("/:id", async (req, res) => {
-//   const { id } = req.params;
-//   try {
-//     const updateOrder = await ordersSchema.updateOne{
-
-//     }(id, req.body, {
-//       new: true,
-//     });
-//     // const updateOrder = await ordersSchema.findByIdAndUpdate(id, req.body, {
-//     //   new: true,
-//     // });
-
-//     res
-//       .status(StatusCodes.OK)
-//       .send({ status: "success:", data: updateOrder });
-//   } catch (error) {
-//     res.send(error);
-//   }
-// });
-
-=======
 //! UPDATE
 
 router.put("/:id", async (req, res) => {
-
   // console.log (req.params.id)
   try {
     const updatedOrder = await ordersSchema.findOneAndUpdate(
-      {tblNum:req.params.id},
+      { tblNum: req.params.id },
       req.body,
       { new: true }
     );
@@ -104,5 +76,4 @@ router.put("/:id", async (req, res) => {
     res.send(error);
   }
 });
->>>>>>> 6071a2be4d801d6c833d71095f722e93d0730c9a
 module.exports = router;

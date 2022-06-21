@@ -15,26 +15,16 @@ export default function TablePreviewBill() {
   const nav = useNavigate();
   const handlePayment = () => {
     nav(`/receipt/${tblNum}`);
-<<<<<<< HEAD
   };
   const handleConfirm = () => {
     setEdit(!edit);
+    nav(`/tablebill/${tblNum}`);
+    //update with the PUT route
   };
   const handleEdit = () => {
     setEdit(!edit);
+    nav(`/tablebill/${tblNum}/edit`);
   };
-=======
-  }
-  const handleConfirm = () => {
-    setEdit(!edit)
-    nav(`/tablebill/${tblNum}`)
-    //update with the PUT route
-  };
-const handleEdit = () => {
-  setEdit(!edit)
-  nav(`/tablebill/${tblNum}/edit`);
-};
->>>>>>> 6071a2be4d801d6c833d71095f722e93d0730c9a
 
   useEffect(() => {
     fetch(`/api/orders/${tblNum}`)
