@@ -103,31 +103,7 @@ export default function CompOrderList({ order }) {
               <StyledTableCell align="right">Table Receive</StyledTableCell>
             </TableRow>
           </TableHead>
-          <TableBody>
-            {Object.values(orders).map((order) => order)}
-            {/* {rows.map((row) => ( */}
-            {/* <TableRow>
-              <TableCell>Yummy Pizza</TableCell>
-              <TableCell align="right">2</TableCell>
-              <TableCell align="right">Table 34 </TableCell>
-              <TableCell align="right">Hide ring </TableCell>
-              <TableCell align="right">
-                {" "}
-                <CompButtonsKitchen
-                  handleKitchen={handleKitchen}
-                  cooked={cooked}
-                />
-              </TableCell>
-              <TableCell align="right">
-                {" "}
-                <CompButtonsService
-                  handleService={handleService}
-                  cooked={cooked}
-                  served={served}
-                />{" "}
-              </TableCell>
-            </TableRow> */}
-          </TableBody>
+          <TableBody>{Object.values(orders).map((order) => order)}</TableBody>
         </Table>
       </TableContainer>
     </>

@@ -17,11 +17,11 @@ router.get("/seed", async (req, res) => {
     res.send(error);
   }
 });
-//! INDEX
+//! ALL
 router.get("/", async (req, res) => {
   try {
     const allOrders = await ordersSchema.find({});
-    console.log(req.params.id)
+    console.log(req.params.id);
     res.send({ status: "success", data: allOrders });
   } catch (error) {
     res.send(error);
@@ -30,8 +30,10 @@ router.get("/", async (req, res) => {
 //! INDEX
 router.get("/:id", async (req, res) => {
   try {
-    const allOrders = await ordersSchema.findOne({tblNum: parseInt(req.params.id)});
-    console.log(req.params.id)
+    const allOrders = await ordersSchema.findOne({
+      tblNum: parseInt(req.params.id),
+    });
+    console.log(req.params.id);
     res.send({ status: "success", data: allOrders });
   } catch (error) {
     res.send(error);
@@ -68,14 +70,14 @@ router.post("/new/", async (req, res) => {
 //   const { id } = req.params;
 //   try {
 //     const updateOrder = await ordersSchema.updateOne{
-      
+
 //     }(id, req.body, {
 //       new: true,
 //     });
 //     // const updateOrder = await ordersSchema.findByIdAndUpdate(id, req.body, {
 //     //   new: true,
 //     // });
-    
+
 //     res
 //       .status(StatusCodes.OK)
 //       .send({ status: "success:", data: updateOrder });
@@ -83,6 +85,5 @@ router.post("/new/", async (req, res) => {
 //     res.send(error);
 //   }
 // });
-
 
 module.exports = router;

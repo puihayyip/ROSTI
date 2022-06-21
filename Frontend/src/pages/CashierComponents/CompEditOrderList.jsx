@@ -30,6 +30,7 @@ function CompEditOrderList({ order }) {
 
   const handleUpdate = (event) => {
     setUpdate(event.target.value);
+    console.log(event.target.value);
 
     fetch(`/api/orders/${tblNum}`, {
       method: "PUT",
