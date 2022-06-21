@@ -7,11 +7,12 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import TextField from "@mui/material/TextField";
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import CompMapTableRow from "./CompMapTableRow";
 import CompMapEdit from "./CompMapEdit";
+import EditIcon from '@mui/icons-material/Edit';
+
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -25,50 +26,41 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   },
 }));
 
-function CompEditOrderList({ order }) {
+export default function CompEditOrderList({ order }) {
   let { tblNum } = useParams();
+  const [update, setUpdate]=useState()
+  const [edit, setEdit] = useState(false);
+  // const [qty, setQty] = useState(0);
 
-  const [update, setUpdate] = useState({});
+  useEffect (() => {
+  fetch(`/api/orders/${tblNum}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ ...order, order }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      setUpdate(data); // (data.data);
+    });
+   } ,[])
 
   const handleUpdate = (event) => {
-    console.log("e", event.target.value);
-
-    fetch(`/api/orders/${tblNum}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ order }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setUpdate(data.data); // replaceHoliday(data.data);
-        console.log(update);
-      });
-
-    fetch(`/api/orders/${tblNum}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ ...order, order }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setUpdate(data); // replaceHoliday(data.data);
-      });
-  };
-
+    console.log("e", event)
+    setEdit(!edit)
+  }
+    
+  //////////////////
   function ccyFormat(num) {
     return `${num.toFixed(2)}`;
   }
-  const x = 5.5; //{item.price}
 
   //? SUBTOTAL
   const arrayItemSubTotal = [];
 
   order?.orders?.map((obj, index) =>
-    obj.items.map((item) => arrayItemSubTotal.push(item.quantity * x))
+    obj.items.map((item) => arrayItemSubTotal.push(item.quantity * item.price))
   );
 
   let SubTotal = 0;
@@ -87,6 +79,8 @@ function CompEditOrderList({ order }) {
   //? TOTAL
   let TotalAmt = SubTotal - DiscountAmt + TaxAmt;
 
+  ///////////////////
+
   return (
     <>
       <h1> Please Confirm Bill </h1>
@@ -104,16 +98,26 @@ function CompEditOrderList({ order }) {
               <StyledTableCell align="right">Quantity</StyledTableCell>
               <StyledTableCell align="right">Sub-total</StyledTableCell>
               <StyledTableCell align="right"></StyledTableCell>
-              <StyledTableCell align="right"></StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
+
             {order?.orders?.map((obj, index) =>
               // console.log(obj)
               obj.items.map((item) => (
                 // console.log(item)
+                
+                (edit === true)? <CompMapEdit item={item} />:<CompMapTableRow handleUpdate={handleUpdate} item={item} />
 
-                <CompMapTableRow handleUpdate={handleUpdate} item={item} />
+                // <TableRow>
+                // <TableCell>{item.name}</TableCell>
+                // <TableCell align="right">${ccyFormat(item.price)}</TableCell>
+                // <TableCell align="right">{item.quantity} </TableCell>
+                // <TableCell align="right">
+                //   ${ccyFormat(item.price * item.quantity)}
+                // </TableCell>
+                // <TableCell align="right" onClick={handleChangeReq}>{<EditIcon />}</TableCell>
+                // </TableRow>
               ))
             )}
 
@@ -149,4 +153,3 @@ function CompEditOrderList({ order }) {
     </>
   );
 }
-export default CompEditOrderList;

@@ -2,20 +2,27 @@ import * as React from "react";
 import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
 import TextField from '@mui/material/TextField';
+import EditIcon from '@mui/icons-material/Edit';
+import {useState} from 'react'
 
+export default function CompMapTableRow ({item}) {
 
-export default function CompMapTableRow ({item, handleUpdate}) {
+  const [edit, setEdit] = useState(false);
 
+  const handleChangeReq = (event) => {
+    setQty(event.target.value)
+    setEdit(!edit)
+  }
+  
+  const [qty, setQty] = useState(item.quantity)
     function ccyFormat(num) {
         return `${num.toFixed(2)}`;
       }
     
-    const x = 5.5; //{item.price}
-    
     return(
-        <TableRow>
-                  <TableCell>{item.foodID}</TableCell>
-                  <TableCell align="right">${ccyFormat(x)}</TableCell>
+      <TableRow>
+                  <TableCell>{item.name}</TableCell>
+                  <TableCell align="right">${ccyFormat(item.price)}</TableCell>
                  
                   <TableCell align="right">
                   <TextField
@@ -23,13 +30,14 @@ export default function CompMapTableRow ({item, handleUpdate}) {
                     id="filled-hidden-label-normal"
                     defaultValue={item.quantity}
                     variant="filled"
-                    onChange ={handleUpdate}
-                  /> </TableCell>
+                    // onChange={(event) => setQty(event.target.value) setEdit(!edit)} value={qty}/> 
+                    onChange={handleChangeReq} value={qty}/> 
+                    </TableCell>
 
                   <TableCell align="right">
-                    ${ccyFormat(x * item.quantity)}
+                    ${ccyFormat(item.price * item.quantity)}
                   </TableCell>
-
+                  <TableCell align="right">{<EditIcon />}</TableCell>
         </TableRow>
 
     )
