@@ -19,6 +19,7 @@ export default function TablePreviewBill() {
   const handleConfirm = () => {
     setEdit(!edit)
     nav(`/tablebill/${tblNum}`)
+    //update with the PUT route
   };
 const handleEdit = () => {
   setEdit(!edit)

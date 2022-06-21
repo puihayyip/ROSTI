@@ -7,9 +7,10 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import TextField from '@mui/material/TextField';
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useParams } from "react-router-dom";
+import CompMapTableRow from './CompMapTableRow'
+import CompMapEdit from './CompMapEdit'
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -27,10 +28,10 @@ function CompEditOrderList({order}) {
 
   let {tblNum} = useParams();
 
-  const [update, setUpdate] = useState(0);
+  const [update, setUpdate] = useState({});
 
   const handleUpdate = (event) => {
- setUpdate(event.target.value)
+ console.log("e", event.target.value)
 
 fetch(`/api/orders/${tblNum}`, {
  method: "PUT",
@@ -41,7 +42,8 @@ fetch(`/api/orders/${tblNum}`, {
  })
    .then((response) => response.json())
    .then((data) => {
- setUpdate(data)    // replaceHoliday(data.data);
+ setUpdate(data.data)    // replaceHoliday(data.data);
+ console.log(update)
    });
 
   };
@@ -86,37 +88,23 @@ fetch(`/api/orders/${tblNum}`, {
         >
           <TableHead>
             <TableRow>
-              {/* <TableCell align="center" colSpan={3}>
-              Details
-            </TableCell>
-            <TableCell align="right">Price</TableCell> */}
-            </TableRow>
-            <TableRow>
               <StyledTableCell>Item Name</StyledTableCell>
               <StyledTableCell align="right">Item Price</StyledTableCell>
               <StyledTableCell align="right">Quantity</StyledTableCell>
               <StyledTableCell align="right">Sub-total</StyledTableCell>
+              <StyledTableCell align="right"></StyledTableCell>
+              <StyledTableCell align="right"></StyledTableCell>
+
             </TableRow>
           </TableHead>
           <TableBody>
+
             {order?.orders?.map((obj, index) =>
               // console.log(obj)
               obj.items.map((item) => (
                 // console.log(item)
-                <TableRow key={index}>
-                  <TableCell>{item.foodID}</TableCell>
-                  <TableCell align="right">${ccyFormat(x)}</TableCell>
-                  <TextField
-                    hiddenLabel
-                    id="filled-hidden-label-normal"
-                    defaultValue={item.quantity}
-                    variant="filled"
-                    onChange ={handleUpdate}
-                  />{" "}
-                  <TableCell align="right">
-                    ${ccyFormat(x * item.quantity)}
-                  </TableCell>
-                </TableRow>
+                
+                <CompMapTableRow handleUpdate={handleUpdate} item={item}/>
               ))
             )}
 

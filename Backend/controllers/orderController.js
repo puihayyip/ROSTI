@@ -61,12 +61,7 @@ router.post("/new/", async (req, res) => {
     res.send(err);
   }
 });
-// //! UPDATE
-
-// router.get('/:id/edit'), async (req, res) => {
-//   const foundOrder = await ordersSchema.findOne(req.params.id)
-//   console.log (foundOrder)
-// }
+//! UPDATE
 
 router.put("/:id", async (req, res) => {
 

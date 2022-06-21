@@ -7,6 +7,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import jQuery from "jquery";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -62,12 +63,6 @@ function CompFinalOrderList({ order }) {
         >
           <TableHead>
             <TableRow>
-              {/* <TableCell align="center" colSpan={3}>
-              Details
-            </TableCell>
-            <TableCell align="right">Price</TableCell> */}
-            </TableRow>
-            <TableRow>
               <StyledTableCell>Item Name</StyledTableCell>
               <StyledTableCell align="right">Item Price</StyledTableCell>
               <StyledTableCell align="right">Quantity</StyledTableCell>
@@ -77,12 +72,12 @@ function CompFinalOrderList({ order }) {
           <TableBody>
             {order?.orders?.map((obj, index) =>
               // console.log(obj)
-              obj.items.map((item) => (
+              obj.items.map((item,ind) => (
                 // console.log(item)
-                <TableRow key={index}>
+                <TableRow key={ind}>
                   <TableCell>{item.foodID}</TableCell>
                   <TableCell align="right">${ccyFormat(x)}</TableCell>
-                  <TableCell align="right">{item.quantity}</TableCell>
+                  <TableCell align="right" id={ind}>{item.quantity}</TableCell>
                   <TableCell align="right">${ccyFormat(x * item.quantity)}</TableCell>
                 </TableRow>
               ))
