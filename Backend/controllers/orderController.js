@@ -39,6 +39,18 @@ router.get("/:id", async (req, res) => {
     res.send(error);
   }
 });
+router.get("/each/:id", async (req, res) => {
+  try {
+    const allOrders = await ordersSchema.findOne({
+      // tblNum: parseInt(req.params.id),
+      _id: req.params.id,
+    });
+    console.log(req.params.id);
+    res.send({ status: "success", data: allOrders });
+  } catch (error) {
+    res.send(error);
+  }
+});
 //! CREATE
 router.post("/new/", async (req, res) => {
   const prevOrder = await ordersSchema.findOne({ tblNum: req.body.tblNum });

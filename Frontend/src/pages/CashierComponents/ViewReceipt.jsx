@@ -7,7 +7,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import {useEffect, useState} from 'react'
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import CompFinalOrderList from "./CompFinalOrderList";
 import Head from "../GeneralComponents/MainHeader";
@@ -24,17 +24,17 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   },
 }));
 
-export default function ViewReceipt() {
-  const [order, setOrder]=useState(0)
-  let {tblNum} = useParams();
+export default function ViewReceipt({ user }) {
+  const [order, setOrder] = useState(0);
+  let { tblNum } = useParams();
 
-  useEffect (() => {
+  useEffect(() => {
     fetch(`/api/orders/${tblNum}`)
       .then((response) => response.json())
       .then((data) => {
-        setOrder(data.data)
+        setOrder(data.data);
       });
-  },[tblNum]);
+  }, [tblNum]);
 
   // console.log(order)
 
@@ -50,26 +50,26 @@ export default function ViewReceipt() {
     obj.items.map((item) => arrayItemSubTotal.push(item.quantity * x))
   );
 
-  let SubTotal=0
-  for (let i=0; i<arrayItemSubTotal.length; i++) {
-     SubTotal = SubTotal + arrayItemSubTotal[i] 
+  let SubTotal = 0;
+  for (let i = 0; i < arrayItemSubTotal.length; i++) {
+    SubTotal = SubTotal + arrayItemSubTotal[i];
   }
 
   //? DISCOUNT
-  let DiscountRate = 0.1
-  let DiscountAmt = DiscountRate * SubTotal
+  let DiscountRate = 0.1;
+  let DiscountAmt = DiscountRate * SubTotal;
 
   //? TAX
   let TaxRate = 0.07;
-  let TaxAmt= (SubTotal - DiscountAmt)*TaxRate
+  let TaxAmt = (SubTotal - DiscountAmt) * TaxRate;
 
   //? TOTAL
-  let TotalAmt = SubTotal - DiscountAmt + TaxAmt
+  let TotalAmt = SubTotal - DiscountAmt + TaxAmt;
 
   return (
     <>
-  <Head/>
-  <h1>Receipt</h1>
+      <Head user={user} />
+      <h1>Receipt</h1>
 
       <TableContainer component={Paper}>
         <Table
@@ -100,7 +100,9 @@ export default function ViewReceipt() {
                   <TableCell>{item.foodID}</TableCell>
                   <TableCell align="right">${ccyFormat(x)}</TableCell>
                   <TableCell align="right">{item.quantity}</TableCell>
-                  <TableCell align="right">${ccyFormat(x * item.quantity)}</TableCell>
+                  <TableCell align="right">
+                    ${ccyFormat(x * item.quantity)}
+                  </TableCell>
                 </TableRow>
               ))
             )}
@@ -113,13 +115,17 @@ export default function ViewReceipt() {
 
             <TableRow>
               <StyledTableCell>Discounts</StyledTableCell>
-              <TableCell align="right">{`${(DiscountRate*100).toFixed(0)}%`}</TableCell>
+              <TableCell align="right">{`${(DiscountRate * 100).toFixed(
+                0
+              )}%`}</TableCell>
               <TableCell align="right">${ccyFormat(DiscountAmt)}</TableCell>
             </TableRow>
 
             <TableRow>
               <StyledTableCell>Tax</StyledTableCell>
-              <TableCell align="right">{`${(TaxRate * 100).toFixed(0)}%`}</TableCell>
+              <TableCell align="right">{`${(TaxRate * 100).toFixed(
+                0
+              )}%`}</TableCell>
               <TableCell align="right">${ccyFormat(TaxAmt)}</TableCell>
             </TableRow>
 
@@ -133,4 +139,5 @@ export default function ViewReceipt() {
       <h2> Thank you for visiting our restaurant.</h2>
       <h3> See you again soon.</h3>
     </>
-  )}
+  );
+}

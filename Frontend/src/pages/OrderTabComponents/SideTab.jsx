@@ -10,7 +10,7 @@ function SideTab({ cart, user, setCart }) {
 
     for (let food of cart) {
       orderObj.orders[0].items.push({
-        foodID: food.food.foodID,
+        _id: food.food._id,
         name: food.food.name,
         price: food.food.price,
         quantity: food.qty,

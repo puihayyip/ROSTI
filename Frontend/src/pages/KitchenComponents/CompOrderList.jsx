@@ -81,7 +81,7 @@ export default function CompOrderList({ order }) {
 
   useEffect(() => {
     fetchOrders();
-  }, []);
+  }, [cooked, served]);
 
   return (
     <>

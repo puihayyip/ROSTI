@@ -37,9 +37,18 @@ function App() {
           {/* <Route path="/cashier" element={<CashierMainView />} /> */}
           <Route path="/kitchen" element={<KitchenMainPage user={user} />} />
           <Route path="/cashier" element={<ViewMainCashier />} />
-          <Route path="/tablebill/:tblNum" element={<ViewTableBill />} />
-          <Route path="/tablebill/:tblNum/edit" element={<ViewTableBill />} />
-          <Route path="/receipt/:tblNum" element={<ViewReceipt />} />
+          <Route
+            path="/tablebill/:tblNum"
+            element={<ViewTableBill user={user} />}
+          />
+          <Route
+            path="/tablebill/:tblNum/edit"
+            element={<ViewTableBill user={user} />}
+          />
+          <Route
+            path="/receipt/:tblNum"
+            element={<ViewReceipt user={user} />}
+          />
         </Routes>
         <ScrollToTopBtn />
       </BrowserRouter>

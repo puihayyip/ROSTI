@@ -41,8 +41,6 @@ function FormDialog({ open, setOpen, user }) {
       password: password,
       usercategory: user.category,
     };
-    // e.target.reset();
-
     fetchUser(value);
   };
 
