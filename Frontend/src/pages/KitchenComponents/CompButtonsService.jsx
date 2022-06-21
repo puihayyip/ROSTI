@@ -1,17 +1,33 @@
-import ButtontrueServed from "./ButtontrueServed"
-import ButtonfalseServed from "./ButtonfalseServed"
-export default function CompButtonsService({handleService, served, cooked}){
-  
-  // if (cooked===true) {
+import ButtontrueServed from "./ButtontrueServed";
+import ButtonfalseServed from "./ButtonfalseServed";
+import { useState } from "react";
 
-    return(
-      <>
-    {served===true?  <ButtontrueServed handleService={handleService}/> : <ButtonfalseServed handleService={handleService} />}
-</>) 
-// }
+export default function CompButtonsService({ count, toggle }) {
+  const [cooked, SetCooked] = useState(false);
+  const [served, SetServed] = useState(false);
 
-// else { 
-  
-//   alert("Food not ready, nothing to serve")
-// }
+  const handleService = () => {
+    console.log(toggle);
+    console.log(toggle[count]);
+    if (toggle[count]) {
+      console.log("Dish has been served to table");
+      SetServed(!served);
+    }
+  };
+
+  return (
+    <>
+      {served === true ? (
+        <ButtontrueServed handleService={handleService} />
+      ) : (
+        <ButtonfalseServed handleService={handleService} />
+      )}
+    </>
+  );
+  // }
+
+  // else {
+
+  //   alert("Food not ready, nothing to serve")
+  // }
 }

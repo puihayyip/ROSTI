@@ -24,7 +24,7 @@ const Card = styled.div`
 function UserSelection({ user, setUser }) {
   const navigate = useNavigate();
   const handleClick = (e) => {
-    setUser(e.target.id);
+    setUser({ ...user, category: e.target.id });
     $(`.card`).css("backgroundColor", "white");
     $(`div#${e.target.id}`).css("backgroundColor", "lightGray");
     navigate(`login`);

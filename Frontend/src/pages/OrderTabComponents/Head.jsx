@@ -8,7 +8,7 @@ import Button from "@mui/material/Button";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import FormDialog from "../GeneralComponents/LogoutDialog";
+import LogoutDialog from "../GeneralComponents/LogoutDialog";
 
 const theme = createTheme({
   palette: {
@@ -18,8 +18,7 @@ const theme = createTheme({
   },
 });
 
-export default function Head({ selection, setSelection }) {
-  const user = 34; //To be fetched
+export default function Head({ selection, setSelection, user }) {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
 
@@ -41,9 +40,9 @@ export default function Head({ selection, setSelection }) {
               MENU
             </Typography>
             <Typography
-              variant="h5"
+              variant="h4"
               component="div"
-              sx={{ flexGrow: 1, textAlign: "right", fontWeight: "bold" }}
+              sx={{ flexGrow: 1, textAlign: "center", fontWeight: "bold" }}
               color="white"
             >
               Order Tab
@@ -54,7 +53,7 @@ export default function Head({ selection, setSelection }) {
               sx={{ flexGrow: 1, textAlign: "right" }}
               color="white"
             >
-              Table Number: {user}
+              Table Number: {user.username}
             </Typography>
           </Toolbar>
           <div style={{ display: "flex", justifyContent: "space-between" }}>
@@ -81,7 +80,16 @@ export default function Head({ selection, setSelection }) {
             >
               Logout
             </Button>
-            {open ? <FormDialog open={open} setOpen={setOpen} navigate={navigate}/> : ""}
+            {open ? (
+              <LogoutDialog
+                open={open}
+                setOpen={setOpen}
+                navigate={navigate}
+                user={user}
+              />
+            ) : (
+              ""
+            )}
           </div>
         </AppBar>
       </ThemeProvider>

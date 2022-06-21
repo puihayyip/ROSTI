@@ -1,7 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import FastfoodIcon from "@mui/icons-material/Fastfood";
+import $ from "jquery";
 
+import FastfoodIcon from "@mui/icons-material/Fastfood";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -11,59 +12,130 @@ import Typography from "@mui/material/Typography";
 import { useEffect } from "react";
 import { useState } from "react";
 
-function FoodCards({ food }) {
+function FoodCards({ food, cart, setCart }) {
   const navigate = useNavigate();
 
+  useEffect(() => {
+    $(`#${food.foodID}`).on("click", function () {
+      let imgtodrag = $(`#${food.foodID}cardImg`);
+
+      const imgclone = imgtodrag
+        .clone()
+        .offset({
+          top: imgtodrag.offset().top + 100,
+          left: imgtodrag.offset().left,
+        })
+        .css({
+          opacity: "0.8",
+          position: "absolute",
+          height: "120px",
+          width: "120px",
+          "z-index": "100",
+        })
+        .appendTo($("body"))
+        .animate(
+          {
+            top: $(".shoppingCart").offset().top + 20,
+            left: $(".shoppingCart").offset().left + 30,
+            width: 50,
+            height: 50,
+          },
+          1000
+        );
+
+      imgclone.animate(
+        {
+          width: 0,
+          height: 0,
+        },
+        function () {
+          $(this).detach();
+        }
+      );
+    });
+  }, []);
+
   const handleAdd = () => {
-    console.log(`hello`);
+    const index = cart.findIndex((item) => item.food.name === food.name);
+    if (index >= 0) {
+      const newCart = [...cart];
+      newCart[index].qty = cart[index].qty + 1;
+      setCart(newCart);
+    } else {
+      setCart([...cart, { food: food, qty: 1 }]);
+    }
   };
+
   const handleSeeMore = () => {
     navigate(`food/${food._id}`);
   };
 
   return (
-    <Card sx={{ width: 375, height: 600 }}>
+    <Card
+      sx={{
+        width: 360,
+        height: 480,
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
+      }}
+    >
       <CardContent>
         <CardMedia
           component="img"
-          height="300"
+          height="240"
           image={food.img}
           alt={food.name}
+          id={food.foodID + "cardImg"}
         />
-        <br />
         <div style={{ display: "grid", gridTemplateColumns: "4fr 1fr" }}>
-          <Typography variant="h5" align="left">
-            {food.name}
+          <Typography variant="h6" align="left">
+            <b>{food.name}</b>
           </Typography>
-          <Typography variant="h5">${food.price}</Typography>
+          <Typography variant="h6">${food.price}</Typography>
         </div>
         <br />
         <Typography variant="body2" align="left">
-          {food.des}
+          <i>{food.des}</i>
         </Typography>
       </CardContent>
-      <CardActions
-        sx={{
+      <div
+        style={{
+          display: "flex",
           flexDirection: "column",
-          gap: "0.6rem",
+          gap: "0.3rem",
+          marginBottom: "1rem",
+          alignItems: "center",
         }}
       >
-        <Button variant="outlined" onClick={handleAdd}>
+        <Button
+          variant="outlined"
+          onClick={(e) => handleAdd(e)}
+          id={food.foodID}
+          style={{
+            maxWidth: "140px",
+            minWidth: "140px",
+          }}
+        >
           Add to cart
         </Button>
         <Button
           variant="outlined"
-          sx={{ padding: "5px 26px", marginRight: "8px" }}
+          sx={{ padding: "5px 26px" }}
           onClick={handleSeeMore}
+          style={{
+            maxWidth: "140px",
+            minWidth: "140px",
+          }}
         >
           See more
         </Button>
-      </CardActions>
+      </div>
     </Card>
   );
 }
 
-function Main({ open, setOpen, selection }) {
+function Main({ open, setOpen, selection, cart, setCart }) {
   const [allFood, setAllFood] = useState([]);
   const handleClick = () => {
     setOpen(!open);
@@ -124,6 +196,7 @@ function Main({ open, setOpen, selection }) {
             border: open ? "2px black solid" : "2px steelblue solid",
             borderRadius: "50%",
           }}
+          className="shoppingCart"
         />
       </div>
       {selection === 0 ? (
@@ -133,7 +206,12 @@ function Main({ open, setOpen, selection }) {
               (food) => food.mainSect === "food" || food.mainSect === "drinks"
             )
             .map((food, index) => (
-              <FoodCards food={food} key={index} />
+              <FoodCards
+                food={food}
+                key={index}
+                cart={cart}
+                setCart={setCart}
+              />
             ))}
         </div>
       ) : (
@@ -141,7 +219,12 @@ function Main({ open, setOpen, selection }) {
           {allFood
             .filter((food) => food.mainSect === category)
             .map((food, index) => (
-              <FoodCards food={food} key={index} />
+              <FoodCards
+                food={food}
+                key={index}
+                cart={cart}
+                setCart={setCart}
+              />
             ))}
         </div>
       )}

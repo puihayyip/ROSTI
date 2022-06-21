@@ -6,17 +6,42 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-function FormDialog({ open, setOpen, navigate }) {
+function FormDialog({ open, setOpen, user }) {
+  const navigate = useNavigate();
   const handleClose = () => {
     setOpen(false);
   };
-  const handleSubmit = () => {
-    if (password === "123") {
-      navigate("/");
-    } else {
-      alert("logout failed");
-    }
+
+  const fetchUser = (value) => {
+    fetch("/api/users/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify(value),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.status === "success") {
+          navigate("/");
+        } else {
+          alert("logout failed");
+        }
+      });
+  };
+
+  const handleLogout = (e) => {
+    e.preventDefault();
+    console.log(user);
+    const value = {
+      userName: user.username,
+      password: password,
+      usercategory: user.category,
+    };
+    fetchUser(value);
   };
 
   const [password, setPassword] = useState("");
@@ -43,7 +68,7 @@ function FormDialog({ open, setOpen, navigate }) {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleSubmit}>Confirm</Button>
+          <Button onClick={(e) => handleLogout(e)}>Confirm</Button>
         </DialogActions>
       </Dialog>
     </div>
