@@ -7,10 +7,11 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import {useEffect, useState} from 'react'
-import {useParams} from 'react-router-dom'
-
-// import CompMapTableRow from "./CompMapTableRow";
+import TextField from "@mui/material/TextField";
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import CompMapTableRow from "./CompMapTableRow";
+import CompMapEdit from "./CompMapEdit";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -24,14 +25,33 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   },
 }));
 
-function CompFinalOrderList({ order, handleUpdate }) {
+function CompEdit2OrderList({ order }) {
+  let { tblNum } = useParams();
 
-  
-  // console.log(order)
-  
+  const [edit, setEdit] = useState(false);
+
+  const [update, setUpdate] = useState({});
+
+  const handleUpdate = (event) => {
+    console.log("e", event.target.value);
+
+    fetch(`/api/orders/${tblNum}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ ...order, order }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setUpdate(data); // replaceHoliday(data.data);
+      });
+  };
+
   function ccyFormat(num) {
     return `${num.toFixed(2)}`;
   }
+
   //? SUBTOTAL
   const arrayItemSubTotal = [];
 
@@ -39,25 +59,26 @@ function CompFinalOrderList({ order, handleUpdate }) {
     obj.items.map((item) => arrayItemSubTotal.push(item.quantity * item.price))
   );
 
-  let SubTotal=0
-  for (let i=0; i<arrayItemSubTotal.length; i++) {
-     SubTotal = SubTotal + arrayItemSubTotal[i] 
+  let SubTotal = 0;
+  for (let i = 0; i < arrayItemSubTotal.length; i++) {
+    SubTotal = SubTotal + arrayItemSubTotal[i];
   }
 
   //? DISCOUNT
-  let DiscountRate = 0.1
-  let DiscountAmt = DiscountRate * SubTotal
+  let DiscountRate = 0.1;
+  let DiscountAmt = DiscountRate * SubTotal;
 
   //? TAX
   let TaxRate = 0.07;
-  let TaxAmt= (SubTotal - DiscountAmt)*TaxRate
+  let TaxAmt = (SubTotal - DiscountAmt) * TaxRate;
 
   //? TOTAL
-  let TotalAmt = SubTotal - DiscountAmt + TaxAmt
+  let TotalAmt = SubTotal - DiscountAmt + TaxAmt;
 
   return (
     <>
-    <h1> Please Confirm Bill </h1>
+      <h1> Please Confirm Bill </h1>
+
       <TableContainer component={Paper}>
         <Table
           sx={{ minWidth: 700, maxWidth: 900 }}
@@ -70,21 +91,18 @@ function CompFinalOrderList({ order, handleUpdate }) {
               <StyledTableCell align="right">Item Price</StyledTableCell>
               <StyledTableCell align="right">Quantity</StyledTableCell>
               <StyledTableCell align="right">Sub-total</StyledTableCell>
+              <StyledTableCell align="right"></StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
+
             {order?.orders?.map((obj, index) =>
               // console.log(obj)
-              obj.items.map((item,ind) => (
-                <TableRow>
-                <TableCell>{item.name}</TableCell>
-                <TableCell align="right">${ccyFormat(item.price)}</TableCell>
-                <TableCell align="right">{item.quantity} </TableCell>
-                <TableCell align="right">
-                  ${ccyFormat(item.price * item.quantity)}
-                </TableCell>
+              obj.items.map((item) => (
+                // console.log(item)
 
-      </TableRow>
+                (edit === true)? <CompMapEdit handleUpdate={handleUpdate} item={item} />:<CompMapTableRow handleUpdate={handleUpdate} item={item} />
+
               ))
             )}
 
@@ -96,13 +114,17 @@ function CompFinalOrderList({ order, handleUpdate }) {
 
             <TableRow>
               <StyledTableCell>Discounts</StyledTableCell>
-              <TableCell align="right">{`${(DiscountRate*100).toFixed(0)}%`}</TableCell>
+              <TableCell align="right">{`${(DiscountRate * 100).toFixed(
+                0
+              )}%`}</TableCell>
               <TableCell align="right">${ccyFormat(DiscountAmt)}</TableCell>
             </TableRow>
 
             <TableRow>
               <StyledTableCell>Tax</StyledTableCell>
-              <TableCell align="right">{`${(TaxRate * 100).toFixed(0)}%`}</TableCell>
+              <TableCell align="right">{`${(TaxRate * 100).toFixed(
+                0
+              )}%`}</TableCell>
               <TableCell align="right">${ccyFormat(TaxAmt)}</TableCell>
             </TableRow>
 
@@ -116,5 +138,4 @@ function CompFinalOrderList({ order, handleUpdate }) {
     </>
   );
 }
-
-export default CompFinalOrderList;
+export default CompEdit2OrderList;
