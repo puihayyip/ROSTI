@@ -24,11 +24,21 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   },
 }));
 
-function CompFinalOrderList({ order, handleUpdate }) {
-
+function CompFinalOrderList({handleUpdate }) {
+  const [order, setOrder] = useState(0);
+  let { tblNum } = useParams();
   
+  useEffect(() => {
+    fetch(`/api/orders/${tblNum}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setOrder(data.data);
+      });
+  }, []);
+
   // console.log(order)
   
+  //? FORMATTING
   function ccyFormat(num) {
     return `${num.toFixed(2)}`;
   }
