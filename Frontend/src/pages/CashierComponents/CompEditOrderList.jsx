@@ -9,10 +9,9 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import TextField from "@mui/material/TextField";
 import { useState, useEffect } from "react";
-import { useState } from "react";
 import { useParams } from "react-router-dom";
-import CompMapTableRow from './CompMapTableRow'
-import CompMapEdit from './CompMapEdit'
+import CompMapTableRow from "./CompMapTableRow";
+import CompMapEdit from "./CompMapEdit";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -32,25 +31,20 @@ function CompEditOrderList({ order }) {
   const [update, setUpdate] = useState({});
 
   const handleUpdate = (event) => {
-<<<<<<< HEAD
-    setUpdate(event.target.value);
-    console.log(event.target.value);
-=======
- console.log("e", event.target.value)
+    console.log("e", event.target.value);
 
-fetch(`/api/orders/${tblNum}`, {
- method: "PUT",
-   headers: {
-     "Content-Type": "application/json",
-   },
-   body: JSON.stringify({ order }),
- })
-   .then((response) => response.json())
-   .then((data) => {
- setUpdate(data.data)    // replaceHoliday(data.data);
- console.log(update)
-   });
->>>>>>> 6071a2be4d801d6c833d71095f722e93d0730c9a
+    fetch(`/api/orders/${tblNum}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ order }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setUpdate(data.data); // replaceHoliday(data.data);
+        console.log(update);
+      });
 
     fetch(`/api/orders/${tblNum}`, {
       method: "PUT",
@@ -111,34 +105,15 @@ fetch(`/api/orders/${tblNum}`, {
               <StyledTableCell align="right">Sub-total</StyledTableCell>
               <StyledTableCell align="right"></StyledTableCell>
               <StyledTableCell align="right"></StyledTableCell>
-
             </TableRow>
           </TableHead>
           <TableBody>
-
             {order?.orders?.map((obj, index) =>
               // console.log(obj)
               obj.items.map((item) => (
                 // console.log(item)
-<<<<<<< HEAD
-                <TableRow key={index}>
-                  <TableCell>{item.foodID}</TableCell>
-                  <TableCell align="right">${ccyFormat(x)}</TableCell>
-                  <TextField
-                    hiddenLabel
-                    id="filled-hidden-label-normal"
-                    defaultValue={item.quantity}
-                    variant="filled"
-                    onChange={handleUpdate}
-                  />{" "}
-                  <TableCell align="right">
-                    ${ccyFormat(x * item.quantity)}
-                  </TableCell>
-                </TableRow>
-=======
-                
-                <CompMapTableRow handleUpdate={handleUpdate} item={item}/>
->>>>>>> 6071a2be4d801d6c833d71095f722e93d0730c9a
+
+                <CompMapTableRow handleUpdate={handleUpdate} item={item} />
               ))
             )}
 
