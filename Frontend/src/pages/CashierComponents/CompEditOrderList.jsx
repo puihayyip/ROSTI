@@ -33,16 +33,16 @@ function CompEditOrderList({order}) {
  setUpdate(event.target.value)
 
 fetch(`/api/orders/${tblNum}`, {
-  method: "PUT",
-  headers: {
-    "Content-Type": "application/json",
-  },
-  body: JSON.stringify({ ...order, order }),
-})
-  .then((response) => response.json())
-  .then((data) => {
-setUpdate(data)    // replaceHoliday(data.data);
-  });
+ method: "PUT",
+   headers: {
+     "Content-Type": "application/json",
+   },
+   body: JSON.stringify({ order }),
+ })
+   .then((response) => response.json())
+   .then((data) => {
+ setUpdate(data)    // replaceHoliday(data.data);
+   });
 
   };
 

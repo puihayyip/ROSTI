@@ -21,7 +21,7 @@ router.get("/seed", async (req, res) => {
 router.get("/", async (req, res) => {
   try {
     const allOrders = await ordersSchema.find({});
-    console.log(req.params.id)
+    console.log(req.params.id);
     res.send({ status: "success", data: allOrders });
   } catch (error) {
     res.send(error);
@@ -30,8 +30,10 @@ router.get("/", async (req, res) => {
 //! INDEX
 router.get("/:id", async (req, res) => {
   try {
-    const allOrders = await ordersSchema.findOne({tblNum: parseInt(req.params.id)});
-    console.log(req.params.id)
+    const allOrders = await ordersSchema.findOne({
+      tblNum: parseInt(req.params.id),
+    });
+    console.log(req.params.id);
     res.send({ status: "success", data: allOrders });
   } catch (error) {
     res.send(error);
@@ -61,28 +63,23 @@ router.post("/new/", async (req, res) => {
 });
 // //! UPDATE
 
-// router.get('/:id'), async (req, res) => {
+// router.get('/:id/edit'), async (req, res) => {
 //   const foundOrder = await ordersSchema.findOne(req.params.id)
 //   console.log (foundOrder)
-// router.put("/:id", async (req, res) => {
-//   const { id } = req.params;
-//   try {
-//     const updateOrder = await ordersSchema.updateOne{
-      
-//     }(id, req.body, {
-//       new: true,
-//     });
-//     // const updateOrder = await ordersSchema.findByIdAndUpdate(id, req.body, {
-//     //   new: true,
-//     // });
-    
-//     res
-//       .status(StatusCodes.OK)
-//       .send({ status: "success:", data: updateOrder });
-//   } catch (error) {
-//     res.send(error);
-//   }
-// });
+// }
 
+router.put("/:id", async (req, res) => {
 
+  // console.log (req.params.id)
+  try {
+    const updatedOrder = await ordersSchema.findOneAndUpdate(
+      {tblNum:req.params.id},
+      req.body,
+      { new: true }
+    );
+    res.send(updatedOrder);
+  } catch (error) {
+    res.send(error);
+  }
+});
 module.exports = router;

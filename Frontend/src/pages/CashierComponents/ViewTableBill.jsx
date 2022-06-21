@@ -18,9 +18,11 @@ export default function TablePreviewBill() {
   }
   const handleConfirm = () => {
     setEdit(!edit)
+    nav(`/tablebill/${tblNum}`)
   };
 const handleEdit = () => {
   setEdit(!edit)
+  nav(`/tablebill/${tblNum}/edit`);
 };
 
 useEffect (() => {
