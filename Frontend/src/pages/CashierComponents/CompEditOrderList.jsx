@@ -11,8 +11,7 @@ import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import CompMapTableRow from "./CompMapTableRow";
 import CompMapEdit from "./CompMapEdit";
-import EditIcon from '@mui/icons-material/Edit';
-
+import EditIcon from "@mui/icons-material/Edit";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -28,29 +27,29 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 
 export default function CompEditOrderList({ order }) {
   let { tblNum } = useParams();
-  const [update, setUpdate]=useState()
+  const [update, setUpdate] = useState();
   const [edit, setEdit] = useState(false);
   // const [qty, setQty] = useState(0);
 
-  useEffect (() => {
-  fetch(`/api/orders/${tblNum}`, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ ...order, order }),
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      setUpdate(data); // (data.data);
-    });
-   } ,[])
+  useEffect(() => {
+    fetch(`/api/orders/${tblNum}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ ...order, order }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setUpdate(data); // (data.data);
+      });
+  }, []);
 
   const handleUpdate = (event) => {
-    console.log("e", event)
-    setEdit(!edit)
-  }
-    
+    console.log("e", event);
+    setEdit(!edit);
+  };
+
   //////////////////
   function ccyFormat(num) {
     return `${num.toFixed(2)}`;
@@ -101,13 +100,18 @@ export default function CompEditOrderList({ order }) {
             </TableRow>
           </TableHead>
           <TableBody>
-
             {order?.orders?.map((obj, index) =>
               // console.log(obj)
-              obj.items.map((item) => (
-                // console.log(item)
-                
-                (edit === true)? <CompMapEdit item={item} />:<CompMapTableRow handleUpdate={handleUpdate} item={item} />
+              obj.items.map(
+                (item) => (
+                  // console.log(item)
+                  <CompMapEdit handleUpdate={handleUpdate} item={item} />
+                )
+                // edit === true ? (
+                //   <CompMapEdit handleUpdate={handleUpdate} item={item} />
+                // ) : (
+                //   <CompMapTableRow handleUpdate={handleUpdate} item={item} />
+                // )
 
                 // <TableRow>
                 // <TableCell>{item.name}</TableCell>
@@ -118,7 +122,7 @@ export default function CompEditOrderList({ order }) {
                 // </TableCell>
                 // <TableCell align="right" onClick={handleChangeReq}>{<EditIcon />}</TableCell>
                 // </TableRow>
-              ))
+              )
             )}
 
             <TableRow>

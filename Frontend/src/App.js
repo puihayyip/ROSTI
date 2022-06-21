@@ -17,6 +17,7 @@ export const stateContext = createContext();
 
 function App() {
   const [user, setUser] = useState({ category: null, username: "" });
+  console.log("user", user);
 
   return (
     <div className="App">
@@ -34,9 +35,8 @@ function App() {
           </Route>
 
           <Route path="/menu" element={<Order user={user} />} />
-          {/* <Route path="/cashier" element={<CashierMainView />} /> */}
           <Route path="/kitchen" element={<KitchenMainPage user={user} />} />
-          <Route path="/cashier" element={<ViewMainCashier />} />
+          <Route path="/cashier" element={<ViewMainCashier user={user} />} />
           <Route
             path="/tablebill/:tblNum"
             element={<ViewTableBill user={user} />}

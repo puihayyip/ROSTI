@@ -7,7 +7,7 @@ import CompEditOrderList from "./CompEditOrderList";
 import CompFinalOrderButtons from "./CompFinalOrderButtons";
 import CompEditOrderButtons from "./CompEditOrderButtons";
 
-export default function TablePreviewBill() {
+export default function TablePreviewBill({ user }) {
   const [edit, setEdit] = useState(false);
   const [order, setOrder] = useState(0);
   let { tblNum } = useParams();
@@ -36,7 +36,7 @@ export default function TablePreviewBill() {
 
   return (
     <>
-      <Head />
+      <Head user={user} />
       {edit === true ? (
         <CompEditOrderList order={order} />
       ) : (
