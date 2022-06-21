@@ -61,6 +61,7 @@ router.post("/new/", async (req, res) => {
     res.send(err);
   }
 });
+<<<<<<< HEAD
 // //! UPDATE
 
 // router.get('/:id'), async (req, res) => {
@@ -86,4 +87,22 @@ router.post("/new/", async (req, res) => {
 //   }
 // });
 
+=======
+//! UPDATE
+
+router.put("/:id", async (req, res) => {
+
+  // console.log (req.params.id)
+  try {
+    const updatedOrder = await ordersSchema.findOneAndUpdate(
+      {tblNum:req.params.id},
+      req.body,
+      { new: true }
+    );
+    res.send(updatedOrder);
+  } catch (error) {
+    res.send(error);
+  }
+});
+>>>>>>> 6071a2be4d801d6c833d71095f722e93d0730c9a
 module.exports = router;
