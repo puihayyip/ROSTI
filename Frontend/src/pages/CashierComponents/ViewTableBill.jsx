@@ -9,7 +9,7 @@ import CompEditOrderButtons from "./CompEditOrderButtons";
 
 export default function TablePreviewBill({ user }) {
   const [edit, setEdit] = useState(false);
-  const [data, setData] = useState(0);
+  const [order, setOrder] = useState({});
   let { tblNum } = useParams();
 
   const nav = useNavigate();

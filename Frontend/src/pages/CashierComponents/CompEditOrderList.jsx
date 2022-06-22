@@ -52,11 +52,11 @@ export default function CompEditOrderList({ order }) {
   //? SUBTOTAL
   const arrayItemSubTotal = [];
 
-  // order?.orders?.map((obj, index) =>
-  //   obj.items.map((item) => arrayItemSubTotal.push(item.quantity * item.price))
-  // );
+  order?.orders?.map((obj, index) =>
+    obj.items.map((item) => arrayItemSubTotal.push(item.quantity * item.price))
+  );
 
-  items.map((item) => arrayItemSubTotal.push(item.quantity * item.price));
+  // items.map((item) => arrayItemSubTotal.push(item.quantity * item.price));
 
   let SubTotal = 0;
   for (let i = 0; i < arrayItemSubTotal.length; i++) {
