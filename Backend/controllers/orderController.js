@@ -77,6 +77,20 @@ router.post("/new/", async (req, res) => {
 
 router.put("/edit/:id", async (req, res) => {
   try {
+    const updatedOrder = await ordersSchema.find(
+      {
+        "orders.items.foodPrepared": "off",
+      },
+      { "orders.items._id": 1, "orders.items.name": 1 }
+    );
+    res.send({ status: "success", data: updatedOrder });
+  } catch (error) {
+    res.send({ status: "error", data: error });
+  }
+});
+
+router.put("/edit/:id", async (req, res) => {
+  try {
     const updatedOrder = await ordersSchema.updateOne(
       { tblNum: req.params.id },
       {
