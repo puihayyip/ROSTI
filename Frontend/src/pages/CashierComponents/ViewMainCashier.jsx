@@ -12,15 +12,15 @@ function Item(props) {
   return (
     <Box
       sx={{
-        p: 1,
-        m: 1,
+        p: 3,
+        m: 2,
         bgcolor: (theme) =>
-          theme.palette.mode === "dark" ? "#101010" : "grey.100",
+          theme.palette.mode === "dark" ? "#101010" : "#FFFFF",
         color: (theme) =>
-          theme.palette.mode === "dark" ? "grey.300" : "grey.800",
-        border: "1px solid",
+          theme.palette.mode === "dark" ? "grey.300" : "#161616",
+        border: "3px solid",
         borderColor: (theme) =>
-          theme.palette.mode === "dark" ? "grey.800" : "grey.300",
+          theme.palette.mode === "dark" ? "grey.800" : "#fcd303",
         borderRadius: 2,
         fontSize: "0.875rem",
         fontWeight: "700",
@@ -81,6 +81,7 @@ function ViewMainCashier({ user }) {
   return (
     <>
       <Head user={user} />
+      <h3> Welcome to the Cashier Summary View </h3>
       <h1>Which Table Bill do you want to see?</h1>
       <div style={{ width: "100%" }}>
         <Box

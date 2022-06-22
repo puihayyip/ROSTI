@@ -1,4 +1,4 @@
-import Head from "../GeneralComponents/MainHeader";
+import CashierHead from "../GeneralComponents/CashierHeader";
 import * as React from "react";
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -38,7 +38,7 @@ export default function TablePreviewBill({ user }) {
 
   return (
     <>
-      <Head user={user} />
+      <CashierHead user={user} />
       {edit === true ? (
         <>
           <CompEditOrderList order={order} setUpdate={setUpdate} />
