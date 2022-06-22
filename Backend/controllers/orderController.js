@@ -76,22 +76,21 @@ router.post("/new/", async (req, res) => {
 //! UPDATE
 
 router.put("/edit/:id", async (req, res) => {
-  // console.log (req.params.id)
   try {
-    const updatedOrder = await ordersSchema.findOneAndUpdate(
+    const updatedOrder = await ordersSchema.updateOne(
       { tblNum: req.params.id },
       {
         $set: {
-          "orders.$[Orders].items.$[Items].quantity": req.body.qty,
+          "orders.$[outside].items.$[inside].quantity": req.body.qty,
         },
       },
       {
         arrayFilters: [
           {
-            "Orders.orderNum": req.body.orderID,
+            "outside.orderNum": req.body.orderNum,
           },
           {
-            "Items.name": req.body.itemID,
+            "inside._id": req.body.itemID,
           },
         ],
       }
