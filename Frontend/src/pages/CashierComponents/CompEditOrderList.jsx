@@ -10,10 +10,8 @@ import Paper from "@mui/material/Paper";
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import CompMapEdit from "./CompMapEdit";
-import EditIcon from '@mui/icons-material/Edit';
-import TextField from '@mui/material/TextField';
-
-
+import EditIcon from "@mui/icons-material/Edit";
+import TextField from "@mui/material/TextField";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -27,28 +25,24 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   },
 }));
 
-export default function CompEditOrderList({ tableOrder, orders, items }) {
-  // let { tblNum } = useParams();
+export default function CompEditOrderList({ order }) {
+  let { tblNum } = useParams();
+  // const [update, setUpdate] = useState();
 
-
-  const [data, setData]= useState(0)
-  const [edit, setEdit] = useState(false);
-
-  // const handleEditLine= (event, item) => {
-  //   setEditInp(!editInp)
-  //   setNum(item._id)
-  //   console.log(editInp, item._id)
-    // console.log("e", event)
-  
-
-  // const [qty, setQty] = useState(0);
-
-  //   useEffect(() => {
-  //   fetch(`/api/orders/${tblNum}`)
+  // useEffect(() => {
+  //   fetch(`/api/orders/${tblNum}`, {
+  //     method: "PUT",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({ ...order, order }),
+  //   })
   //     .then((response) => response.json())
-  //     .then((data) => setData(data));
+  //     .then((data) => {
+  //       setUpdate(data); // (data.data);
+  //     });
   // }, []);
-    
+
   //////////////////
   //? FORMATTING
   function ccyFormat(num) {
@@ -62,8 +56,8 @@ export default function CompEditOrderList({ tableOrder, orders, items }) {
   //   obj.items.map((item) => arrayItemSubTotal.push(item.quantity * item.price))
   // );
 
-  items.map((item) => arrayItemSubTotal.push(item.quantity * item.price))  
-  
+  items.map((item) => arrayItemSubTotal.push(item.quantity * item.price));
+
   let SubTotal = 0;
   for (let i = 0; i < arrayItemSubTotal.length; i++) {
     SubTotal = SubTotal + arrayItemSubTotal[i];
@@ -79,6 +73,16 @@ export default function CompEditOrderList({ tableOrder, orders, items }) {
 
   //? TOTAL
   let TotalAmt = SubTotal - DiscountAmt + TaxAmt;
+
+  // order?.orders?.map((obj, index) =>
+  //   obj.items.map((item) => <CompMapEdit item={item} />)
+  // )
+  const ComMapEditArr = [];
+  for (let obj of order.orders) {
+    for (let item of obj.items) {
+      ComMapEditArr.push(<CompMapEdit item={item} objID={obj._id} />);
+    }
+  }
 
   ///////////////////
 
@@ -102,18 +106,10 @@ export default function CompEditOrderList({ tableOrder, orders, items }) {
             </TableRow>
           </TableHead>
           <TableBody>
-
-            {/* {order?.orders?.map((obj) => */}
-
-{items?.map((item) => (
-  // console.log('obj', obj)
-              // obj?.items?.map((item, index) => (
-                // console.log('item', item)
-               <CompMapEdit item={item}/>
-                // (num === item._id)? <CompMapEdit item={item} />:<CompMapTableRow handleUpdateInp={handleUpdateInp} item={item} index={index} />
-              ))
-            }
-
+            {/* {order?.orders?.map((obj, index) =>
+              obj.items.map((item) => <CompMapEdit item={item} />)
+            )} */}
+            {ComMapEditArr}
             <TableRow>
               <TableCell rowSpan={4} />
               <StyledTableCell colSpan={2}>Subtotal</StyledTableCell>

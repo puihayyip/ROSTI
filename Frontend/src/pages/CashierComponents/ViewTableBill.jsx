@@ -7,7 +7,7 @@ import CompEditOrderList from "./CompEditOrderList";
 import CompFinalOrderButtons from "./CompFinalOrderButtons";
 import CompEditOrderButtons from "./CompEditOrderButtons";
 
-export default function TablePreviewBill() {
+export default function TablePreviewBill({ user }) {
   const [edit, setEdit] = useState(false);
   const [data, setData] = useState(0);
   let { tblNum } = useParams();
@@ -30,41 +30,27 @@ export default function TablePreviewBill() {
     fetch(`/api/orders/${tblNum}`)
       .then((response) => response.json())
       .then((data) => {
-        setData(data.data);
+        setOrder(data.data);
+        console.log("fetching");
       });
-  }, []);
-
-  //! BREAKDOWN DATA
-  console.log('data', data)
-
-let tableOrder= data 
-let orders = data?.orders
-let items =[]
-
-// console.log('tableOrds', tableOrders)
-// console.log ('orders', data.orders)
-  
-  for (let i=0; i<orders?.length;i++) {
-    orders[i].items?.map(item=> items.push(item))
-  }
-  // console.log ('items', items)
-  //! END SECTION HERE
+  }, [edit]);
 
   return (
     <>
-      <Head />
+      <Head user={user} />
       {edit === true ? (
-        <CompEditOrderList orders={orders} items={items} tableOrder={tableOrder}/>
+        <>
+          <CompEditOrderList order={order} />
+          <CompEditOrderButtons handleConfirm={handleConfirm} />
+        </>
       ) : (
-        <CompFinalOrderList />
-      )}
-      {edit === true ? (
-        <CompEditOrderButtons handleConfirm={handleConfirm} />
-      ) : (
-        <CompFinalOrderButtons
-          handleEdit={handleEdit}
-          handlePayment={handlePayment}
-        />
+        <>
+          <CompFinalOrderList order={order} />
+          <CompFinalOrderButtons
+            handleEdit={handleEdit}
+            handlePayment={handlePayment}
+          />
+        </>
       )}
     </>
   );

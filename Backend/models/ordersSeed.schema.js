@@ -5,7 +5,7 @@ var subSchema = new mongoose.Schema(
     orderNum: { type: Number },
     items: [
       {
-        _id: { type: String },
+        // _id: { type: String },
         name: { type: String },
         price: { type: Number },
         quantity: { type: Number },
@@ -14,7 +14,7 @@ var subSchema = new mongoose.Schema(
       },
     ],
   },
-  { _id: false, timestamps: { createdAt: true, updatedAt: false } }
+  { timestamps: { createdAt: true, updatedAt: false } }
 );
 
 const ordersSchema = new mongoose.Schema(

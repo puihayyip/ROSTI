@@ -7,8 +7,8 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import {useEffect, useState} from 'react'
-import {useParams} from 'react-router-dom'
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
 // import CompMapTableRow from "./CompMapTableRow";
 
@@ -24,50 +24,38 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   },
 }));
 
-function CompFinalOrderList({handleUpdate }) {
-  const [order, setOrder] = useState(0);
-  let { tblNum } = useParams();
-  
-  useEffect(() => {
-    fetch(`/api/orders/${tblNum}`)
-      .then((response) => response.json())
-      .then((data) => {
-        setOrder(data.data);
-      });
-  }, []);
-
+function CompFinalOrderList({ order, handleUpdate }) {
   // console.log(order)
-  
-  //? FORMATTING
+
   function ccyFormat(num) {
     return `${num.toFixed(2)}`;
   }
   //? SUBTOTAL
   const arrayItemSubTotal = [];
 
-  order?.orders?.map((obj, index) =>
+  order?.orders?.map((obj) =>
     obj.items.map((item) => arrayItemSubTotal.push(item.quantity * item.price))
   );
 
-  let SubTotal=0
-  for (let i=0; i<arrayItemSubTotal.length; i++) {
-     SubTotal = SubTotal + arrayItemSubTotal[i] 
+  let SubTotal = 0;
+  for (let price of arrayItemSubTotal) {
+    SubTotal += price;
   }
 
   //? DISCOUNT
-  let DiscountRate = 0.1
-  let DiscountAmt = DiscountRate * SubTotal
+  let DiscountRate = 0.1;
+  let DiscountAmt = DiscountRate * SubTotal;
 
   //? TAX
   let TaxRate = 0.07;
-  let TaxAmt= (SubTotal - DiscountAmt)*TaxRate
+  let TaxAmt = (SubTotal - DiscountAmt) * TaxRate;
 
   //? TOTAL
-  let TotalAmt = SubTotal - DiscountAmt + TaxAmt
+  let TotalAmt = SubTotal - DiscountAmt + TaxAmt;
 
   return (
     <>
-    <h1> Please Confirm Bill </h1>
+      <h1> Please Confirm Bill </h1>
       <TableContainer component={Paper}>
         <Table
           sx={{ minWidth: 700, maxWidth: 900 }}
@@ -85,16 +73,15 @@ function CompFinalOrderList({handleUpdate }) {
           <TableBody>
             {order?.orders?.map((obj, index) =>
               // console.log(obj)
-              obj.items.map((item,ind) => (
+              obj.items.map((item, ind) => (
                 <TableRow>
-                <TableCell>{item.name}</TableCell>
-                <TableCell align="right">${ccyFormat(item.price)}</TableCell>
-                <TableCell align="right">{item.quantity} </TableCell>
-                <TableCell align="right">
-                  ${ccyFormat(item.price * item.quantity)}
-                </TableCell>
-
-      </TableRow>
+                  <TableCell>{item.name}</TableCell>
+                  <TableCell align="right">${ccyFormat(item.price)}</TableCell>
+                  <TableCell align="right">{item.quantity} </TableCell>
+                  <TableCell align="right">
+                    ${ccyFormat(item.price * item.quantity)}
+                  </TableCell>
+                </TableRow>
               ))
             )}
 
@@ -106,13 +93,17 @@ function CompFinalOrderList({handleUpdate }) {
 
             <TableRow>
               <StyledTableCell>Discounts</StyledTableCell>
-              <TableCell align="right">{`${(DiscountRate*100).toFixed(0)}%`}</TableCell>
+              <TableCell align="right">{`${(DiscountRate * 100).toFixed(
+                0
+              )}%`}</TableCell>
               <TableCell align="right">${ccyFormat(DiscountAmt)}</TableCell>
             </TableRow>
 
             <TableRow>
               <StyledTableCell>Tax</StyledTableCell>
-              <TableCell align="right">{`${(TaxRate * 100).toFixed(0)}%`}</TableCell>
+              <TableCell align="right">{`${(TaxRate * 100).toFixed(
+                0
+              )}%`}</TableCell>
               <TableCell align="right">${ccyFormat(TaxAmt)}</TableCell>
             </TableRow>
 
