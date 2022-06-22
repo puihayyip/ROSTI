@@ -27,21 +27,6 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 
 export default function CompEditOrderList({ order }) {
   let { tblNum } = useParams();
-  // const [update, setUpdate] = useState();
-
-  // useEffect(() => {
-  //   fetch(`/api/orders/${tblNum}`, {
-  //     method: "PUT",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({ ...order, order }),
-  //   })
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       setUpdate(data); // (data.data);
-  //     });
-  // }, []);
 
   //////////////////
   //? FORMATTING
@@ -49,34 +34,34 @@ export default function CompEditOrderList({ order }) {
     return `${num.toFixed(2)}`;
   }
 
-  //? SUBTOTAL
-  const arrayItemSubTotal = [];
+  const [SubTotal, setSubTotal] = useState(0);
+  const tabulation = () => {
+    //? SUBTOTAL
+    const arrayItemSubTotal = [];
 
-  order?.orders?.map((obj, index) =>
-    obj.items.map((item) => arrayItemSubTotal.push(item.quantity * item.price))
-  );
+    order?.orders?.map((obj) =>
+      obj.items.map((item) =>
+        arrayItemSubTotal.push(item.quantity * item.price)
+      )
+    );
 
-  // items.map((item) => arrayItemSubTotal.push(item.quantity * item.price));
+    // let SubTotal = 0;
+    for (let price of arrayItemSubTotal) {
+      setSubTotal((SubTotal) => SubTotal + price);
+    }
 
-  let SubTotal = 0;
-  for (let i = 0; i < arrayItemSubTotal.length; i++) {
-    SubTotal = SubTotal + arrayItemSubTotal[i];
-  }
+    //? DISCOUNT
+    let DiscountRate = 0.1;
+    let DiscountAmt = DiscountRate * SubTotal;
 
-  //? DISCOUNT
-  let DiscountRate = 0.1;
-  let DiscountAmt = DiscountRate * SubTotal;
+    //? TAX
+    let TaxRate = 0.07;
+    let TaxAmt = (SubTotal - DiscountAmt) * TaxRate;
 
-  //? TAX
-  let TaxRate = 0.07;
-  let TaxAmt = (SubTotal - DiscountAmt) * TaxRate;
+    //? TOTAL
+    let TotalAmt = SubTotal - DiscountAmt + TaxAmt;
+  };
 
-  //? TOTAL
-  let TotalAmt = SubTotal - DiscountAmt + TaxAmt;
-
-  // order?.orders?.map((obj, index) =>
-  //   obj.items.map((item) => <CompMapEdit item={item} />)
-  // )
   const ComMapEditArr = [];
   for (let obj of order.orders) {
     for (let item of obj.items) {
@@ -85,6 +70,10 @@ export default function CompEditOrderList({ order }) {
       );
     }
   }
+
+  useEffect(() => {
+    tabulation();
+  }, []);
 
   ///////////////////
 
@@ -108,9 +97,6 @@ export default function CompEditOrderList({ order }) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {/* {order?.orders?.map((obj, index) =>
-              obj.items.map((item) => <CompMapEdit item={item} />)
-            )} */}
             {ComMapEditArr}
             <TableRow>
               <TableCell rowSpan={4} />

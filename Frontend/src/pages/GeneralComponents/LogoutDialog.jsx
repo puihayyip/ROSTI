@@ -48,12 +48,12 @@ function FormDialog({ open, setOpen, user }) {
     <div>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Log Out?</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            Logging out will void this table's orders. To confirm logging out,
-            please key in the correct password for table users.
-          </DialogContentText>
-          <form action="submit logout" onSubmit={(e) => handleLogout(e)}>
+        <form action="submit logout" onSubmit={(e) => handleLogout(e)}>
+          <DialogContent>
+            <DialogContentText>
+              Logging out will void orders. To confirm logging out, please key
+              in the correct password for user.
+            </DialogContentText>
             <TextField
               autoFocus
               margin="dense"
@@ -64,17 +64,12 @@ function FormDialog({ open, setOpen, user }) {
               variant="standard"
               onChange={(e) => setPassword(e.target.value)}
             />
-          </form>
-        </DialogContent>
-        <DialogActions>
-          <form action="submit logout" onSubmit={(e) => handleLogout(e)}>
+          </DialogContent>
+          <DialogActions>
             <Button onClick={handleClose}>Cancel</Button>
             <Button type="submit">Confirm</Button>
-            {/* <Button onClick={(e) => handleLogout(e)} type="submit">
-              Confirm
-            </Button> */}
-          </form>
-        </DialogActions>
+          </DialogActions>
+        </form>
       </Dialog>
     </div>
   );
