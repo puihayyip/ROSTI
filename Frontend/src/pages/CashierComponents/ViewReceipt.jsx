@@ -9,8 +9,8 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import CompFinalOrderList from "./CompFinalOrderList";
-import Head from "../GeneralComponents/MainHeader";
+// import CompFinalOrderList from "./CompFinalOrderList";
+import CashierHead from "../GeneralComponents/CashierHeader";
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box'
@@ -45,7 +45,6 @@ export default function ViewReceipt({ user }) {
     return `${num.toFixed(2)}`;
   }
 
-  const [tab, SetTab] = useState(order)
 let nav = useNavigate()
 
   const handleReset = () => {
@@ -81,7 +80,7 @@ let nav = useNavigate()
 
   return (
     <>
-      <Head user={user} />
+      <CashierHead user={user} />
       <h1>Receipt</h1>
 
       <TableContainer component={Paper}>
