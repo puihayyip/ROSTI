@@ -75,14 +75,18 @@ router.post("/new/", async (req, res) => {
 });
 //! UPDATE
 
-router.put("/edit/:id", async (req, res) => {
+router.put("/edit/kitchen", async (req, res) => {
   try {
-    const updatedOrder = await ordersSchema.find(
+    const updatedOrder = await ordersSchema.aggregate([
+      { $unwind: "$orders" },
+      { $unwind: "$orders.items" },
+      { $match: { "orders.items.foodPrepared": "on" } },
       {
-        "orders.items.foodPrepared": "off",
+        $group: {
+          _id: "$orders.items._id",
+        },
       },
-      { "orders.items._id": 1, "orders.items.name": 1 }
-    );
+    ]);
     res.send({ status: "success", data: updatedOrder });
   } catch (error) {
     res.send({ status: "error", data: error });
