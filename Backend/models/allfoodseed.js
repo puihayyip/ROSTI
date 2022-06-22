@@ -4,7 +4,8 @@ const allfoodseed = [
     name: "Parmesan Gnocchi",
     des: "Italian dumplings with parmesan cheese",
     price: 16.99,
-    img: "https://i.imgur.com/nYShA7h.jpg",
+    img:"https://i.imgur.com/yfpqZyU.jpg",
+    // img: "https://i.imgur.com/nYShA7h.jpg",
     mainSect: "food",
   },
   {
@@ -12,7 +13,8 @@ const allfoodseed = [
     name: "Steak and Fries",
     des: "Australia ribeye steak with crinkle-cut fries",
     price: 24.99,
-    img: "https://i.imgur.com/dQxuPDK.jpg",
+    // img: "https://i.imgur.com/dQxuPDK.jpg",
+    img:"https://i.imgur.com/bdMcxWl.jpg",
     mainSect: "food",
   },
   {
@@ -20,7 +22,8 @@ const allfoodseed = [
     name: "Olive and Shrimp Pizza",
     des: "A pizza lover's delight",
     price: 13.99,
-    img: "https://i.imgur.com/bYO8q5I.jpg",
+    // img: "https://i.imgur.com/bYO8q5I.jpg",
+    img:"https://i.imgur.com/Ag1nDbX.jpg",
     mainSect: "food",
   },
   {
@@ -28,7 +31,8 @@ const allfoodseed = [
     name: "Acai Bowl",
     des: "Healthy yet delicious",
     price: 12.99,
-    img: "https://i.imgur.com/QjYsBJn.jpg",
+    // img: "https://i.imgur.com/QjYsBJn.jpg",
+    img:"https://i.imgur.com/GYxKnqY.jpg",
     mainSect: "food",
   },
   {
@@ -36,7 +40,8 @@ const allfoodseed = [
     name: "Pizza Margherita",
     des: "Bubbly crust, crushed San Marzano tomato sauce, fresh mozzarella and basil",
     price: 15.99,
-    img: "https://i.imgur.com/etyLZ78.jpg",
+    // img: "https://i.imgur.com/etyLZ78.jpg",
+    img:"https://i.imgur.com/opPOFy1.jpg",
     mainSect: "food",
   },
   {
@@ -44,7 +49,8 @@ const allfoodseed = [
     name: "Pancake Stack",
     des: "Stack of fluffy pancakes",
     price: 13.99,
-    img: "https://i.imgur.com/Z0OmGYX.jpg",
+    // img: "https://i.imgur.com/Z0OmGYX.jpg",
+    img:"https://i.imgur.com/gRdyKb1.jpg",
     mainSect: "food",
   },
   {
@@ -52,7 +58,8 @@ const allfoodseed = [
     name: "Burger and Fries",
     des: "Burger and Fries",
     price: 18.99,
-    img: "https://i.imgur.com/28bok0q.jpg",
+    // img: "https://i.imgur.com/28bok0q.jpg",
+    img:"https://i.imgur.com/NtfUOY3.jpg",
     mainSect: "food",
   },
   {
@@ -60,7 +67,8 @@ const allfoodseed = [
     name: "Hearty Salad",
     des: "Hearty Salad",
     price: 12.99,
-    img: "https://i.imgur.com/B5ePoHx.jpg",
+    // img: "https://i.imgur.com/B5ePoHx.jpg",
+    img:"https://i.imgur.com/gWD3UGG.jpg",
     mainSect: "food",
   },
   {
@@ -68,7 +76,8 @@ const allfoodseed = [
     name: "Vegetarian Noodles",
     des: "Deceptively simple",
     price: 11.99,
-    img: "https://i.imgur.com/CxPAtGD.jpg",
+    // img: "https://i.imgur.com/CxPAtGD.jpg",
+    img:"https://i.imgur.com/y4DM2Yb.jpg",
     mainSect: "food",
   },
   {
@@ -76,7 +85,8 @@ const allfoodseed = [
     name: "French Fries",
     des: "Better than Macdonald's",
     price: 6.99,
-    img: "https://i.imgur.com/qHyUkly.jpg",
+    // img: "https://i.imgur.com/qHyUkly.jpg",
+    img:"https://i.imgur.com/Bb9Jy4H.jpg",
     mainSect: "food",
   },
   {
@@ -84,7 +94,8 @@ const allfoodseed = [
     name: "Garden Salad",
     des: "Vegan option available",
     price: 11.99,
-    img: "https://i.imgur.com/9IqKEum.jpg",
+    // img: "https://i.imgur.com/9IqKEum.jpg",
+    img:"https://i.imgur.com/Q337yuo.jpg",
     mainSect: "food",
   },
   {
@@ -92,7 +103,8 @@ const allfoodseed = [
     name: "Oatmeal Bowl",
     des: "The best breakfast option",
     price: 11.99,
-    img: "https://i.imgur.com/XjUDwfp.jpg",
+    // img: "https://i.imgur.com/XjUDwfp.jpg",
+    img:"https://i.imgur.com/vzaUyYO.jpg",
     mainSect: "food",
   },
   {
@@ -100,7 +112,8 @@ const allfoodseed = [
     name: "Avocado Toast",
     des: "Toast, but classy",
     price: 8.99,
-    img: "https://i.imgur.com/P1AsVoa.jpg",
+    img: "https://i.imgur.com/ChOWfVK.jpg",
+    // img: "https://i.imgur.com/P1AsVoa.jpg",
     mainSect: "food",
   },
   {
@@ -108,7 +121,8 @@ const allfoodseed = [
     name: "Fresh Apple Juice",
     des: "A refreshing cup of apple juice",
     price: 6.99,
-    img: "https://i.imgur.com/AeFFuFW.jpg",
+    img: "https://i.imgur.com/vQrRPUS.jpg",
+    // img: "https://i.imgur.com/AeFFuFW.jpg",
     mainSect: "drinks",
   },
   {
@@ -116,7 +130,8 @@ const allfoodseed = [
     name: "Chia Pudding Oatmeal Shake",
     des: "A surprisingly delicious combo",
     price: 7.99,
-    img: "https://i.imgur.com/Riwumgs.jpg",
+    // img: "https://i.imgur.com/Riwumgs.jpg",
+    img:"https://i.imgur.com/moDvjAJ.jpg",
     mainSect: "drinks",
   },
   {
@@ -124,7 +139,8 @@ const allfoodseed = [
     name: "Latte",
     des: "Hand-brewed goodness",
     price: 4.99,
-    img: "https://i.imgur.com/xSxgkU2.jpg",
+    // img: "https://i.imgur.com/xSxgkU2.jpg",
+    img:"https://i.imgur.com/1kZiVQv.jpg",
     mainSect: "drinks",
   },
   {
@@ -132,7 +148,8 @@ const allfoodseed = [
     name: "Fresh Orange Juice",
     des: "Freshly squeezed",
     price: 5.99,
-    img: "https://i.imgur.com/BnX1kDH.jpg",
+    // img: "https://i.imgur.com/BnX1kDH.jpg",
+    img:"https://i.imgur.com/jWBALgy.jpg",
     mainSect: "drinks",
   },
   {
@@ -140,7 +157,8 @@ const allfoodseed = [
     name: "Fresh Pineapple Juice",
     des: "Freshly squeezed",
     price: 5.99,
-    img: "https://i.imgur.com/E9ddBe2.jpg",
+    // img: "https://i.imgur.com/E9ddBe2.jpg",
+    img:"https://i.imgur.com/t3xdSuq.jpg",
     mainSect: "drinks",
   },
   {
@@ -148,7 +166,8 @@ const allfoodseed = [
     name: "Hot Chocolate",
     des: "A warm delight on a cold day",
     price: 3.99,
-    img: "https://i.imgur.com/tCo2R2d.jpg",
+    // img: "https://i.imgur.com/tCo2R2d.jpg",
+    img:"https://i.imgur.com/Y6nTfmz.jpg",
     mainSect: "drinks",
   },
   {
