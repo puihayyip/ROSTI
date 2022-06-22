@@ -62,13 +62,20 @@ export default function CompMapTableRow({ item, orderNum, tblNum, setUpdate }) {
             ))}
           </TextField>
         ) : (
-          <TableCell align="right">{qty} </TableCell>
+          <p>{qty}</p>
         )}
       </TableCell>
 
       <TableCell align="right">${ccyFormat(item.price * qty)}</TableCell>
       <TableCell align="right">
-        {<EditIcon sx={{ cursor: "pointer" }} onClick={handleUpdate} />}
+        {edit ===true ? (
+        <EditIcon sx={{ cursor: "pointer" }} 
+        color="error"/>
+        ):(
+          <EditIcon sx={{ cursor: "pointer" }} 
+          onClick={handleUpdate}/>
+        )}
+          
       </TableCell>
     </TableRow>
   );

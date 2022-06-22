@@ -97,7 +97,7 @@ export default function ViewReceipt({ user }) {
               obj.items.map((item) => (
                 // console.log(item)
                 <TableRow key={index}>
-                  <TableCell>{item.foodID}</TableCell>
+                  <TableCell>{item.name}</TableCell>
                   <TableCell align="right">${ccyFormat(x)}</TableCell>
                   <TableCell align="right">{item.quantity}</TableCell>
                   <TableCell align="right">
