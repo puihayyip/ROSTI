@@ -68,7 +68,7 @@ const allfoodseed = [
     des: "Hearty Salad",
     price: 12.99,
     // img: "https://i.imgur.com/B5ePoHx.jpg",
-    img:"https://i.imgur.com/ZcJozty.jpg",
+    img:"https://i.imgur.com/7jETRrt.jpg",
     mainSect: "food",
   },
   {
