@@ -20,7 +20,6 @@ export const stateContext = createContext();
 
 function App() {
   const [user, setUser] = useState({ category: null, username: "" });
-  console.log("user", user);
 
   return (
     <div className="App">
