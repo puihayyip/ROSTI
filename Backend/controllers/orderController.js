@@ -33,7 +33,7 @@ router.get("/:id", async (req, res) => {
     const allOrders = await ordersSchema.findOne({
       tblNum: parseInt(req.params.id),
     });
-    console.log(req.params.id);
+    // console.log(req.params.id);
     res.send({ status: "success", data: allOrders });
   } catch (error) {
     res.send(error);
@@ -45,7 +45,7 @@ router.get("/each/:id", async (req, res) => {
     const allOrders = await ordersSchema.findOne({
       _id: req.params.id,
     });
-    console.log(allOrders);
+    // console.log(allOrders);
     res.send({ status: "success", data: allOrders });
   } catch (error) {
     res.send(error);
