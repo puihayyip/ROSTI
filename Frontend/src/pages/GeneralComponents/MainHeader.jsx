@@ -31,18 +31,23 @@ export default function Head({ user }) {
             >
               ROSTI
             </Typography>
-            <Button
-              sx={{
-                marginRight: "20px",
-                marginBottom: "10px",
-                fontWeight: "bold",
-                color: "white",
-                border: "1px white solid",
-              }}
-              onClick={() => setOpen(true)}
-            >
-              Logout
-            </Button>
+            {window.location.href.slice(window.location.href.length - 1) ===
+            "/" ? (
+              ""
+            ) : (
+              <Button
+                sx={{
+                  marginRight: "20px",
+                  marginBottom: "10px",
+                  fontWeight: "bold",
+                  color: "white",
+                  border: "1px white solid",
+                }}
+                onClick={() => setOpen(true)}
+              >
+                Logout
+              </Button>
+            )}
             {open ? (
               <LogoutDialog open={open} setOpen={setOpen} user={user} />
             ) : (
