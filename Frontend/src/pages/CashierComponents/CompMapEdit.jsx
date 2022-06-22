@@ -12,13 +12,24 @@ for (let i = 0; i <= 10; i++) {
   quantities.push({ value: i, label: i });
 }
 
-export default function CompMapTableRow({ item, objID }) {
+export default function CompMapTableRow({ item, orderNum, tblNum }) {
   const [edit, setEdit] = useState(false);
   const [qty, setQty] = useState(item.quantity);
 
   const handleChange = (event) => {
     setQty(event.target.value);
-    console.log(item);
+    fetch(`/api/orders/edit/${tblNum}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({
+        qty: event.target.value,
+        orderNum: orderNum,
+        itemID: item._id,
+      }),
+    });
   };
 
   const handleUpdate = () => {

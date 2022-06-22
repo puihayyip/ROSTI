@@ -80,7 +80,9 @@ export default function CompEditOrderList({ order }) {
   const ComMapEditArr = [];
   for (let obj of order.orders) {
     for (let item of obj.items) {
-      ComMapEditArr.push(<CompMapEdit item={item} objID={obj._id} />);
+      ComMapEditArr.push(
+        <CompMapEdit item={item} orderNum={obj.orderNum} tblNum={tblNum} />
+      );
     }
   }
 
