@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 
 function SideTab({ cart, user, setCart }) {
@@ -10,7 +9,6 @@ function SideTab({ cart, user, setCart }) {
 
     for (let food of cart) {
       orderObj.orders[0].items.push({
-        // _id: food.food._id,
         name: food.food.name,
         price: food.food.price,
         quantity: food.qty,
@@ -27,8 +25,6 @@ function SideTab({ cart, user, setCart }) {
       },
       body: JSON.stringify(orderObj),
     });
-    // .then((response) => response.json())
-    // .then((data) => console.log(data));
     setCart([]);
   };
 
