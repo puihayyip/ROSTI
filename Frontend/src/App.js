@@ -7,6 +7,9 @@ import Login from "./pages/MainPage/Login";
 import AddUsers from "./pages/MainPage/AddUsers";
 import Order from "./pages/OrderTabComponents/Order";
 import ScrollToTopBtn from "./pages/GeneralComponents/ScrollToTopBtn";
+
+import FoodItem from "./pages/OrderTabComponents/FoodItem";
+
 import KitchenMainPage from "./pages/KitchenComponents/ViewMainKitchen";
 
 import ViewMainCashier from "./pages/CashierComponents/ViewMainCashier";
@@ -34,6 +37,8 @@ function App() {
           </Route>
 
           <Route path="/menu" element={<Order user={user} />} />
+          <Route path="/menu/food/:id" element={<FoodItem user={user}/>} />
+
           <Route path="/kitchen" element={<KitchenMainPage user={user} />} />
           <Route path="/cashier" element={<ViewMainCashier user={user} />} />
           <Route
