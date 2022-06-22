@@ -7,6 +7,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+// import CompButtonsKitchen from './CompButtonsKitchen';
 import CompButtonsService from "./CompButtonsService";
 import CompButtonsKitchen from "./CompButtonsKitchen";
 import { useState, useEffect } from "react";
@@ -24,9 +25,10 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 }));
 
 export default function CompOrderList() {
-  const [orders, setOrders] = useState([]);
+  const [orders, setOrders] = useState({});
+  const [toggle, setToggle] = useState([]);
   const [data, setData] = useState(null);
-  const [update, setUpdate] = useState(true);
+  const [update, setUpdate] = useState(false);
 
   const fetchOrders = () => {
     fetch("api/orders/")
@@ -35,31 +37,28 @@ export default function CompOrderList() {
   };
 
   const createTbl = () => {
-    const newObj = [];
+    const newObj = {};
+    let count = 1;
     for (let eachTable of data.data) {
       const tblNum = eachTable.tblNum;
+      newObj[tblNum] = [];
       for (let eachOrder of eachTable.orders) {
         for (let item of eachOrder.items) {
-          newObj.push(
+          newObj[tblNum].push(
             <TableRow>
               <TableCell>{item.name}</TableCell>
               <TableCell align="right">{item.quantity}</TableCell>
               <TableCell align="right">{tblNum}</TableCell>
               <TableCell align="right">
                 <CompButtonsKitchen
-                  item={item}
-                  orderNum={eachOrder.orderNum}
-                  tblNum={tblNum}
+                  count={count}
+                  setToggle={setToggle}
+                  toggle={toggle}
                   setUpdate={setUpdate}
                 />
               </TableCell>
               <TableCell align="right">
-                <CompButtonsService
-                  item={item}
-                  orderNum={eachOrder.orderNum}
-                  tblNum={tblNum}
-                  setUpdate={setUpdate}
-                />
+                <CompButtonsService count={count} toggle={toggle} />
               </TableCell>
               <TableCell
                 onClick={() => {
@@ -70,21 +69,31 @@ export default function CompOrderList() {
               </TableCell>
             </TableRow>
           );
+          count++;
         }
       }
     }
+    console.log(newObj);
     setOrders(newObj);
   };
 
   useEffect(() => {
     fetchOrders();
-  }, [update]);
+    setToggle([]);
+    let sum = 0;
+    for (let counter of Object.values(orders)) {
+      sum += counter.length;
+    }
+    for (let i = 0; i < sum; i++) {
+      setToggle((toggle) => [...toggle, false]);
+    }
+  }, []);
 
   useEffect(() => {
     if (data) {
       createTbl();
     }
-  }, [data]);
+  }, [data, update]);
 
   return (
     <>

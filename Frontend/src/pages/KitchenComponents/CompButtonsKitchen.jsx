@@ -1,26 +1,33 @@
 import ButtontrueCooked from "./ButtontrueCooked";
 import ButtonfalseCooked from "./ButtonfalseCooked";
-import { useState } from "react";
 
 export default function CompButtonsKitchen({
-  count,
-  setToggle,
-  toggle,
+  item,
+  orderNum,
+  tblNum,
   setUpdate,
 }) {
-  const [cooked, SetCooked] = useState(false);
   const handleKitchen = () => {
     console.log("Kitchen completed this dish");
-    SetCooked(!cooked);
     setUpdate((update) => !update);
-    const newToggle = [...toggle];
-    newToggle.splice(count - 1, 1, !cooked);
-    setToggle(newToggle);
+    fetch(`/api/orders/edit/${tblNum}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({
+        edit: item.foodPrepared === "on" ? "off" : "on",
+        orderNum: orderNum,
+        itemID: item._id,
+        field: "foodPrepared",
+      }),
+    });
   };
 
   return (
     <>
-      {cooked === true ? (
+      {item.foodPrepared === "on" ? (
         <ButtontrueCooked handleKitchen={handleKitchen} />
       ) : (
         <ButtonfalseCooked handleKitchen={handleKitchen} />

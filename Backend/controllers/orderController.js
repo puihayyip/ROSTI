@@ -99,7 +99,7 @@ router.put("/edit/:id", async (req, res) => {
       { tblNum: req.params.id },
       {
         $set: {
-          "orders.$[outside].items.$[inside].quantity": req.body.qty,
+          [`orders.$[outside].items.$[inside].${req.body.field}`]: req.body.edit,
         },
       },
       {

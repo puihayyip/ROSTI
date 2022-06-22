@@ -25,7 +25,7 @@ export default function CompMapTableRow({ item, orderNum, tblNum, setUpdate }) {
         Accept: "application/json",
       },
       body: JSON.stringify({
-        qty: event.target.value,
+        edit: event.target.value,
         orderNum: orderNum,
         itemID: item._id,
       }),
