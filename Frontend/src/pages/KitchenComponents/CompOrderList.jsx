@@ -60,7 +60,13 @@ export default function CompOrderList() {
               <TableCell align="right">
                 <CompButtonsService count={count} toggle={toggle} />
               </TableCell>
-              {/* <TableCell onClick={()=>{newObj[tblNum]}}>hello</TableCell> */}
+              <TableCell
+                onClick={() => {
+                  console.log("clicked");
+                }}
+              >
+                hello
+              </TableCell>
             </TableRow>
           );
           count++;

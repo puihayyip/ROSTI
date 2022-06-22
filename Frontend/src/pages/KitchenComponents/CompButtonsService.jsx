@@ -3,7 +3,6 @@ import ButtonfalseServed from "./ButtonfalseServed";
 import { useEffect, useState } from "react";
 
 export default function CompButtonsService({ count, toggle }) {
-  const [cooked, SetCooked] = useState(false);
   const [served, SetServed] = useState(false);
 
   const handleService = () => {
