@@ -1,4 +1,4 @@
-import Head from "../GeneralComponents/MainHeader";
+import CashierHead from "../GeneralComponents/CashierHeader";
 import * as React from "react";
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -9,7 +9,8 @@ import CompEditOrderButtons from "./CompEditOrderButtons";
 
 export default function TablePreviewBill({ user }) {
   const [edit, setEdit] = useState(false);
-  const [order, setOrder] = useState(0);
+  const [order, setOrder] = useState({});
+  const [update, setUpdate] = useState(false);
   let { tblNum } = useParams();
 
   const nav = useNavigate();
@@ -33,14 +34,14 @@ export default function TablePreviewBill({ user }) {
         setOrder(data.data);
         console.log("fetching");
       });
-  }, [edit]);
+  }, [update]);
 
   return (
     <>
-      <Head user={user} />
+      <CashierHead user={user} />
       {edit === true ? (
         <>
-          <CompEditOrderList order={order} />
+          <CompEditOrderList order={order} setUpdate={setUpdate} />
           <CompEditOrderButtons handleConfirm={handleConfirm} />
         </>
       ) : (

@@ -33,7 +33,7 @@ router.get("/:id", async (req, res) => {
     const allOrders = await ordersSchema.findOne({
       tblNum: parseInt(req.params.id),
     });
-    console.log(req.params.id);
+    // console.log(req.params.id);
     res.send({ status: "success", data: allOrders });
   } catch (error) {
     res.send(error);
@@ -45,7 +45,7 @@ router.get("/each/:id", async (req, res) => {
     const allOrders = await ordersSchema.findOne({
       _id: req.params.id,
     });
-    console.log(allOrders);
+    // console.log(allOrders);
     res.send({ status: "success", data: allOrders });
   } catch (error) {
     res.send(error);
@@ -76,26 +76,37 @@ router.post("/new/", async (req, res) => {
 //! UPDATE
 
 router.put("/edit/:id", async (req, res) => {
-  // console.log (req.params.id)
   try {
-    const updatedOrder = await ordersSchema.findOneAndUpdate(
+    const updatedOrder = await ordersSchema.updateOne(
       { tblNum: req.params.id },
       {
         $set: {
-          "orders.$[Orders].items.$[Items].quantity": req.body.qty,
+          "orders.$[outside].items.$[inside].quantity": req.body.qty,
         },
       },
       {
         arrayFilters: [
           {
-            "Orders.orderNum": req.body.orderID,
+            "outside.orderNum": req.body.orderNum,
           },
           {
-            "Items.name": req.body.itemID,
+            "inside._id": req.body.itemID,
           },
         ],
       }
     );
+    res.send({ status: "success", data: updatedOrder });
+  } catch (error) {
+    res.send({ status: "error", data: error });
+  }
+});
+
+//! DELETE
+router.delete("/:id", async (req, res) => {
+  try {
+    const updatedOrder = await ordersSchema.deleteOne({
+      tblNum: req.params.id,
+    });
     res.send({ status: "success", data: updatedOrder });
   } catch (error) {
     res.send({ status: "error", data: error });

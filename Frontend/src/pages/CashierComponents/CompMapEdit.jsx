@@ -12,17 +12,29 @@ for (let i = 0; i <= 10; i++) {
   quantities.push({ value: i, label: i });
 }
 
-export default function CompMapTableRow({ item, objID }) {
+export default function CompMapTableRow({ item, orderNum, tblNum, setUpdate }) {
   const [edit, setEdit] = useState(false);
   const [qty, setQty] = useState(item.quantity);
 
   const handleChange = (event) => {
     setQty(event.target.value);
-    console.log(item);
+    fetch(`/api/orders/edit/${tblNum}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({
+        qty: event.target.value,
+        orderNum: orderNum,
+        itemID: item._id,
+      }),
+    });
   };
 
   const handleUpdate = () => {
     setEdit(!edit);
+    setUpdate((update) => !update);
   };
 
   function ccyFormat(num) {
@@ -50,13 +62,21 @@ export default function CompMapTableRow({ item, objID }) {
             ))}
           </TextField>
         ) : (
-          <TableCell align="right">{qty} </TableCell>
+          <p>{qty}</p>
         )}
       </TableCell>
 
       <TableCell align="right">${ccyFormat(item.price * qty)}</TableCell>
       <TableCell align="right">
-        {<EditIcon sx={{ cursor: "pointer" }} onClick={handleUpdate} />}
+        {edit === true ? (
+          <EditIcon
+            sx={{ cursor: "pointer" }}
+            color="error"
+            onClick={handleUpdate}
+          />
+        ) : (
+          <EditIcon sx={{ cursor: "pointer" }} onClick={handleUpdate} />
+        )}
       </TableCell>
     </TableRow>
   );

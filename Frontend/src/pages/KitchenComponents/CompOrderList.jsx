@@ -27,54 +27,73 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 export default function CompOrderList() {
   const [orders, setOrders] = useState({});
   const [toggle, setToggle] = useState([]);
+  const [data, setData] = useState(null);
+  const [update, setUpdate] = useState(false);
 
   const fetchOrders = () => {
     fetch("api/orders/")
       .then((res) => res.json())
-      .then((data) => {
-        const newObj = {};
-        let count = 1;
-        for (let eachTable of data.data) {
-          const tblNum = eachTable.tblNum;
-          newObj[tblNum] = [];
-          for (let eachOrder of eachTable.orders) {
-            for (let item of eachOrder.items) {
-              setToggle((toggle) => [...toggle, false]);
+      .then((data) => setData(data));
+  };
 
-              newObj[tblNum].push(
-                <TableRow>
-                  <TableCell>{count}</TableCell>
-                  <TableCell>{item.name}</TableCell>
-                  <TableCell align="right">{item.quantity}</TableCell>
-                  <TableCell align="right">{tblNum}</TableCell>
-                  <TableCell align="right">hello</TableCell>
-                  <TableCell align="right">
-                    <CompButtonsKitchen
-                      count={count}
-                      setToggle={setToggle}
-                      toggle={toggle}
-                    />
-                  </TableCell>
-                  <TableCell align="right">
-                    <CompButtonsService count={count} toggle={toggle} />
-                  </TableCell>
-                </TableRow>
-              );
-              count++;
-            }
-          }
+  const createTbl = () => {
+    const newObj = {};
+    let count = 1;
+    for (let eachTable of data.data) {
+      const tblNum = eachTable.tblNum;
+      newObj[tblNum] = [];
+      for (let eachOrder of eachTable.orders) {
+        for (let item of eachOrder.items) {
+          newObj[tblNum].push(
+            <TableRow>
+              <TableCell>{item.name}</TableCell>
+              <TableCell align="right">{item.quantity}</TableCell>
+              <TableCell align="right">{tblNum}</TableCell>
+              <TableCell align="right">
+                <CompButtonsKitchen
+                  count={count}
+                  setToggle={setToggle}
+                  toggle={toggle}
+                  setUpdate={setUpdate}
+                />
+              </TableCell>
+              <TableCell align="right">
+                <CompButtonsService count={count} toggle={toggle} />
+              </TableCell>
+              <TableCell
+                onClick={() => {
+                  console.log("clicked");
+                }}
+              >
+                hello
+              </TableCell>
+            </TableRow>
+          );
+          count++;
         }
-        setOrders(newObj);
-      });
+      }
+    }
+    console.log(newObj);
+    setOrders(newObj);
   };
 
   useEffect(() => {
     fetchOrders();
+    setToggle([]);
+    let sum = 0;
+    for (let counter of Object.values(orders)) {
+      sum += counter.length;
+    }
+    for (let i = 0; i < sum; i++) {
+      setToggle((toggle) => [...toggle, false]);
+    }
   }, []);
 
   useEffect(() => {
-    console.log(toggle);
-  }, [toggle]);
+    if (data) {
+      createTbl();
+    }
+  }, [data, update]);
 
   return (
     <>
@@ -88,11 +107,9 @@ export default function CompOrderList() {
           <TableHead>
             <TableRow></TableRow>
             <TableRow>
-              <StyledTableCell>Order no</StyledTableCell>
               <StyledTableCell>Item Name</StyledTableCell>
               <StyledTableCell align="right">Quantity</StyledTableCell>
               <StyledTableCell align="right">Table No.</StyledTableCell>
-              <StyledTableCell align="right">Remarks</StyledTableCell>
               <StyledTableCell align="right">Kitchen Send</StyledTableCell>
               <StyledTableCell align="right">Table Receive</StyledTableCell>
             </TableRow>

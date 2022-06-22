@@ -9,6 +9,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function FormDialog({ open, setOpen, user }) {
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const handleClose = () => {
     setOpen(false);
@@ -35,7 +36,6 @@ function FormDialog({ open, setOpen, user }) {
 
   const handleLogout = (e) => {
     e.preventDefault();
-    console.log(user);
     const value = {
       userName: user.username,
       password: password,
@@ -44,32 +44,32 @@ function FormDialog({ open, setOpen, user }) {
     fetchUser(value);
   };
 
-  const [password, setPassword] = useState("");
-
   return (
     <div>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Log Out?</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            Logging out will void this table's orders. To confirm logging out,
-            please key in the correct password for table users.
-          </DialogContentText>
-          <TextField
-            autoFocus
-            margin="dense"
-            id="Password"
-            label="Password"
-            type="password"
-            fullWidth
-            variant="standard"
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={(e) => handleLogout(e)}>Confirm</Button>
-        </DialogActions>
+        <form action="submit logout" onSubmit={(e) => handleLogout(e)}>
+          <DialogContent>
+            <DialogContentText>
+              Logging out will void orders. To confirm logging out, please key
+              in the correct password for user.
+            </DialogContentText>
+            <TextField
+              autoFocus
+              margin="dense"
+              id="Password"
+              label="Password"
+              type="password"
+              fullWidth
+              variant="standard"
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose}>Cancel</Button>
+            <Button type="submit">Confirm</Button>
+          </DialogActions>
+        </form>
       </Dialog>
     </div>
   );

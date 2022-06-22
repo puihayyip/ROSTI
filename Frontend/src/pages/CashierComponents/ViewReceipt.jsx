@@ -8,9 +8,12 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import CompFinalOrderList from "./CompFinalOrderList";
-import Head from "../GeneralComponents/MainHeader";
+import { useParams, useNavigate } from "react-router-dom";
+// import CompFinalOrderList from "./CompFinalOrderList";
+import CashierHead from "../GeneralComponents/CashierHeader";
+import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box'
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -41,13 +44,22 @@ export default function ViewReceipt({ user }) {
   function ccyFormat(num) {
     return `${num.toFixed(2)}`;
   }
-  const x = 5.5; //{item.price}
+
+let nav = useNavigate()
+
+  const handleReset = () => {
+    fetch(`/api/orders/${tblNum}`, {
+    method: "DELETE",
+  }).then((response) => {
+    console.log('deleted')})
+    nav('/cashier')
+  };
 
   //? SUBTOTAL
   const arrayItemSubTotal = [];
 
   order?.orders?.map((obj, index) =>
-    obj.items.map((item) => arrayItemSubTotal.push(item.quantity * x))
+    obj.items.map((item) => arrayItemSubTotal.push(item.quantity * item.price))
   );
 
   let SubTotal = 0;
@@ -68,7 +80,7 @@ export default function ViewReceipt({ user }) {
 
   return (
     <>
-      <Head user={user} />
+      <CashierHead user={user} />
       <h1>Receipt</h1>
 
       <TableContainer component={Paper}>
@@ -97,11 +109,11 @@ export default function ViewReceipt({ user }) {
               obj.items.map((item) => (
                 // console.log(item)
                 <TableRow key={index}>
-                  <TableCell>{item.foodID}</TableCell>
-                  <TableCell align="right">${ccyFormat(x)}</TableCell>
+                  <TableCell>{item.name}</TableCell>
+                  <TableCell align="right">${ccyFormat(item.price)}</TableCell>
                   <TableCell align="right">{item.quantity}</TableCell>
                   <TableCell align="right">
-                    ${ccyFormat(x * item.quantity)}
+                    ${ccyFormat(item.price * item.quantity)}
                   </TableCell>
                 </TableRow>
               ))
@@ -138,6 +150,21 @@ export default function ViewReceipt({ user }) {
       </TableContainer>
       <h2> Thank you for visiting our restaurant.</h2>
       <h3> See you again soon.</h3>
+      
+      <Box
+       sx={{
+        display: "flex",
+        justifyContent: "center",
+        p: 1,
+        m: 1,
+        bgcolor: "background.paper",
+        borderRadius: 1,
+       }}
+       >
+      <Stack spacing={2} direction="row">
+      <Button variant="contained" onClick={handleReset} align="center">Reset Table</Button>
+    </Stack>
+    </Box>
     </>
   );
 }

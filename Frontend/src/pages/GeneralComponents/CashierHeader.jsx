@@ -6,6 +6,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 import LogoutDialog from "./LogoutDialog";
 import { useState } from "react";
+import {useNavigate} from 'react-router-dom'
 
 const theme = createTheme({
   palette: {
@@ -16,6 +17,7 @@ const theme = createTheme({
 });
 
 export default function Head({ user }) {
+    let nav=useNavigate()
   const [open, setOpen] = useState(false);
 
   return (
@@ -31,28 +33,37 @@ export default function Head({ user }) {
             >
               ROSTI
             </Typography>
-            {window.location.href.slice(window.location.href.length - 1) ===
-            "/" ? (
-              ""
-            ) : (
-              <Button
-                sx={{
-                  marginRight: "20px",
-                  marginBottom: "10px",
-                  fontWeight: "bold",
-                  color: "white",
-                  border: "1px white solid",
-                }}
-                onClick={() => setOpen(true)}
-              >
-                Logout
-              </Button>
-            )}
+            <Button
+              sx={{
+                marginRight: "20px",
+                marginBottom: "10px",
+                fontWeight: "bold",
+                color: "white",
+                border: "1px white solid",
+              }}
+              onClick={() => nav('/cashier')}
+            >
+              Back to Cashier View
+            </Button>
+
+            <Button
+              sx={{
+                marginRight: "20px",
+                marginBottom: "10px",
+                fontWeight: "bold",
+                color: "white",
+                border: "1px white solid",
+              }}
+              onClick={() => setOpen(true)}
+            >
+              Logout
+            </Button>
             {open ? (
               <LogoutDialog open={open} setOpen={setOpen} user={user} />
             ) : (
               ""
             )}
+
           </Toolbar>
         </AppBar>
       </ThemeProvider>

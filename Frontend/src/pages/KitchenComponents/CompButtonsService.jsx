@@ -1,17 +1,16 @@
 import ButtontrueServed from "./ButtontrueServed";
 import ButtonfalseServed from "./ButtonfalseServed";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function CompButtonsService({ count, toggle }) {
-  const [cooked, SetCooked] = useState(false);
   const [served, SetServed] = useState(false);
 
   const handleService = () => {
-    console.log(toggle);
-    console.log(toggle[count]);
-    if (toggle[count]) {
+    if (toggle[count - 1]) {
       console.log("Dish has been served to table");
       SetServed(!served);
+    } else {
+      alert("Food not ready, nothing to serve");
     }
   };
 
@@ -24,10 +23,5 @@ export default function CompButtonsService({ count, toggle }) {
       )}
     </>
   );
-  // }
-
-  // else {
-
-  //   alert("Food not ready, nothing to serve")
   // }
 }

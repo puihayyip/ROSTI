@@ -18,9 +18,23 @@ router.get("/seed", async (req, res) => {
   }
 });
 
+//! ALL
 router.get("/", async (req, res) => {
   const allFood = await Allfood.find({});
   res.send(allFood);
+});
+
+//! INDEX
+router.get("/:id", async (req, res) => {
+  try {
+    const FoodItem = await Allfood.findOne({
+      _id: req.params.id
+    });
+    // console.log(req.params.id);
+    res.send({ status: "success", data: FoodItem });
+  } catch (error) {
+    res.send(error);
+  }
 });
 
 module.exports = router;
