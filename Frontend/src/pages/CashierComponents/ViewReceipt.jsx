@@ -41,13 +41,11 @@ export default function ViewReceipt({ user }) {
   function ccyFormat(num) {
     return `${num.toFixed(2)}`;
   }
-  const x = 5.5; //{item.price}
-
   //? SUBTOTAL
   const arrayItemSubTotal = [];
 
   order?.orders?.map((obj, index) =>
-    obj.items.map((item) => arrayItemSubTotal.push(item.quantity * x))
+    obj.items.map((item) => arrayItemSubTotal.push(item.quantity * item.price))
   );
 
   let SubTotal = 0;
@@ -98,10 +96,10 @@ export default function ViewReceipt({ user }) {
                 // console.log(item)
                 <TableRow key={index}>
                   <TableCell>{item.name}</TableCell>
-                  <TableCell align="right">${ccyFormat(x)}</TableCell>
+                  <TableCell align="right">${ccyFormat(item.price)}</TableCell>
                   <TableCell align="right">{item.quantity}</TableCell>
                   <TableCell align="right">
-                    ${ccyFormat(x * item.quantity)}
+                    ${ccyFormat(item.price * item.quantity)}
                   </TableCell>
                 </TableRow>
               ))
