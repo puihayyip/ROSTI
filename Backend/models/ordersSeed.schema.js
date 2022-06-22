@@ -11,6 +11,7 @@ var subSchema = new mongoose.Schema(
         quantity: { type: Number },
         foodPrepared: { type: String, default: "off" },
         foodSent: { type: String, default: "off" },
+        foodDone: { type: String, default: "off" },
       },
     ],
   },
