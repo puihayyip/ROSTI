@@ -84,7 +84,7 @@ function Login({ user, setUser }) {
         <FlexInput>
           <TextField
             id="outlined-required"
-            label="User Name"
+            label={user.category === "Table" ? "Table Number" : "User Name"}
             name="UserName"
             variant="outlined"
             margin="dense"
