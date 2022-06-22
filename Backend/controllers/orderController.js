@@ -75,23 +75,23 @@ router.post("/new/", async (req, res) => {
 });
 //! UPDATE
 
-router.put("/edit/kitchen", async (req, res) => {
-  try {
-    const updatedOrder = await ordersSchema.aggregate([
-      { $unwind: "$orders" },
-      { $unwind: "$orders.items" },
-      { $match: { "orders.items.foodPrepared": "on" } },
-      {
-        $group: {
-          _id: "$orders.items._id",
-        },
-      },
-    ]);
-    res.send({ status: "success", data: updatedOrder });
-  } catch (error) {
-    res.send({ status: "error", data: error });
-  }
-});
+// router.put("/edit/kitchen", async (req, res) => {
+//   try {
+//     const updatedOrder = await ordersSchema.aggregate([
+//       { $unwind: "$orders" },
+//       { $unwind: "$orders.items" },
+//       { $match: { "orders.items.foodPrepared": "on" } },
+//       {
+//         $group: {
+//           _id: "$orders.items._id",
+//         },
+//       },
+//     ]);
+//     res.send({ status: "success", data: updatedOrder });
+//   } catch (error) {
+//     res.send({ status: "error", data: error });
+//   }
+// });
 
 router.put("/edit/:id", async (req, res) => {
   try {
@@ -99,7 +99,8 @@ router.put("/edit/:id", async (req, res) => {
       { tblNum: req.params.id },
       {
         $set: {
-          [`orders.$[outside].items.$[inside].${req.body.field}`]: req.body.edit,
+          [`orders.$[outside].items.$[inside].${req.body.field}`]:
+            req.body.edit,
         },
       },
       {
