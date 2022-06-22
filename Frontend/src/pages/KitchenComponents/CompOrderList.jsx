@@ -41,7 +41,8 @@ export default function CompOrderList() {
       for (let eachOrder of eachTable.orders) {
         for (let item of eachOrder.items) {
           newObj.push(
-            <TableRow>
+            // <TableRow sx={{ display: "none" }}>
+            <TableRow className={item._id}>
               <TableCell>{item.name}</TableCell>
               <TableCell align="right">{item.quantity}</TableCell>
               <TableCell align="right">{tblNum}</TableCell>
@@ -61,19 +62,23 @@ export default function CompOrderList() {
                   setUpdate={setUpdate}
                 />
               </TableCell>
-              <TableCell
-                onClick={() => {
-                  console.log("clicked");
+              {/* <TableCell
+                id={item._id}
+                onClick={(e) => {
+                  console.log(e.target.id);
+                  console.log(this);
+                  this.parentNode.style.display = "none";
                 }}
               >
                 hello
-              </TableCell>
+              </TableCell> */}
             </TableRow>
           );
         }
       }
     }
     setOrders(newObj);
+    console.log(orders);
   };
 
   useEffect(() => {
