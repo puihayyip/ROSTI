@@ -84,7 +84,7 @@ function SideTab({ cart, user, setCart }) {
             </Button>
           </>
         ) : (
-          <h3>Your cart is empty</h3>
+          <h3> Click on a food item to add to a new order for your table! </h3>
         )}
       </div>
     </div>

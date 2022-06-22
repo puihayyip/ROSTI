@@ -101,4 +101,18 @@ router.put("/edit/:id", async (req, res) => {
   }
 });
 
+//! DELETE
+router.delete("/:id", async (req, res) => {
+  try {
+    const updatedOrder = await ordersSchema.deleteOne(
+      { tblNum: req.params.id },
+    );
+    res.send({ status: "success", data: updatedOrder });
+  } catch (error) {
+    res.send({ status: "error", data: error });
+  }
+});
+
+
+
 module.exports = router;

@@ -8,9 +8,12 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import CompFinalOrderList from "./CompFinalOrderList";
 import Head from "../GeneralComponents/MainHeader";
+import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box'
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -41,6 +44,18 @@ export default function ViewReceipt({ user }) {
   function ccyFormat(num) {
     return `${num.toFixed(2)}`;
   }
+
+  const [tab, SetTab] = useState(order)
+let nav = useNavigate()
+
+  const handleReset = () => {
+    fetch(`/api/orders/${tblNum}`, {
+    method: "DELETE",
+  }).then((response) => {
+    console.log('deleted')})
+    nav('/cashier')
+  };
+
   //? SUBTOTAL
   const arrayItemSubTotal = [];
 
@@ -136,6 +151,21 @@ export default function ViewReceipt({ user }) {
       </TableContainer>
       <h2> Thank you for visiting our restaurant.</h2>
       <h3> See you again soon.</h3>
+      
+      <Box
+       sx={{
+        display: "flex",
+        justifyContent: "center",
+        p: 1,
+        m: 1,
+        bgcolor: "background.paper",
+        borderRadius: 1,
+       }}
+       >
+      <Stack spacing={2} direction="row">
+      <Button variant="contained" onClick={handleReset} align="center">Reset Table</Button>
+    </Stack>
+    </Box>
     </>
   );
 }
