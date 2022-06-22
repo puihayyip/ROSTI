@@ -12,7 +12,7 @@ for (let i = 0; i <= 10; i++) {
   quantities.push({ value: i, label: i });
 }
 
-export default function CompMapTableRow({ item, orderNum, tblNum }) {
+export default function CompMapTableRow({ item, orderNum, tblNum, setUpdate }) {
   const [edit, setEdit] = useState(false);
   const [qty, setQty] = useState(item.quantity);
 
@@ -34,6 +34,7 @@ export default function CompMapTableRow({ item, orderNum, tblNum }) {
 
   const handleUpdate = () => {
     setEdit(!edit);
+    setUpdate((update) => !update);
   };
 
   function ccyFormat(num) {

@@ -25,7 +25,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   },
 }));
 
-export default function CompEditOrderList({ order }) {
+export default function CompEditOrderList({ order, setUpdate }) {
   let { tblNum } = useParams();
 
   //////////////////
@@ -35,6 +35,11 @@ export default function CompEditOrderList({ order }) {
   }
 
   const [SubTotal, setSubTotal] = useState(0);
+  const [DiscountAmt, setDiscountAmt] = useState(0);
+  const [TaxAmt, setTaxAmt] = useState(0);
+  const [TotalAmt, setTotalAmt] = useState(0);
+  const DiscountRate = 0.1;
+  const TaxRate = 0.07;
   const tabulation = () => {
     //? SUBTOTAL
     const arrayItemSubTotal = [];
@@ -45,35 +50,39 @@ export default function CompEditOrderList({ order }) {
       )
     );
 
-    // let SubTotal = 0;
+    let total = 0;
     for (let price of arrayItemSubTotal) {
-      setSubTotal((SubTotal) => SubTotal + price);
+      total += price;
     }
+    setSubTotal(total);
 
     //? DISCOUNT
-    let DiscountRate = 0.1;
-    let DiscountAmt = DiscountRate * SubTotal;
+    setDiscountAmt(DiscountRate * total);
 
     //? TAX
-    let TaxRate = 0.07;
-    let TaxAmt = (SubTotal - DiscountAmt) * TaxRate;
+    setTaxAmt((total - DiscountAmt) * TaxRate);
 
     //? TOTAL
-    let TotalAmt = SubTotal - DiscountAmt + TaxAmt;
+    setTotalAmt(total - DiscountAmt + TaxAmt);
   };
 
   const ComMapEditArr = [];
   for (let obj of order.orders) {
     for (let item of obj.items) {
       ComMapEditArr.push(
-        <CompMapEdit item={item} orderNum={obj.orderNum} tblNum={tblNum} />
+        <CompMapEdit
+          item={item}
+          orderNum={obj.orderNum}
+          tblNum={tblNum}
+          setUpdate={setUpdate}
+        />
       );
     }
   }
 
   useEffect(() => {
     tabulation();
-  }, []);
+  }, [order]);
 
   ///////////////////
 
