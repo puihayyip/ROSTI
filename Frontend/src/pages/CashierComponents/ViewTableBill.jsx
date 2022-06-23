@@ -28,7 +28,11 @@ export default function TablePreviewBill({ user }) {
   };
 
   useEffect(() => {
-    fetch(`/api/orders/${tblNum}`)
+    fetch(`/api/orders/${tblNum}`, {
+      headers: {
+        authorization: "Bearer " + localStorage.getItem("accessToken"),
+      },
+    })
       .then((response) => response.json())
       .then((data) => {
         setOrder(data.data);

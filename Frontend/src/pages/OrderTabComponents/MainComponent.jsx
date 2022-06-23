@@ -137,11 +137,14 @@ function FoodCards({ food, cart, setCart }) {
 
 function Main({ open, setOpen, selection, cart, setCart }) {
   const [allFood, setAllFood] = useState([]);
+  const navigate = useNavigate();
   const handleClick = () => {
     setOpen(!open);
   };
 
   const fetchData = async () => {
+    if (!localStorage.getItem("accessToken")) return navigate("/");
+
     fetch("/api/allfood")
       .then((res) => res.json())
       .then((data) => setAllFood(data));

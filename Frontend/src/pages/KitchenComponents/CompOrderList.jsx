@@ -1,5 +1,6 @@
 import { styled } from "@mui/material/styles";
 import * as React from "react";
+import { useNavigate } from "react-router-dom";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell, { tableCellClasses } from "@mui/material/TableCell";
@@ -26,11 +27,13 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 }));
 
 export default function CompOrderList() {
+  const navigate = useNavigate();
   const [orders, setOrders] = useState([]);
   const [data, setData] = useState(null);
   const [update, setUpdate] = useState(true);
 
   const fetchOrders = () => {
+    if (!localStorage.getItem("accessToken")) return navigate("/");
     fetch("api/orders/", {
       headers: {
         authorization: "Bearer " + localStorage.getItem("accessToken"),
@@ -77,6 +80,8 @@ export default function CompOrderList() {
                       headers: {
                         "Content-Type": "application/json",
                         Accept: "application/json",
+                        authorization:
+                          "Bearer " + localStorage.getItem("accessToken"),
                       },
                       body: JSON.stringify({
                         edit: "on",

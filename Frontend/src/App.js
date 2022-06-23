@@ -19,7 +19,10 @@ import ViewTableBill from "./pages/CashierComponents/ViewTableBill";
 export const stateContext = createContext();
 
 function App() {
-  const [user, setUser] = useState({ category: null, username: "" });
+  const [user, setUser] = useState({
+    category: localStorage.getItem("category"),
+    username: localStorage.getItem("userName"),
+  });
   console.log("user", user);
 
   return (

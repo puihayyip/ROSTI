@@ -11,9 +11,9 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 // import CompFinalOrderList from "./CompFinalOrderList";
 import CashierHead from "../GeneralComponents/CashierHeader";
-import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
-import Box from '@mui/material/Box'
+import Stack from "@mui/material/Stack";
+import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -32,7 +32,11 @@ export default function ViewReceipt({ user }) {
   let { tblNum } = useParams();
 
   useEffect(() => {
-    fetch(`/api/orders/${tblNum}`)
+    fetch(`/api/orders/${tblNum}`, {
+      headers: {
+        authorization: "Bearer " + localStorage.getItem("accessToken"),
+      },
+    })
       .then((response) => response.json())
       .then((data) => {
         setOrder(data.data);
@@ -45,14 +49,18 @@ export default function ViewReceipt({ user }) {
     return `${num.toFixed(2)}`;
   }
 
-let nav = useNavigate()
+  let nav = useNavigate();
 
   const handleReset = () => {
     fetch(`/api/orders/${tblNum}`, {
-    method: "DELETE",
-  }).then((response) => {
-    console.log('deleted')})
-    nav('/cashier')
+      method: "DELETE",
+      headers: {
+        authorization: "Bearer " + localStorage.getItem("accessToken"),
+      },
+    }).then((response) => {
+      console.log("deleted");
+    });
+    nav("/cashier");
   };
 
   //? SUBTOTAL
@@ -150,21 +158,23 @@ let nav = useNavigate()
       </TableContainer>
       <h2> Thank you for visiting our restaurant.</h2>
       <h3> See you again soon.</h3>
-      
+
       <Box
-       sx={{
-        display: "flex",
-        justifyContent: "center",
-        p: 1,
-        m: 1,
-        bgcolor: "background.paper",
-        borderRadius: 1,
-       }}
-       >
-      <Stack spacing={2} direction="row">
-      <Button variant="contained" onClick={handleReset} align="center">Reset Table</Button>
-    </Stack>
-    </Box>
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          p: 1,
+          m: 1,
+          bgcolor: "background.paper",
+          borderRadius: 1,
+        }}
+      >
+        <Stack spacing={2} direction="row">
+          <Button variant="contained" onClick={handleReset} align="center">
+            Reset Table
+          </Button>
+        </Stack>
+      </Box>
     </>
   );
 }
