@@ -12,7 +12,7 @@ import Typography from "@mui/material/Typography";
 import { useEffect } from "react";
 import { useState } from "react";
 
-function FoodCards({ food, cart, setCart }) {
+function FoodCards({ food, cart, setCart, setOpen, open }) {
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -56,6 +56,7 @@ function FoodCards({ food, cart, setCart }) {
   }, []);
 
   const handleAdd = () => {
+    setOpen(true)
     const index = cart.findIndex((item) => item.food.name === food.name);
     if (index >= 0) {
       const newCart = [...cart];
@@ -117,7 +118,7 @@ function FoodCards({ food, cart, setCart }) {
             minWidth: "140px",
           }}
         >
-          Add to cart
+          Add to Tab
         </Button>
         <Button
           variant="outlined"
@@ -214,6 +215,8 @@ function Main({ open, setOpen, selection, cart, setCart }) {
                 key={index}
                 cart={cart}
                 setCart={setCart}
+                setOpen={setOpen}
+                open={open}
               />
             ))}
         </div>
@@ -227,6 +230,8 @@ function Main({ open, setOpen, selection, cart, setCart }) {
                 key={index}
                 cart={cart}
                 setCart={setCart}
+                setOpen={setOpen}
+                open={open}
               />
             ))}
         </div>
