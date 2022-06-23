@@ -3,7 +3,8 @@ const express = require("express");
 const Users = require("../models/usersSeed.schema");
 const usersSeed = require("../models/allUsersSeed");
 const bcrypt = require("bcrypt");
-const { StatusCodes } = require("http-status-codes");
+const jwt = require("jsonwebtoken");
+const { StatusCodes, RESET_CONTENT } = require("http-status-codes");
 
 const router = express.Router();
 
@@ -62,14 +63,31 @@ router.post("/login", async (req, res) => {
       res.send({ status: "failed", data: "No user found" });
     } else {
       if (await bcrypt.compare(req.body.password, foundUser.password)) {
+        const accessToken = jwt.sign(
+          foundUser.userName,
+          process.env.ACCESS_TOKEN_SECRET
+        );
+        res.json({ status: "success", accessToken: accessToken });
         res.send({ status: "success", data: foundUser });
       } else {
         res.send({ status: "failed", data: "Wrong password" });
       }
     }
   } catch (error) {
-    res.send(error);
+    res.send({ status: "failed", data: error });
   }
 });
+
+const authenicateToken = (req, res, next) => {
+  const authHeader = req.headers["authorization"];
+  const token = authHeader && authHeader.split(" ")[1];
+  if (token === null) return res.sendStatus(401);
+
+  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+    if (err) return res.sendStatus(403);
+    req.user = user;
+    next();
+  });
+};
 
 module.exports = router;
