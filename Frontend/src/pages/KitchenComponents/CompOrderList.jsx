@@ -42,61 +42,60 @@ export default function CompOrderList() {
       const tblNum = eachTable.tblNum;
       for (let eachOrder of eachTable.orders) {
         for (let item of eachOrder.items) {
-          if (item.foodDone === "off") {
-            newObj.push(
-              <TableRow>
-                <TableCell>{item.name}</TableCell>
-                <TableCell align="right">{item.quantity}</TableCell>
-                <TableCell align="right">{tblNum}</TableCell>
-                <TableCell align="right">
-                  <CompButtonsKitchen
-                    item={item}
-                    orderNum={eachOrder.orderNum}
-                    tblNum={tblNum}
-                    setUpdate={setUpdate}
-                  />
-                </TableCell>
-                <TableCell align="right">
-                  <CompButtonsService
-                    item={item}
-                    orderNum={eachOrder.orderNum}
-                    tblNum={tblNum}
-                    setUpdate={setUpdate}
-                  />
-                </TableCell>
-                <TableCell
-                  align="right"
-                  onClick={() => {
-                    if (item.foodSent === "on") {
-                      fetch(`/api/orders/edit/${tblNum}`, {
-                        method: "PUT",
-                        headers: {
-                          "Content-Type": "application/json",
-                          Accept: "application/json",
-                        },
-                        body: JSON.stringify({
-                          edit: "on",
-                          orderNum: eachOrder.orderNum,
-                          itemID: item._id,
-                          field: "foodDone",
-                        }),
-                      });
-                      setUpdate(!update);
-                    }
-                  }}
+          newObj.push(
+            <TableRow sx={{ display: item.foodDone === "off" ? "" : "none" }}>
+              {/* <TableRow sx={myStyle}> */}
+              <TableCell>{item.name}</TableCell>
+              <TableCell align="right">{item.quantity}</TableCell>
+              <TableCell align="right">{tblNum}</TableCell>
+              <TableCell align="right">
+                <CompButtonsKitchen
+                  item={item}
+                  orderNum={eachOrder.orderNum}
+                  tblNum={tblNum}
+                  setUpdate={setUpdate}
+                />
+              </TableCell>
+              <TableCell align="right">
+                <CompButtonsService
+                  item={item}
+                  orderNum={eachOrder.orderNum}
+                  tblNum={tblNum}
+                  setUpdate={setUpdate}
+                />
+              </TableCell>
+              <TableCell
+                align="right"
+                onClick={() => {
+                  if (item.foodSent === "on") {
+                    fetch(`/api/orders/edit/${tblNum}`, {
+                      method: "PUT",
+                      headers: {
+                        "Content-Type": "application/json",
+                        Accept: "application/json",
+                      },
+                      body: JSON.stringify({
+                        edit: "on",
+                        orderNum: eachOrder.orderNum,
+                        itemID: item._id,
+                        field: "foodDone",
+                      }),
+                    });
+                    setUpdate(!update);
+                  }
+                }}
+              >
+                <Button
+                  disabled={item.foodSent === "on" ? false : true}
+                  variant="contained"
+                  color="primary"
+                  endIcon={<DeleteIcon />}
                 >
-                  <Button
-                    disabled={item.foodSent === "on" ? false : true}
-                    variant="contained"
-                    color="primary"
-                    endIcon={<DeleteIcon />}
-                  >
-                    Remove
-                  </Button>
-                </TableCell>
-              </TableRow>
-            );
-          }
+                  Remove
+                </Button>
+              </TableCell>
+            </TableRow>
+          );
         }
       }
     }
