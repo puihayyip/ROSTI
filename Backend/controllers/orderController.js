@@ -28,7 +28,7 @@ router.get("/", verifyToken, async (req, res) => {
   }
 });
 //! INDEX
-router.get("/:id", verifyToken, async (req, res) => {
+router.get("/:id", async (req, res) => {
   try {
     const allOrders = await ordersSchema.findOne({
       tblNum: parseInt(req.params.id),
@@ -52,7 +52,7 @@ router.get("/each/:id", verifyToken, async (req, res) => {
   }
 });
 //! CREATE
-router.post("/new/", verifyToken, async (req, res) => {
+router.post("/new/", async (req, res) => {
   const prevOrder = await ordersSchema.findOne({ tblNum: req.body.tblNum });
   try {
     if (prevOrder) {
