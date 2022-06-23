@@ -48,7 +48,7 @@ export default function SideTabAddButton({
         </ul>
 
         <Button variant="contained" color="warning" onClick={handleAddToOrder}>
-          Add to order
+          Submit Order
         </Button>
       </div>
 

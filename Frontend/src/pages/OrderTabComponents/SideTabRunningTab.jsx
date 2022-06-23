@@ -12,8 +12,6 @@ useEffect(() => {
     });
 }, []);
 
-// console.log(`${user?.username}`)
-// console.log(tab, 'tab')
 
 //! BREAKDOWN DATA
 let data = tab;
@@ -28,6 +26,21 @@ for (let i = 0; i < orders?.length; i++) {
 }
 console.log("items", items);
 
+  //? SUBTOTAL
+  const arrayItemSubTotal = [];
+
+    items?.map((item) => arrayItemSubTotal.push(item.quantity * item.price))
+
+  let SubTotal = 0;
+  for (let i = 0; i < arrayItemSubTotal.length; i++) {
+    SubTotal = SubTotal + arrayItemSubTotal[i];
+    // console.log(SubTotal)
+  }
+
+  function ccyFormat(num) {
+    return `${num.toFixed(2)}`;
+  }
+
 //! END SECTION HERE
 
   return (
@@ -39,9 +52,7 @@ console.log("items", items);
           paddingTop: "5px",
           alignItems: "center",
           fontStyle:"italic",
-          color: "dark gray",
-          backgroundColor:"lightgrey"
-
+          color: "gray",
         }}
     >
      
@@ -62,6 +73,7 @@ console.log("items", items);
                     <th><u>Item</u> </th>
                     <th></th>
                     <th><u>Qty</u></th>
+                    <th><u>Item Total</u></th>
                 </tr>
             </thead>
             <tbody>
@@ -69,8 +81,17 @@ console.log("items", items);
                 <tr>
                     <td colSpan={2}>{item?.name}</td>
                     <td>{item?.quantity}</td>
+                    <td>${ccyFormat(item.price * item.quantity)}</td>
                                     </tr>
             ))}
+            <tr style={{
+                height:"10px"
+                }}>
+            </tr>
+            <tr>
+              <td colSpan={3}><b>Running Sub-Total:</b></td>
+              <td>${ccyFormat(SubTotal)}</td>
+            </tr>
 
           </tbody>
 </table>
