@@ -21,6 +21,8 @@ export const stateContext = createContext();
 function App() {
   const [user, setUser] = useState({ category: null, username: "" });
   console.log("user", user);
+  const [open, setOpen] = useState(false);
+  const [cart, setCart] = useState([]);
 
   return (
     <div className="App">
@@ -37,8 +39,8 @@ function App() {
             <Route path="/users/new" element={<AddUsers />} />
           </Route>
 
-          <Route path="/menu" element={<Order user={user} />} />
-          <Route path="/menu/food/:id" element={<FoodItem user={user} />} />
+          <Route path="/menu" element={<Order user={user} open={open} setOpen={setOpen} cart={cart} setCart={setCart}/>} />
+          <Route path="/menu/food/:id" element={<FoodItem user={user} open={open} setOpen={setOpen} cart={cart} setCart={setCart} />} />
 
           <Route path="/kitchen" element={<KitchenMainPage user={user} />} />
           <Route path="/cashier" element={<ViewMainCashier user={user} />} />

@@ -118,7 +118,7 @@ function FoodCards({ food, cart, setCart, setOpen, open }) {
             minWidth: "140px",
           }}
         >
-          Add to Tab
+          Add Order
         </Button>
         <Button
           variant="outlined"
@@ -176,7 +176,11 @@ function Main({ open, setOpen, selection, cart, setCart }) {
   }
 
   return (
+  
+//!MAIN BODY WIDTH
     <div style={{ height: "100vh", padding: "20px" }}>
+
+{/* //!BODY HEADER */}
       <div
         style={{
           display: "flex",

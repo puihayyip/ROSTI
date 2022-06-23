@@ -1,9 +1,9 @@
 import SideTabMessage from "./SideTabMessage";
 import SideTabAddButton from "./SideTabAddButton";
 
-function SideTab({ cart, user, setCart, FirstOrder, setFirstOrder }) {
+function SideTab({ cart, user, setCart }) {
+  
   const handleAddToOrder = () => {
-    setFirstOrder(false);
 
     const orderObj = {
       tblNum: user.username,
@@ -53,7 +53,7 @@ function SideTab({ cart, user, setCart, FirstOrder, setFirstOrder }) {
             />
           
         ) : (
-          <SideTabMessage user={user} />
+          <SideTabMessage cart={cart} setCart={setCart} user={user} />
         )}
       </div>
       

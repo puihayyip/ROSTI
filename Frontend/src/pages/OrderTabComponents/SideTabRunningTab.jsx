@@ -12,7 +12,6 @@ useEffect(() => {
     });
 }, []);
 
-
 //! BREAKDOWN DATA
 let data = tab;
 let orders = data?.orders;
