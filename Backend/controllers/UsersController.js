@@ -63,11 +63,11 @@ router.post("/login", async (req, res) => {
       res.send({ status: "failed", data: "No user found" });
     } else {
       if (await bcrypt.compare(req.body.password, foundUser.password)) {
-        const accessToken = jwt.sign(
-          foundUser.userName,
-          process.env.ACCESS_TOKEN_SECRET
-        );
-        res.json({ status: "success", accessToken: accessToken });
+        // const accessToken = jwt.sign(
+        //   foundUser.userName,
+        //   process.env.ACCESS_TOKEN_SECRET
+        // );
+        // res.json({ status: "success", accessToken: accessToken });
         res.send({ status: "success", data: foundUser });
       } else {
         res.send({ status: "failed", data: "Wrong password" });

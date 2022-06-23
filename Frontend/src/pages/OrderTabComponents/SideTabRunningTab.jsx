@@ -1,37 +1,39 @@
-import { fontSize, fontStyle } from "@mui/system";
 import { useEffect, useState } from "react";
-export default function SideTabRunningTab({ user }) {
+export default function SideTabRunningTab({user}) {
+
+  //! FETCH CURRENT TAB ITEMS
   const [tab, setTab] = useState({});
 
-  useEffect(() => {
-    fetch(`api/orders/${user?.username}`)
-      .then((response) => response.json())
-      .then((data) => {
-        setTab(data.data);
-      });
-  }, []);
+useEffect(() => {
+  fetch(`api/orders/${user?.username}`)
+    .then((response) => response.json())
+    .then((data) => {
+      setTab(data.data);
+    });
+}, []);
 
-  // console.log(`${user?.username}`)
-  // console.log(tab, 'tab')
+// console.log(`${user?.username}`)
+// console.log(tab, 'tab')
 
-  //! BREAKDOWN DATA
-  let data = tab;
-  let orders = data?.orders;
-  let items = [];
+//! BREAKDOWN DATA
+let data = tab;
+let orders = data?.orders;
+let items = [];
 
-  // console.log ('data', data.orders)
-  // console.log ('orders', orders)
+// console.log ('data', data.orders)
+// console.log ('orders', orders)
 
-  for (let i = 0; i < orders?.length; i++) {
-    orders[i].items?.map((item) => items.push(item));
-  }
-  console.log("items", items);
+for (let i = 0; i < orders?.length; i++) {
+  orders[i].items?.map((item) => items.push(item));
+}
+console.log("items", items);
 
-  //! END SECTION HERE
+//! END SECTION HERE
 
   return (
-    <>
-        
+<>
+    {items.length > 0 ? 
+    (
         <div
       style={{
           paddingTop: "5px",
@@ -63,16 +65,19 @@ export default function SideTabRunningTab({ user }) {
                 </tr>
             </thead>
             <tbody>
-            {items.map((item, index) => (
+            {items?.map((item, index) => (
                 <tr>
-                    <td colSpan={2}>{item.name}</td>
-                    <td>{item.quantity}</td>
+                    <td colSpan={2}>{item?.name}</td>
+                    <td>{item?.quantity}</td>
                                     </tr>
             ))}
 
           </tbody>
 </table>
 </div>
-    </>
-  );
+    )
+    :
+    null
+}
+</>)
 }
