@@ -16,9 +16,6 @@ function Order({ user, open, setOpen, cart, setCart }) {
 
   useEffect(() => {
     setCart([]);
-    if (!user.username) {
-      navigate("/");
-    }
   }, []);
 
   return (

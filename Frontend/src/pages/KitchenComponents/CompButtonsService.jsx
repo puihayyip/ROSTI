@@ -16,6 +16,7 @@ export default function CompButtonsService({
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
+          authorization: "Bearer " + localStorage.getItem("accessToken"),
         },
         body: JSON.stringify({
           edit: item.foodSent === "on" ? "off" : "on",

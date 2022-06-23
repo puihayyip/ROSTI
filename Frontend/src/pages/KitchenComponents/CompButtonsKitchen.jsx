@@ -15,6 +15,7 @@ export default function CompButtonsKitchen({
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
+        authorization: "Bearer " + localStorage.getItem("accessToken"),
       },
       body: JSON.stringify({
         edit: item.foodPrepared === "on" ? "off" : "on",

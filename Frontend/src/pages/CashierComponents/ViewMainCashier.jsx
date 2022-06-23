@@ -5,7 +5,7 @@ import Box from "@mui/material/Box";
 import * as React from "react";
 import PropTypes from "prop-types";
 import Typography from "@mui/material/Typography";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Item(props) {
   const { sx, ...other } = props;
@@ -45,6 +45,7 @@ Item.propTypes = {
 };
 
 function ViewMainCashier({ user }) {
+  const navigate = useNavigate();
   const [data, setData] = useState([]);
   // const [LineItems, setLineItems] =useState([])
 
@@ -53,7 +54,13 @@ function ViewMainCashier({ user }) {
       top: 0,
       behavior: "smooth",
     });
-    fetch(`/api/orders/`)
+    if (!localStorage.getItem("accessToken")) return navigate("/");
+
+    fetch(`/api/orders/`, {
+      headers: {
+        authorization: "Bearer " + localStorage.getItem("accessToken"),
+      },
+    })
       .then((response) => response.json())
       .then((data) => {
         setData(data.data);

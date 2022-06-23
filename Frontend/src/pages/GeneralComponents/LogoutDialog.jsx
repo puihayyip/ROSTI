@@ -27,6 +27,11 @@ function FormDialog({ open, setOpen, user }) {
       .then((res) => res.json())
       .then((data) => {
         if (data.status === "success") {
+          localStorage.removeItem("accessToken");
+          localStorage.removeItem("userName");
+          localStorage.removeItem("category");
+
+          // localStorage.removeItem("refreshToken");
           navigate("/");
         } else {
           alert("logout failed");

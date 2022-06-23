@@ -1,9 +1,11 @@
 // /api/users
 const express = require("express");
+const app = express();
 const Users = require("../models/usersSeed.schema");
 const usersSeed = require("../models/allUsersSeed");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const { verifyToken } = require("./authController");
 const { StatusCodes, RESET_CONTENT } = require("http-status-codes");
 
 const router = express.Router();
@@ -46,11 +48,25 @@ router.post("/new", async (req, res) => {
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
     const user = req.body;
     user.password = hashedPassword;
-    const protectedUser = await Users.create(user);
+    await Users.create(user);
     res.send({ status: "success", data: "New user created" });
   } catch (error) {
     res.send(error);
   }
+});
+
+let refreshTokens = [];
+router.post("/token", (req, res) => {
+  const refreshToken = req.body.token;
+  if (refreshToken === null) return res.sendStatus(401);
+  if (!refreshTokens.includes(refreshToken))
+    return res.send("No refresh token found");
+  jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
+    if (err) return res.sendStatus(403);
+    console.log(user);
+    const accessToken = generateAccessToken({ user: user });
+    res.json({ accessToken: accessToken });
+  });
 });
 
 router.post("/login", async (req, res) => {
@@ -63,12 +79,19 @@ router.post("/login", async (req, res) => {
       res.send({ status: "failed", data: "No user found" });
     } else {
       if (await bcrypt.compare(req.body.password, foundUser.password)) {
-        // const accessToken = jwt.sign(
-        //   foundUser.userName,
-        //   process.env.ACCESS_TOKEN_SECRET
-        // );
-        // res.json({ status: "success", accessToken: accessToken });
-        res.send({ status: "success", data: foundUser });
+        const accessToken = generateAccessToken(foundUser);
+        const refreshToken = jwt.sign(
+          { user: foundUser },
+          process.env.REFRESH_TOKEN_SECRET,
+          { expiresIn: "1d" }
+        );
+        refreshTokens.push(refreshToken);
+        res.send({
+          status: "success",
+          data: foundUser,
+          accessToken: accessToken,
+          refreshToken: refreshToken,
+        });
       } else {
         res.send({ status: "failed", data: "Wrong password" });
       }
@@ -78,16 +101,10 @@ router.post("/login", async (req, res) => {
   }
 });
 
-const authenicateToken = (req, res, next) => {
-  const authHeader = req.headers["authorization"];
-  const token = authHeader && authHeader.split(" ")[1];
-  if (token === null) return res.sendStatus(401);
-
-  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
-    if (err) return res.sendStatus(403);
-    req.user = user;
-    next();
+function generateAccessToken(foundUser) {
+  return jwt.sign({ user: foundUser }, process.env.ACCESS_TOKEN_SECRET, {
+    expiresIn: "1h",
   });
-};
+}
 
 module.exports = router;

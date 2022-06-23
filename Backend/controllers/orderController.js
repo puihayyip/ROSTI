@@ -4,6 +4,7 @@ const express = require("express");
 const ordersSchema = require("../models/ordersSeed.schema");
 const { StatusCodes } = require("http-status-codes");
 const allOrdersSeed = require("../models/allOrdersSeeds");
+const { verifyToken } = require("./authController");
 
 const router = express.Router();
 
@@ -18,10 +19,9 @@ router.get("/seed", async (req, res) => {
   }
 });
 //! ALL
-router.get("/", async (req, res) => {
+router.get("/", verifyToken, async (req, res) => {
   try {
     const allOrders = await ordersSchema.find({});
-    console.log(req.params.id);
     res.send({ status: "success", data: allOrders });
   } catch (error) {
     res.send(error);
@@ -40,7 +40,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.get("/each/:id", async (req, res) => {
+router.get("/each/:id", verifyToken, async (req, res) => {
   try {
     const allOrders = await ordersSchema.findOne({
       _id: req.params.id,
@@ -93,7 +93,7 @@ router.post("/new/", async (req, res) => {
 //   }
 // });
 
-router.put("/edit/:id", async (req, res) => {
+router.put("/edit/:id", verifyToken, async (req, res) => {
   try {
     const updatedOrder = await ordersSchema.updateOne(
       { tblNum: req.params.id },
@@ -121,7 +121,7 @@ router.put("/edit/:id", async (req, res) => {
 });
 
 //! DELETE
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", verifyToken, async (req, res) => {
   try {
     const updatedOrder = await ordersSchema.deleteOne({
       tblNum: req.params.id,

@@ -37,8 +37,12 @@ function Login({ user, setUser }) {
     })
       .then((res) => res.json())
       .then((data) => {
+        localStorage.setItem("accessToken", data.accessToken);
+        // localStorage.setItem("refreshToken", data.refreshToken);
         setUser({ ...user, username: data.data.userName });
         if (data.status === "success") {
+          localStorage.setItem("userName", data.data.userName);
+          localStorage.setItem("category", data.data.usercategory);
           switch (data.data.usercategory) {
             case "Table":
               navigate("/menu");
