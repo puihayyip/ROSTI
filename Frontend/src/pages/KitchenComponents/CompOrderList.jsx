@@ -31,7 +31,11 @@ export default function CompOrderList() {
   const [update, setUpdate] = useState(true);
 
   const fetchOrders = () => {
-    fetch("api/orders/")
+    fetch("api/orders/", {
+      headers: {
+        authorization: "Bearer " + localStorage.getItem("accessToken"),
+      },
+    })
       .then((res) => res.json())
       .then((data) => setData(data));
   };

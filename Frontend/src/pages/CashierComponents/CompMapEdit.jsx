@@ -23,6 +23,7 @@ export default function CompMapTableRow({ item, orderNum, tblNum, setUpdate }) {
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
+        authorization: "Bearer " + localStorage.getItem("accessToken"),
       },
       body: JSON.stringify({
         edit: event.target.value,
