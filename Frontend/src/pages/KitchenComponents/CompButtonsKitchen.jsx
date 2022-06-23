@@ -1,5 +1,6 @@
 import ButtontrueCooked from "./ButtontrueCooked";
 import ButtonfalseCooked from "./ButtonfalseCooked";
+import { useNavigate } from "react-router-dom";
 
 export default function CompButtonsKitchen({
   item,
@@ -7,6 +8,7 @@ export default function CompButtonsKitchen({
   tblNum,
   setUpdate,
 }) {
+  const navigate = useNavigate();
   const handleKitchen = () => {
     console.log("Kitchen completed this dish");
     setUpdate((update) => !update);
@@ -23,6 +25,9 @@ export default function CompButtonsKitchen({
         itemID: item._id,
         field: "foodPrepared",
       }),
+    }).then((res) => {
+      if (res.status === 403) return navigate("/");
+      return res.json();
     });
   };
 

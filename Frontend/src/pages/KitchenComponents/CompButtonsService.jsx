@@ -1,5 +1,6 @@
 import ButtontrueServed from "./ButtontrueServed";
 import ButtonfalseServed from "./ButtonfalseServed";
+import { useNavigate } from "react-router-dom";
 
 export default function CompButtonsService({
   item,
@@ -7,6 +8,7 @@ export default function CompButtonsService({
   tblNum,
   setUpdate,
 }) {
+  const navigate = useNavigate();
   const handleService = () => {
     if (item.foodPrepared === "on") {
       console.log("Dish has been served to table");
@@ -24,6 +26,8 @@ export default function CompButtonsService({
           itemID: item._id,
           field: "foodSent",
         }),
+      }).then((res) => {
+        if (res.status === 403) return navigate("/");
       });
     } else {
       alert("Food not ready, nothing to serve");

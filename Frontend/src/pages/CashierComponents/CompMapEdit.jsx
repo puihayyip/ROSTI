@@ -6,6 +6,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import MenuItem from "@mui/material/MenuItem";
 
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const quantities = []; //fields for the drop down menu
 for (let i = 0; i <= 10; i++) {
@@ -15,22 +16,28 @@ for (let i = 0; i <= 10; i++) {
 export default function CompMapTableRow({ item, orderNum, tblNum, setUpdate }) {
   const [edit, setEdit] = useState(false);
   const [qty, setQty] = useState(item.quantity);
+  const navigate = useNavigate();
 
   const handleChange = (event) => {
     setQty(event.target.value);
-    fetch(`/api/orders/edit/${tblNum}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        authorization: "Bearer " + localStorage.getItem("accessToken"),
-      },
-      body: JSON.stringify({
-        edit: event.target.value,
-        orderNum: orderNum,
-        itemID: item._id,
-      }),
-    });
+    fetch(
+      `/api/orders/edit/${tblNum}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          authorization: "Bearer " + localStorage.getItem("accessToken"),
+        },
+        body: JSON.stringify({
+          edit: event.target.value,
+          orderNum: orderNum,
+          itemID: item._id,
+        }),
+      }.then((res) => {
+        if (res.status === 403) return navigate("/");
+      })
+    );
   };
 
   const handleUpdate = () => {

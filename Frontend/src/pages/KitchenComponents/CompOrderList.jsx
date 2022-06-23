@@ -33,14 +33,19 @@ export default function CompOrderList() {
   const [update, setUpdate] = useState(true);
 
   const fetchOrders = () => {
-    if (!localStorage.getItem("accessToken")) return navigate("/");
     fetch("api/orders/", {
       headers: {
         authorization: "Bearer " + localStorage.getItem("accessToken"),
       },
     })
-      .then((res) => res.json())
-      .then((data) => setData(data));
+      .then((res) => {
+        if (res.status === 403) return navigate("/");
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data);
+        setData(data);
+      });
   };
 
   const createTbl = () => {
@@ -89,6 +94,9 @@ export default function CompOrderList() {
                         itemID: item._id,
                         field: "foodDone",
                       }),
+                    }).then((res) => {
+                      if (res.status === 403) return navigate("/");
+                      return res.json();
                     });
                     setUpdate(!update);
                   }

@@ -28,6 +28,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 }));
 
 export default function ViewReceipt({ user }) {
+  const navigate = useNavigate()
   const [order, setOrder] = useState(0);
   let { tblNum } = useParams();
 
@@ -37,7 +38,10 @@ export default function ViewReceipt({ user }) {
         authorization: "Bearer " + localStorage.getItem("accessToken"),
       },
     })
-      .then((response) => response.json())
+      .then((res) => {
+        if (res.status === 403) return navigate("/");
+        return res.json();
+      })
       .then((data) => {
         setOrder(data.data);
       });

@@ -8,6 +8,7 @@ import CompFinalOrderButtons from "./CompFinalOrderButtons";
 import CompEditOrderButtons from "./CompEditOrderButtons";
 
 export default function TablePreviewBill({ user }) {
+  const navigate = useNavigate();
   const [edit, setEdit] = useState(false);
   const [order, setOrder] = useState({});
   const [update, setUpdate] = useState(false);
@@ -33,7 +34,10 @@ export default function TablePreviewBill({ user }) {
         authorization: "Bearer " + localStorage.getItem("accessToken"),
       },
     })
-      .then((response) => response.json())
+      .then((res) => {
+        if (res.status === 403) return navigate("/");
+        return res.json();
+      })
       .then((data) => {
         setOrder(data.data);
         console.log("fetching");

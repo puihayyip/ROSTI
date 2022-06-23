@@ -61,7 +61,10 @@ function ViewMainCashier({ user }) {
         authorization: "Bearer " + localStorage.getItem("accessToken"),
       },
     })
-      .then((response) => response.json())
+      .then((res) => {
+        if (res.status === 403) return navigate("/");
+        return res.json();
+      })
       .then((data) => {
         setData(data.data);
       });

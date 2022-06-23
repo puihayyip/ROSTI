@@ -56,7 +56,7 @@ function FoodCards({ food, cart, setCart, setOpen, open }) {
   }, []);
 
   const handleAdd = () => {
-    setOpen(true)
+    setOpen(true);
     const index = cart.findIndex((item) => item.food.name === food.name);
     if (index >= 0) {
       const newCart = [...cart];
@@ -144,10 +144,15 @@ function Main({ open, setOpen, selection, cart, setCart }) {
   };
 
   const fetchData = async () => {
-    if (!localStorage.getItem("accessToken")) return navigate("/");
-
-    fetch("/api/allfood")
-      .then((res) => res.json())
+    fetch("/api/allfood", {
+      headers: {
+        authorization: "Bearer " + localStorage.getItem("accessToken"),
+      },
+    })
+      .then((res) => {
+        if (res.status === 403) return navigate("/");
+        return res.json();
+      })
       .then((data) => setAllFood(data));
     console.log("fetching");
   };
@@ -179,11 +184,9 @@ function Main({ open, setOpen, selection, cart, setCart }) {
   }
 
   return (
-  
-//!MAIN BODY WIDTH
+    //!MAIN BODY WIDTH
     <div style={{ height: "100vh", padding: "20px" }}>
-
-{/* //!BODY HEADER */}
+      {/* //!BODY HEADER */}
       <div
         style={{
           display: "flex",

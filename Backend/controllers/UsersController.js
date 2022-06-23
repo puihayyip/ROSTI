@@ -102,8 +102,20 @@ router.post("/login", async (req, res) => {
 });
 
 function generateAccessToken(foundUser) {
-  return jwt.sign({ user: foundUser }, process.env.ACCESS_TOKEN_SECRET, {
-    expiresIn: "1h",
+  let token;
+  switch (foundUser["usercategory"]) {
+    case "Table":
+      token = process.env.ACCESS_TOKEN_SECRET_TABLE;
+      break;
+    case "Kitchen":
+      token = process.env.ACCESS_TOKEN_SECRET_KITCHEN;
+      break;
+    case "Cashier":
+      token = process.env.ACCESS_TOKEN_SECRET_CASHIER;
+      break;
+  }
+  return jwt.sign({ user: foundUser }, token, {
+    expiresIn: "15s",
   });
 }
 
