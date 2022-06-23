@@ -9,6 +9,8 @@ function Order({ user }) {
   const [selection, setSelection] = useState(0);
   const [cart, setCart] = useState([]);
   const navigate = useNavigate();
+  const [FirstOrder, setFirstOrder] = useState(true)
+
 
   const myStyle = open
     ? { display: "grid", gridTemplateColumns: "3fr 1fr" }
@@ -34,7 +36,7 @@ function Order({ user }) {
           setCart={setCart}
         />
         {open ? (
-          <SideTab className="side" cart={cart} setCart={setCart} user={user} />
+          <SideTab className="side" cart={cart} setCart={setCart} user={user} FirstOrder ={FirstOrder} setFirstOrder={setFirstOrder}/>
         ) : (
           ""
         )}

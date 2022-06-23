@@ -1,7 +1,12 @@
 import Button from "@mui/material/Button";
+import SideTabMessage from "./SideTabMessage";
+import SideTabRunningTab from "./SideTabRunningTab";
 
-function SideTab({ cart, user, setCart }) {
+function SideTab({ cart, user, setCart, FirstOrder, setFirstOrder }) {
   const handleAddToOrder = () => {
+    
+    setFirstOrder(false)
+    
     const orderObj = {
       tblNum: user.username,
       orders: [{ orderNum: 1, items: [] }],
@@ -78,10 +83,14 @@ function SideTab({ cart, user, setCart }) {
             >
               Add to order
             </Button>
+
+            <SideTabRunningTab user={user}/>
+
           </>
         ) : (
-          <h3> Click on a food item to add to a new order for your table! </h3>
-        )}
+          <SideTabMessage cart ={cart} user={user}/>
+        )
+        }
       </div>
     </div>
   );
