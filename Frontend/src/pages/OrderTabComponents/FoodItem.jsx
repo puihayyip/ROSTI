@@ -20,7 +20,7 @@ export default function FoodItem({ user }) {
       });
   }, []);
 
-  console.log("food", food.name);
+  console.log("food", food?.name);
 
   return (
     <>
@@ -28,7 +28,7 @@ export default function FoodItem({ user }) {
       {/* <ArrowBackIcon onClick={()=> nav(-1)} /> */}
       <h1>{food?.name}</h1>
       <h2>${food?.price}</h2>
-      <img src={food?.img} alt={food?.name} width="500" height="600" />
+      <img src={food?.img} alt={food?.name} width="700"/>
     </>
   );
 }
