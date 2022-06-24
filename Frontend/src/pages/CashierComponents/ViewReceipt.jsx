@@ -28,11 +28,12 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 }));
 
 export default function ViewReceipt({ user }) {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [order, setOrder] = useState(0);
   let { tblNum } = useParams();
 
   useEffect(() => {
+    console.log("fetching");
     fetch(`/api/orders/${tblNum}`, {
       headers: {
         authorization: "Bearer " + localStorage.getItem("accessToken"),
