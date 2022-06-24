@@ -26,7 +26,7 @@ export default function CompMapTableRow({ item, orderNum, tblNum, setUpdate }) {
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
-        // authorization: "Bearer " + localStorage.getItem("accessToken"),
+        authorization: "Bearer " + localStorage.getItem("accessToken"),
       },
       body: JSON.stringify({
         edit: event.target.value,
@@ -34,10 +34,9 @@ export default function CompMapTableRow({ item, orderNum, tblNum, setUpdate }) {
         itemID: item._id,
         field: "quantity",
       }),
+    }).then((res) => {
+      if (res.status === 403) return navigate("/");
     });
-    // .then((res) => {
-    //   if (res.status === 403) return navigate("/");
-    // });
   };
 
   const handleUpdate = () => {
