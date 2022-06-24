@@ -93,7 +93,7 @@ router.post("/new/", async (req, res) => {
 //   }
 // });
 
-router.put("/edit/:id", verifyToken, async (req, res) => {
+router.put("/edit/:id", async (req, res) => {
   try {
     const updatedOrder = await ordersSchema.updateOne(
       { tblNum: req.params.id },
