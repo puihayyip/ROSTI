@@ -23,10 +23,9 @@ db.on("connected", () => console.log("mongo connected: ", MONGO_URI));
 db.on("disconnected", () => console.log("mongo disconnected"));
 
 //! MIDDLEWARE
-const publicPath = path.join(__dirname, "../Frontend/public/index.html");
 app.use(morgan("dev"));
 app.use(express.json());
-app.use(express.static("../Frontend/public"));
+app.use(express.static("../Frontend/dist"));
 app.use("/api/allfood", allFoodController);
 app.use("/api/users", usersController);
 app.use("/api/orders", orderController);
@@ -36,7 +35,7 @@ app.get("/api/", (req, res) => {
 });
 
 app.get("/*", (req, res) => {
-  res.sendFile(publicPath);
+  res.sendFile(path.join(__dirname, "../Frontend/dist/index.html"));
 });
 
 app.listen(PORT, (req, res) => {
