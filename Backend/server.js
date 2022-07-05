@@ -25,7 +25,7 @@ db.on("disconnected", () => console.log("mongo disconnected"));
 //! MIDDLEWARE
 app.use(morgan("dev"));
 app.use(express.json());
-app.use(express.static("../Frontend/build/"));
+app.use(express.static("../Frontend/public/"));
 app.use("/api/allfood", allFoodController);
 app.use("/api/users", usersController);
 app.use("/api/orders", orderController);

@@ -3,7 +3,7 @@
 const express = require("express");
 const Allfood = require("../models/foodSeed.schema");
 const { StatusCodes } = require("http-status-codes");
-const allFoodSeed = require("../models/allFoodSeed.js");
+const allFoodSeed = require("../models/allFoodSeed");
 const { verifyToken } = require("./authController");
 
 const router = express.Router();
