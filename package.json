@@ -5,9 +5,10 @@
   "main": "index.js",
   "scripts": {
     "start": "node Backend/server.js",
-    "install-backend": "cd Backend && npm install",
-    "build": "cd Frontend && npm install && npm run build",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm run install-backend && npm run build"
+    
+    "install-frontend": "cd Frontend && npm install",
+    "build-frontend": "cd Frontend && npm run build",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm run install-frontend && npm run build"
   },
   "repository": {
     "type": "git",
