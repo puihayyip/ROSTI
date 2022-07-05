@@ -26,7 +26,7 @@ db.on("disconnected", () => console.log("mongo disconnected"));
 const publicPath = path.join(__dirname, "../Frontend/public/index.html");
 app.use(morgan("dev"));
 app.use(express.json());
-app.use(express.static(publicPath));
+app.use(express.static("../Frontend/public"));
 app.use("/api/allfood", allFoodController);
 app.use("/api/users", usersController);
 app.use("/api/orders", orderController);
