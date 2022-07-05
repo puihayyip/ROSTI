@@ -1,10 +1,10 @@
-const allfoodseed = [
+const allFoodSeed = [
   {
     foodID: 1,
     name: "Parmesan Gnocchi",
     des: "Italian dumplings with parmesan cheese",
     price: 16.99,
-    img:"https://i.imgur.com/5NTQguS.jpg",
+    img: "https://i.imgur.com/5NTQguS.jpg",
     // img: "https://i.imgur.com/nYShA7h.jpg",
     mainSect: "food",
   },
@@ -14,7 +14,7 @@ const allfoodseed = [
     des: "Australia ribeye steak with crinkle-cut fries",
     price: 24.99,
     // img: "https://i.imgur.com/dQxuPDK.jpg",
-    img:"https://i.imgur.com/lGepKG1.jpg",
+    img: "https://i.imgur.com/lGepKG1.jpg",
     mainSect: "food",
   },
   {
@@ -23,7 +23,7 @@ const allfoodseed = [
     des: "A pizza lover's delight",
     price: 13.99,
     // img: "https://i.imgur.com/bYO8q5I.jpg",
-    img:"https://i.imgur.com/Njafhzl.jpg",
+    img: "https://i.imgur.com/Njafhzl.jpg",
     mainSect: "food",
   },
   {
@@ -32,7 +32,7 @@ const allfoodseed = [
     des: "Healthy yet delicious",
     price: 12.99,
     // img: "https://i.imgur.com/QjYsBJn.jpg",
-    img:"https://i.imgur.com/84XL67H.jpg",
+    img: "https://i.imgur.com/84XL67H.jpg",
     mainSect: "food",
   },
   {
@@ -41,7 +41,7 @@ const allfoodseed = [
     des: "Bubbly crust, crushed San Marzano tomato sauce, fresh mozzarella and basil",
     price: 15.99,
     // img: "https://i.imgur.com/etyLZ78.jpg",
-    img:"https://i.imgur.com/GmJOkji.jpg",
+    img: "https://i.imgur.com/GmJOkji.jpg",
     mainSect: "food",
   },
   {
@@ -50,7 +50,7 @@ const allfoodseed = [
     des: "Stack of fluffy pancakes",
     price: 13.99,
     // img: "https://i.imgur.com/Z0OmGYX.jpg",
-    img:"https://i.imgur.com/g4kmQV2.jpg",
+    img: "https://i.imgur.com/g4kmQV2.jpg",
     mainSect: "food",
   },
   {
@@ -59,7 +59,7 @@ const allfoodseed = [
     des: "Burger and Fries",
     price: 18.99,
     // img: "https://i.imgur.com/28bok0q.jpg",
-    img:"https://i.imgur.com/nVgqZmK.jpg",
+    img: "https://i.imgur.com/nVgqZmK.jpg",
     mainSect: "food",
   },
   {
@@ -68,7 +68,7 @@ const allfoodseed = [
     des: "Hearty Salad",
     price: 12.99,
     // img: "https://i.imgur.com/B5ePoHx.jpg",
-    img:"https://i.imgur.com/7jETRrt.jpg",
+    img: "https://i.imgur.com/7jETRrt.jpg",
     mainSect: "food",
   },
   {
@@ -77,7 +77,7 @@ const allfoodseed = [
     des: "Deceptively simple",
     price: 11.99,
     // img: "https://i.imgur.com/CxPAtGD.jpg",
-    img:"https://i.imgur.com/K5X6r5B.jpg",
+    img: "https://i.imgur.com/K5X6r5B.jpg",
     mainSect: "food",
   },
   {
@@ -86,7 +86,7 @@ const allfoodseed = [
     des: "Better than Macdonald's",
     price: 6.99,
     // img: "https://i.imgur.com/qHyUkly.jpg",
-    img:"https://i.imgur.com/FS0cwou.jpg",
+    img: "https://i.imgur.com/FS0cwou.jpg",
     mainSect: "food",
   },
   {
@@ -95,7 +95,7 @@ const allfoodseed = [
     des: "Vegan option available",
     price: 11.99,
     // img: "https://i.imgur.com/9IqKEum.jpg",
-    img:"https://i.imgur.com/ZcJozty.jpg",
+    img: "https://i.imgur.com/ZcJozty.jpg",
     mainSect: "food",
   },
   {
@@ -104,7 +104,7 @@ const allfoodseed = [
     des: "The best breakfast option",
     price: 11.99,
     // img: "https://i.imgur.com/XjUDwfp.jpg",
-    img:"https://i.imgur.com/Dp3mAgA.jpg",
+    img: "https://i.imgur.com/Dp3mAgA.jpg",
     mainSect: "food",
   },
   {
@@ -131,7 +131,7 @@ const allfoodseed = [
     des: "A surprisingly delicious combo",
     price: 7.99,
     // img: "https://i.imgur.com/Riwumgs.jpg",
-    img:"https://i.imgur.com/vUZxmt4.jpg",
+    img: "https://i.imgur.com/vUZxmt4.jpg",
     mainSect: "drinks",
   },
   {
@@ -140,7 +140,7 @@ const allfoodseed = [
     des: "Hand-brewed goodness",
     price: 4.99,
     // img: "https://i.imgur.com/xSxgkU2.jpg",
-    img:"https://i.imgur.com/7EmjQrD.jpg",
+    img: "https://i.imgur.com/7EmjQrD.jpg",
     mainSect: "drinks",
   },
   {
@@ -149,7 +149,7 @@ const allfoodseed = [
     des: "Freshly squeezed",
     price: 5.99,
     // img: "https://i.imgur.com/BnX1kDH.jpg",
-    img:"https://i.imgur.com/ekiHxPJ.jpg",
+    img: "https://i.imgur.com/ekiHxPJ.jpg",
     mainSect: "drinks",
   },
   {
@@ -158,7 +158,7 @@ const allfoodseed = [
     des: "Freshly squeezed",
     price: 5.99,
     // img: "https://i.imgur.com/E9ddBe2.jpg",
-    img:"https://i.imgur.com/8UtfP82.jpg",
+    img: "https://i.imgur.com/8UtfP82.jpg",
     mainSect: "drinks",
   },
   {
@@ -167,7 +167,7 @@ const allfoodseed = [
     des: "A warm delight on a cold day",
     price: 3.99,
     // img: "https://i.imgur.com/tCo2R2d.jpg",
-    img:"https://i.imgur.com/4doSFjY.jpg",
+    img: "https://i.imgur.com/4doSFjY.jpg",
     mainSect: "drinks",
   },
   {
@@ -276,4 +276,4 @@ const allfoodseed = [
   },
 ];
 
-module.exports = allfoodseed;
+module.exports = allFoodSeed;
