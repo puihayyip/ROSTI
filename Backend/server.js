@@ -6,7 +6,7 @@ const morgan = require("morgan");
 const path = require("path");
 
 //! CONTROLLERS
-const allfoodController = require("./controllers/allFoodController");
+const allFoodController = require("./controllers/allFoodController");
 const usersController = require("./controllers/usersController");
 const orderController = require("./controllers/orderController");
 
