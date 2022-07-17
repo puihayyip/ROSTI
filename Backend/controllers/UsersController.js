@@ -30,7 +30,7 @@ router.get("/seed", async (req, res) => {
   }
 });
 
-router.get("/", async (req, res) => {
+router.get("/", verifyToken, async (req, res) => {
   const allUsers = await Users.find({});
   res.send({ status: "success", data: allUsers });
 });
