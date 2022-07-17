@@ -21,13 +21,7 @@ mongoose.connect(MONGO_URI);
 db.on("error", (err) => console.log(err.message + " is mongodb not running?"));
 db.on("connected", () => console.log("mongo connected: ", MONGO_URI));
 db.on("disconnected", () => console.log("mongo disconnected"));
-const root = require("path").join(
-  __dirname,
-  "..",
-  "Frontend",
-  "build",
-  "index.html"
-);
+const root = require("path").join(__dirname, "..", "Frontend", "build");
 
 //! MIDDLEWARE
 app.use(morgan("dev"));
