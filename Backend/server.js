@@ -21,12 +21,13 @@ mongoose.connect(MONGO_URI);
 db.on("error", (err) => console.log(err.message + " is mongodb not running?"));
 db.on("connected", () => console.log("mongo connected: ", MONGO_URI));
 db.on("disconnected", () => console.log("mongo disconnected"));
-// const root = require("path").join(__dirname, "..", "Frontend", "build");
+const root = require("path").join(__dirname, "..", "Frontend", "build");
 
 //! MIDDLEWARE
 app.use(morgan("dev"));
 app.use(express.json());
-app.use(express.static("../Frontend/build/"));
+// app.use(express.static("../Frontend/build/"));
+app.use(express.static(root));
 app.use("/api/allfood", allFoodController);
 app.use("/api/users", usersController);
 app.use("/api/orders", orderController);
@@ -35,12 +36,12 @@ app.get("/api/", (req, res) => {
   res.send("Hello restaurant owners");
 });
 
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../Frontend/build/index.html"));
-});
 // app.get("*", (req, res) => {
-//   res.sendFile("index.html", { root });
+//   res.sendFile(path.join(__dirname, "../Frontend/build/index.html"));
 // });
+app.get("*", (req, res) => {
+  res.sendFile("index.html", { root });
+});
 
 app.listen(PORT, (req, res) => {
   console.log(`Listening to port ${PORT}`);
