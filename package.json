@@ -4,7 +4,11 @@
   "description": "- Testing the puihay branch",
   "main": "index.js",
   "scripts": {
-    "start": "node Backend/server.js"
+    "start": "node Backend/server.js",
+    "install-backend": "cd Backend && npm install",
+    "install-frontend": "cd Frontend && npm install",
+    "build-frontend": "cd Frontend && npm run build",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm run install-backend && npm run install-frontend && npm run build-frontend"
   },
   "repository": {
     "type": "git",
